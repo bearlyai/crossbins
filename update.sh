@@ -16,8 +16,14 @@ fi
 
 mkdir -p "$OUTPUT_DIR"
 
-# Initialize lock file
-lock_json='{"tools":[]}'
+# Read existing lock version (default 0)
+old_version=0
+if [[ -f "$LOCK_FILE" ]]; then
+  old_version=$(jq -r '.version // 0' "$LOCK_FILE")
+fi
+
+# Initialize lock structure
+lock_json='{"version":0,"tools":[]}'
 
 num_tools=$(jq '.tools | length' "$CONFIG")
 for (( i=0; i<num_tools; i++ )); do
@@ -130,7 +136,7 @@ for (( i=0; i<num_tools; i++ )); do
   echo "  => $asset_count binaries"
   echo
 
-  # Append locked tool to lock file
+  # Append locked tool to lock structure
   lock_json=$(echo "$lock_json" | jq \
     --arg name "$name" \
     --arg version "$clean_version" \
@@ -139,25 +145,43 @@ for (( i=0; i<num_tools; i++ )); do
     '.tools += [{name: $name, version: $version, tag: $tag, assets: $assets}]')
 done
 
-echo "$lock_json" | jq '.' > "$LOCK_FILE"
+# Determine set version
+new_version="$old_version"
+if [[ "$old_version" -eq 0 ]]; then
+  # First run or migrating from old format
+  new_version=1
+  echo "Initial set version: v${new_version}"
+elif [[ -f "$LOCK_FILE" ]]; then
+  old_tools_sig=$(jq -r '[.tools[] | "\(.name):\(.version)"] | sort | join(",")' "$LOCK_FILE")
+  new_tools_sig=$(echo "$lock_json" | jq -r '[.tools[] | "\(.name):\(.version)"] | sort | join(",")')
+  if [[ "$old_tools_sig" != "$new_tools_sig" ]]; then
+    new_version=$(( old_version + 1 ))
+    echo "Versions changed, bumping set version: v${old_version} -> v${new_version}"
+  else
+    echo "No version changes detected, keeping set version: v${new_version}"
+  fi
+fi
+
+# Write lock file with version
+echo "$lock_json" | jq --argjson v "$new_version" '.version = $v' > "$LOCK_FILE"
 
 # Update README.md with binary listing
 README="$SCRIPT_DIR/README.md"
 if [[ -f "$README" ]] && grep -q 'BINARIES_START' "$README"; then
   project_url=$(jq -r '.project_url' "$CONFIG")
+  release_tag="v${new_version}"
+  release_page="${project_url}/releases/tag/${release_tag}"
+  download_base="${project_url}/releases/download/${release_tag}"
 
   # Build the replacement section
-  binaries_section=""
+  binaries_section="**Release: [${release_tag}](${release_page})**"$'\n\n'
+
   num_locked=$(echo "$lock_json" | jq '.tools | length')
   for (( i=0; i<num_locked; i++ )); do
     name=$(echo "$lock_json" | jq -r ".tools[$i].name")
     version=$(echo "$lock_json" | jq -r ".tools[$i].version")
-    release_tag="${name}-${version}"
-    release_page="${project_url}/releases/tag/${release_tag}"
-    download_base="${project_url}/releases/download/${release_tag}"
 
     binaries_section+="### ${name} ${version}"$'\n\n'
-    binaries_section+="Release: [${release_tag}](${release_page})"$'\n\n'
     binaries_section+="| File | OS | Arch | Variant | Download |"$'\n'
     binaries_section+="|------|----|------|---------|----------|"$'\n'
 
@@ -200,4 +224,4 @@ if [[ -f "$README" ]] && grep -q 'BINARIES_START' "$README"; then
   echo "Updated README.md with binary listing"
 fi
 
-echo "Done. Binaries in ./output/, lock file at binaries.lock.json"
+echo "Done. Binaries in ./output/, lock file at binaries.lock.json (v${new_version})"
