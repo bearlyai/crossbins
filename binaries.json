@@ -1,0 +1,65 @@
+{
+  "project_url": "https://github.com/bearlyai/crossbins",
+  "tools": [
+    {
+      "name": "rg",
+      "repo": "BurntSushi/ripgrep",
+      "binary_name": "rg",
+      "asset_prefix": "ripgrep-{VERSION}-",
+      "triple_map": {
+        "aarch64-apple-darwin":          { "os": "darwin",  "arch": "aarch64" },
+        "x86_64-apple-darwin":           { "os": "darwin",  "arch": "x86_64" },
+        "aarch64-unknown-linux-gnu":     { "os": "linux",   "arch": "aarch64" },
+        "x86_64-unknown-linux-musl":     { "os": "linux",   "arch": "x86_64",  "variant": "musl" },
+        "i686-unknown-linux-gnu":        { "os": "linux",   "arch": "i686" },
+        "armv7-unknown-linux-gnueabihf": { "os": "linux",   "arch": "armv7" },
+        "armv7-unknown-linux-musleabihf":{ "os": "linux",   "arch": "armv7",   "variant": "musl" },
+        "s390x-unknown-linux-gnu":       { "os": "linux",   "arch": "s390x" },
+        "x86_64-pc-windows-msvc":        { "os": "windows", "arch": "x86_64" },
+        "aarch64-pc-windows-msvc":       { "os": "windows", "arch": "aarch64" },
+        "i686-pc-windows-msvc":          { "os": "windows", "arch": "i686" }
+      }
+    },
+    {
+      "name": "bun",
+      "repo": "oven-sh/bun",
+      "binary_name": "bun",
+      "asset_prefix": "bun-",
+      "triple_map": {
+        "darwin-aarch64":      { "os": "darwin",  "arch": "aarch64" },
+        "darwin-x64":          { "os": "darwin",  "arch": "x86_64" },
+        "linux-x64":           { "os": "linux",   "arch": "x86_64" },
+        "linux-aarch64":       { "os": "linux",   "arch": "aarch64" },
+        "linux-x64-musl":      { "os": "linux",   "arch": "x86_64",  "variant": "musl" },
+        "linux-aarch64-musl":  { "os": "linux",   "arch": "aarch64", "variant": "musl" },
+        "windows-x64":         { "os": "windows", "arch": "x86_64" }
+      }
+    },
+    {
+      "name": "uv",
+      "repo": "astral-sh/uv",
+      "binary_name": "uv",
+      "asset_prefix": "uv-",
+      "triple_map": {
+        "x86_64-apple-darwin":              { "os": "darwin",  "arch": "x86_64" },
+        "aarch64-apple-darwin":             { "os": "darwin",  "arch": "aarch64" },
+        "x86_64-unknown-linux-gnu":         { "os": "linux",   "arch": "x86_64" },
+        "aarch64-unknown-linux-gnu":        { "os": "linux",   "arch": "aarch64" },
+        "x86_64-unknown-linux-musl":        { "os": "linux",   "arch": "x86_64",  "variant": "musl" },
+        "aarch64-unknown-linux-musl":       { "os": "linux",   "arch": "aarch64", "variant": "musl" },
+        "i686-unknown-linux-gnu":           { "os": "linux",   "arch": "i686" },
+        "i686-unknown-linux-musl":          { "os": "linux",   "arch": "i686",    "variant": "musl" },
+        "armv7-unknown-linux-gnueabihf":    { "os": "linux",   "arch": "armv7" },
+        "armv7-unknown-linux-musleabihf":   { "os": "linux",   "arch": "armv7",   "variant": "musl" },
+        "arm-unknown-linux-musleabihf":     { "os": "linux",   "arch": "arm",     "variant": "musl" },
+        "powerpc64-unknown-linux-gnu":      { "os": "linux",   "arch": "ppc64" },
+        "powerpc64le-unknown-linux-gnu":    { "os": "linux",   "arch": "ppc64le" },
+        "s390x-unknown-linux-gnu":          { "os": "linux",   "arch": "s390x" },
+        "riscv64gc-unknown-linux-gnu":      { "os": "linux",   "arch": "riscv64" },
+        "x86_64-pc-windows-msvc":           { "os": "windows", "arch": "x86_64" },
+        "aarch64-pc-windows-msvc":          { "os": "windows", "arch": "aarch64" },
+        "i686-pc-windows-msvc":             { "os": "windows", "arch": "i686" }
+      }
+    }
+  ]
+}

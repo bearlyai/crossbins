@@ -1,0 +1,313 @@
+{
+  "tools": [
+    {
+      "name": "rg",
+      "version": "15.1.0",
+      "tag": "15.1.0",
+      "assets": [
+        {
+          "upstream": "ripgrep-15.1.0-aarch64-apple-darwin.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-aarch64-apple-darwin.tar.gz",
+          "normalized": "rg-15.1.0-darwin-aarch64",
+          "os": "darwin",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-aarch64-pc-windows-msvc.zip",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-aarch64-pc-windows-msvc.zip",
+          "normalized": "rg-15.1.0-windows-aarch64.exe",
+          "os": "windows",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz",
+          "normalized": "rg-15.1.0-linux-aarch64",
+          "os": "linux",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-armv7-unknown-linux-gnueabihf.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-armv7-unknown-linux-gnueabihf.tar.gz",
+          "normalized": "rg-15.1.0-linux-armv7",
+          "os": "linux",
+          "arch": "armv7",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-armv7-unknown-linux-musleabihf.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-armv7-unknown-linux-musleabihf.tar.gz",
+          "normalized": "rg-15.1.0-linux-armv7-musl",
+          "os": "linux",
+          "arch": "armv7",
+          "variant": "musl"
+        },
+        {
+          "upstream": "ripgrep-15.1.0-i686-pc-windows-msvc.zip",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-i686-pc-windows-msvc.zip",
+          "normalized": "rg-15.1.0-windows-i686.exe",
+          "os": "windows",
+          "arch": "i686",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-i686-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-i686-unknown-linux-gnu.tar.gz",
+          "normalized": "rg-15.1.0-linux-i686",
+          "os": "linux",
+          "arch": "i686",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-s390x-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-s390x-unknown-linux-gnu.tar.gz",
+          "normalized": "rg-15.1.0-linux-s390x",
+          "os": "linux",
+          "arch": "s390x",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-x86_64-apple-darwin.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-apple-darwin.tar.gz",
+          "normalized": "rg-15.1.0-darwin-x86_64",
+          "os": "darwin",
+          "arch": "x86_64",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-x86_64-pc-windows-msvc.zip",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-pc-windows-msvc.zip",
+          "normalized": "rg-15.1.0-windows-x86_64.exe",
+          "os": "windows",
+          "arch": "x86_64",
+          "variant": ""
+        },
+        {
+          "upstream": "ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz",
+          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz",
+          "normalized": "rg-15.1.0-linux-x86_64-musl",
+          "os": "linux",
+          "arch": "x86_64",
+          "variant": "musl"
+        }
+      ]
+    },
+    {
+      "name": "bun",
+      "version": "1.3.8",
+      "tag": "bun-v1.3.8",
+      "assets": [
+        {
+          "upstream": "bun-darwin-aarch64.zip",
+          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.8/bun-darwin-aarch64.zip",
+          "normalized": "bun-1.3.8-darwin-aarch64",
+          "os": "darwin",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "bun-darwin-x64.zip",
+          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.8/bun-darwin-x64.zip",
+          "normalized": "bun-1.3.8-darwin-x86_64",
+          "os": "darwin",
+          "arch": "x86_64",
+          "variant": ""
+        },
+        {
+          "upstream": "bun-linux-aarch64-musl.zip",
+          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.8/bun-linux-aarch64-musl.zip",
+          "normalized": "bun-1.3.8-linux-aarch64-musl",
+          "os": "linux",
+          "arch": "aarch64",
+          "variant": "musl"
+        },
+        {
+          "upstream": "bun-linux-aarch64.zip",
+          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.8/bun-linux-aarch64.zip",
+          "normalized": "bun-1.3.8-linux-aarch64",
+          "os": "linux",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "bun-linux-x64-musl.zip",
+          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.8/bun-linux-x64-musl.zip",
+          "normalized": "bun-1.3.8-linux-x86_64-musl",
+          "os": "linux",
+          "arch": "x86_64",
+          "variant": "musl"
+        },
+        {
+          "upstream": "bun-linux-x64.zip",
+          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.8/bun-linux-x64.zip",
+          "normalized": "bun-1.3.8-linux-x86_64",
+          "os": "linux",
+          "arch": "x86_64",
+          "variant": ""
+        },
+        {
+          "upstream": "bun-windows-x64.zip",
+          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.3.8/bun-windows-x64.zip",
+          "normalized": "bun-1.3.8-windows-x86_64.exe",
+          "os": "windows",
+          "arch": "x86_64",
+          "variant": ""
+        }
+      ]
+    },
+    {
+      "name": "uv",
+      "version": "0.9.28",
+      "tag": "0.9.28",
+      "assets": [
+        {
+          "upstream": "uv-aarch64-apple-darwin.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-aarch64-apple-darwin.tar.gz",
+          "normalized": "uv-0.9.28-darwin-aarch64",
+          "os": "darwin",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-aarch64-pc-windows-msvc.zip",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-aarch64-pc-windows-msvc.zip",
+          "normalized": "uv-0.9.28-windows-aarch64.exe",
+          "os": "windows",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-aarch64-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-aarch64-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.9.28-linux-aarch64",
+          "os": "linux",
+          "arch": "aarch64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-aarch64-unknown-linux-musl.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-aarch64-unknown-linux-musl.tar.gz",
+          "normalized": "uv-0.9.28-linux-aarch64-musl",
+          "os": "linux",
+          "arch": "aarch64",
+          "variant": "musl"
+        },
+        {
+          "upstream": "uv-arm-unknown-linux-musleabihf.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-arm-unknown-linux-musleabihf.tar.gz",
+          "normalized": "uv-0.9.28-linux-arm-musl",
+          "os": "linux",
+          "arch": "arm",
+          "variant": "musl"
+        },
+        {
+          "upstream": "uv-armv7-unknown-linux-gnueabihf.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-armv7-unknown-linux-gnueabihf.tar.gz",
+          "normalized": "uv-0.9.28-linux-armv7",
+          "os": "linux",
+          "arch": "armv7",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-armv7-unknown-linux-musleabihf.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-armv7-unknown-linux-musleabihf.tar.gz",
+          "normalized": "uv-0.9.28-linux-armv7-musl",
+          "os": "linux",
+          "arch": "armv7",
+          "variant": "musl"
+        },
+        {
+          "upstream": "uv-i686-pc-windows-msvc.zip",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-i686-pc-windows-msvc.zip",
+          "normalized": "uv-0.9.28-windows-i686.exe",
+          "os": "windows",
+          "arch": "i686",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-i686-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-i686-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.9.28-linux-i686",
+          "os": "linux",
+          "arch": "i686",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-i686-unknown-linux-musl.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-i686-unknown-linux-musl.tar.gz",
+          "normalized": "uv-0.9.28-linux-i686-musl",
+          "os": "linux",
+          "arch": "i686",
+          "variant": "musl"
+        },
+        {
+          "upstream": "uv-powerpc64-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-powerpc64-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.9.28-linux-ppc64",
+          "os": "linux",
+          "arch": "ppc64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-powerpc64le-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-powerpc64le-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.9.28-linux-ppc64le",
+          "os": "linux",
+          "arch": "ppc64le",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-riscv64gc-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-riscv64gc-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.9.28-linux-riscv64",
+          "os": "linux",
+          "arch": "riscv64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-s390x-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-s390x-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.9.28-linux-s390x",
+          "os": "linux",
+          "arch": "s390x",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-x86_64-apple-darwin.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-x86_64-apple-darwin.tar.gz",
+          "normalized": "uv-0.9.28-darwin-x86_64",
+          "os": "darwin",
+          "arch": "x86_64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-x86_64-pc-windows-msvc.zip",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-x86_64-pc-windows-msvc.zip",
+          "normalized": "uv-0.9.28-windows-x86_64.exe",
+          "os": "windows",
+          "arch": "x86_64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-x86_64-unknown-linux-gnu.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-x86_64-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.9.28-linux-x86_64",
+          "os": "linux",
+          "arch": "x86_64",
+          "variant": ""
+        },
+        {
+          "upstream": "uv-x86_64-unknown-linux-musl.tar.gz",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.9.28/uv-x86_64-unknown-linux-musl.tar.gz",
+          "normalized": "uv-0.9.28-linux-x86_64-musl",
+          "os": "linux",
+          "arch": "x86_64",
+          "variant": "musl"
+        }
+      ]
+    }
+  ]
+}
