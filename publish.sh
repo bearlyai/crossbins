@@ -5,18 +5,19 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 LOCK_FILE="$SCRIPT_DIR/binaries.lock.json"
 OUTPUT_DIR="$SCRIPT_DIR/output"
 
-# Required environment variables
-: "${GITLAB_TOKEN:?Set GITLAB_TOKEN with api scope}"
-: "${CI_PROJECT_ID:?Set CI_PROJECT_ID}"
-CI_API_V4_URL="${CI_API_V4_URL:-https://gitlab.com/api/v4}"
-CI_SERVER_URL="${CI_SERVER_URL:-https://gitlab.com}"
+# Required environment variable
+: "${GITHUB_TOKEN:?Set GITHUB_TOKEN with repo scope}"
 
-gitlab_api() {
+# Derive repo from config or env
+REPO="${GITHUB_REPOSITORY:-$(jq -r '.project_url' "$SCRIPT_DIR/binaries.json" | sed 's|https://github.com/||')}"
+
+github_api() {
   local method="$1" path="$2"
   shift 2
   curl -sfL -X "$method" \
-    -H "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-    "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}${path}" "$@"
+    -H "Authorization: token $GITHUB_TOKEN" \
+    -H "Accept: application/vnd.github+json" \
+    "https://api.github.com/repos/${REPO}${path}" "$@"
 }
 
 num_tools=$(jq '.tools | length' "$LOCK_FILE")
@@ -26,28 +27,32 @@ for (( i=0; i<num_tools; i++ )); do
   release_tag="${name}-${version}"
 
   # Check if release already exists
-  if gitlab_api GET "/releases/$release_tag" > /dev/null 2>&1; then
+  if github_api GET "/releases/tags/$release_tag" > /dev/null 2>&1; then
     echo "Release $release_tag already exists, skipping"
     continue
   fi
 
   echo "Creating release $release_tag ..."
 
-  # Ensure tag exists (ignore "already exists" error)
-  gitlab_api POST "/repository/tags" \
-    --data-urlencode "tag_name=$release_tag" \
-    --data-urlencode "ref=HEAD" > /dev/null 2>&1 || true
-
-  # Create release
-  gitlab_api POST "/releases" \
+  # Create release (this also creates the tag)
+  release_response=$(github_api POST "/releases" \
     -H "Content-Type: application/json" \
     -d "$(jq -n \
       --arg tag "$release_tag" \
       --arg rname "$name $version" \
-      --arg desc "Prebuilt $name binaries (upstream $version)" \
-      '{tag_name: $tag, name: $rname, description: $desc}')" > /dev/null
+      --arg body "Prebuilt $name binaries (upstream $version)" \
+      '{tag_name: $tag, name: $rname, body: $body, draft: false, prerelease: false}')")
 
-  # Upload each asset and link to release
+  release_id=$(echo "$release_response" | jq -r '.id')
+  upload_url=$(echo "$release_response" | jq -r '.upload_url' | sed 's/{?name,label}//')
+
+  if [[ -z "$release_id" || "$release_id" == "null" ]]; then
+    echo "  ERROR: failed to create release $release_tag"
+    echo "  Response: $release_response"
+    continue
+  fi
+
+  # Upload each asset
   num_assets=$(jq ".tools[$i].assets | length" "$LOCK_FILE")
   for (( j=0; j<num_assets; j++ )); do
     normalized=$(jq -r ".tools[$i].assets[$j].normalized" "$LOCK_FILE")
@@ -60,17 +65,15 @@ for (( i=0; i<num_tools; i++ )); do
 
     echo "  Uploading $normalized ..."
 
-    # Upload file to project uploads
-    upload_response=$(gitlab_api POST "/uploads" -F "file=@$filepath")
-    file_url=$(echo "$upload_response" | jq -r '.full_path')
+    # Determine content type
+    content_type="application/octet-stream"
 
-    # Link uploaded file to release
-    gitlab_api POST "/releases/$release_tag/assets/links" \
-      -H "Content-Type: application/json" \
-      -d "$(jq -n \
-        --arg n "$normalized" \
-        --arg u "${CI_SERVER_URL}${file_url}" \
-        '{name: $n, url: $u, link_type: "other"}')" > /dev/null
+    # Upload asset to release
+    curl -sfL -X POST \
+      -H "Authorization: token $GITHUB_TOKEN" \
+      -H "Content-Type: $content_type" \
+      --data-binary "@$filepath" \
+      "${upload_url}?name=${normalized}" > /dev/null
   done
 
   echo "  => $release_tag published with $num_assets assets"

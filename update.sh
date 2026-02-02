@@ -153,10 +153,11 @@ if [[ -f "$README" ]] && grep -q 'BINARIES_START' "$README"; then
     name=$(echo "$lock_json" | jq -r ".tools[$i].name")
     version=$(echo "$lock_json" | jq -r ".tools[$i].version")
     release_tag="${name}-${version}"
-    release_url="${project_url}/-/releases/${release_tag}"
+    release_page="${project_url}/releases/tag/${release_tag}"
+    download_base="${project_url}/releases/download/${release_tag}"
 
     binaries_section+="### ${name} ${version}"$'\n\n'
-    binaries_section+="Release: [${release_tag}](${release_url})"$'\n\n'
+    binaries_section+="Release: [${release_tag}](${release_page})"$'\n\n'
     binaries_section+="| File | OS | Arch | Variant | Download |"$'\n'
     binaries_section+="|------|----|------|---------|----------|"$'\n'
 
@@ -167,7 +168,7 @@ if [[ -f "$README" ]] && grep -q 'BINARIES_START' "$README"; then
       arch=$(echo "$lock_json" | jq -r ".tools[$i].assets[$j].arch")
       variant=$(echo "$lock_json" | jq -r ".tools[$i].assets[$j].variant")
       [[ -z "$variant" ]] && variant="-"
-      download_link="${release_url}/${norm}"
+      download_link="${download_base}/${norm}"
       binaries_section+="| \`${norm}\` | ${os} | ${arch} | ${variant} | [download](${download_link}) |"$'\n'
     done
     binaries_section+=$'\n'
