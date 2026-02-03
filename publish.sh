@@ -11,14 +11,8 @@ OUTPUT_DIR="$SCRIPT_DIR/output"
 # Derive repo from config or env
 REPO="${GITHUB_REPOSITORY:-$(jq -r '.project_url' "$SCRIPT_DIR/binaries.json" | sed 's|https://github.com/||')}"
 
-github_api() {
-  local method="$1" path="$2"
-  shift 2
-  curl -fL --show-error -X "$method" \
-    -H "Authorization: token $GITHUB_TOKEN" \
-    -H "Accept: application/vnd.github+json" \
-    "https://api.github.com/repos/${REPO}${path}" "$@"
-}
+CURL_COMMON=(-H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json")
+API_BASE="https://api.github.com/repos/${REPO}"
 
 # Read set version from lock file
 set_version=$(jq -r '.version' "$LOCK_FILE")
@@ -33,9 +27,10 @@ for (( i=0; i<num_tools; i++ )); do
   release_body+="- **${name}** ${version}"$'\n'
 done
 
-# Check if release already exists (silence this check)
-if curl -sfL -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" \
-   "https://api.github.com/repos/${REPO}/releases/tags/$release_tag" > /dev/null 2>&1; then
+# Check if release already exists
+http_code=$(curl -s -o /dev/null -w '%{http_code}' "${CURL_COMMON[@]}" \
+  "${API_BASE}/releases/tags/$release_tag")
+if [[ "$http_code" == "200" ]]; then
   echo "Release $release_tag already exists, nothing to do"
   exit 0
 fi
@@ -43,26 +38,31 @@ fi
 echo "Creating release $release_tag ..."
 echo "  Repo: $REPO"
 
-# Create release (this also creates the tag)
-release_response=$(github_api POST "/releases" \
+# Create release
+release_response=$(curl -s -w '\n%{http_code}' -X POST "${CURL_COMMON[@]}" \
   -H "Content-Type: application/json" \
   -d "$(jq -n \
     --arg tag "$release_tag" \
     --arg rname "Binary set ${release_tag}" \
     --arg body "$release_body" \
-    '{tag_name: $tag, name: $rname, body: $body, draft: false, prerelease: false}')" 2>&1)
+    '{tag_name: $tag, name: $rname, body: $body, draft: false, prerelease: false}')" \
+  "${API_BASE}/releases")
 
-release_id=$(echo "$release_response" | jq -r '.id')
-upload_url=$(echo "$release_response" | jq -r '.upload_url' | sed 's/{?name,label}//')
+# Split response body and HTTP status code
+http_code=$(echo "$release_response" | tail -1)
+response_body=$(echo "$release_response" | sed '$d')
+
+if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+  echo "ERROR: failed to create release (HTTP $http_code)"
+  echo "$response_body"
+  exit 1
+fi
+
+release_id=$(echo "$response_body" | jq -r '.id')
+upload_url=$(echo "$response_body" | jq -r '.upload_url' | sed 's/{?name,label}//')
 
 echo "  Release ID: $release_id"
 echo "  Upload URL: $upload_url"
-
-if [[ -z "$release_id" || "$release_id" == "null" ]]; then
-  echo "ERROR: failed to create release $release_tag"
-  echo "Response: $release_response"
-  exit 1
-fi
 
 # Upload all assets from all tools
 total=0
@@ -82,17 +82,19 @@ for (( i=0; i<num_tools; i++ )); do
     filesize=$(wc -c < "$filepath" | tr -d ' ')
     echo "  Uploading $normalized (${filesize} bytes) ..."
 
-    upload_response=$(curl -fL --show-error -X POST \
+    upload_response=$(curl -s -w '\n%{http_code}' -X POST \
       -H "Authorization: token $GITHUB_TOKEN" \
       -H "Content-Type: application/octet-stream" \
-      -H "Content-Length: ${filesize}" \
       --data-binary "@$filepath" \
-      "${upload_url}?name=${normalized}" 2>&1)
+      "${upload_url}?name=${normalized}")
 
-    asset_state=$(echo "$upload_response" | jq -r '.state // "unknown"')
-    if [[ "$asset_state" != "uploaded" ]]; then
-      echo "  WARNING: upload state is '$asset_state' for $normalized"
-      echo "  Response: $upload_response"
+    upload_code=$(echo "$upload_response" | tail -1)
+    upload_body=$(echo "$upload_response" | sed '$d')
+
+    if [[ "$upload_code" -lt 200 || "$upload_code" -ge 300 ]]; then
+      echo "  ERROR: upload failed (HTTP $upload_code) for $normalized"
+      echo "  $upload_body"
+      exit 1
     fi
 
     (( total++ ))
