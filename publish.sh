@@ -142,7 +142,7 @@ for (( i=0; i<num_tools; i++ )); do
       exit 1
     fi
 
-    (( total++ ))
+    (( ++total ))
   done
 done
 
@@ -173,7 +173,7 @@ for (( i=0; i<num_tools; i++ )); do
       "${upload_url}?name=${latest_name}" > /dev/null
 
     echo "  $latest_name"
-    (( total++ ))
+    (( ++total ))
   done
 done
 
