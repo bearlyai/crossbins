@@ -52,7 +52,7 @@
         "armv7-unknown-linux-gnueabihf":    { "os": "linux",   "arch": "armv7" },
         "armv7-unknown-linux-musleabihf":   { "os": "linux",   "arch": "armv7",   "variant": "musl" },
         "arm-unknown-linux-musleabihf":     { "os": "linux",   "arch": "arm",     "variant": "musl" },
-        "powerpc64-unknown-linux-gnu":      { "os": "linux",   "arch": "ppc64" },
+
         "powerpc64le-unknown-linux-gnu":    { "os": "linux",   "arch": "ppc64le" },
         "s390x-unknown-linux-gnu":          { "os": "linux",   "arch": "s390x" },
         "riscv64gc-unknown-linux-gnu":      { "os": "linux",   "arch": "riscv64" },
@@ -60,6 +60,22 @@
         "aarch64-pc-windows-msvc":          { "os": "windows", "arch": "aarch64" },
         "i686-pc-windows-msvc":             { "os": "windows", "arch": "i686" }
       }
+    },
+    {
+      "name": "yt-dlp",
+      "repo": "yt-dlp/yt-dlp",
+      "binary_name": "yt-dlp",
+      "explicit_assets": [
+        { "asset_name": "yt-dlp_linux",            "source_type": "raw", "os": "linux",   "arch": "x86_64" },
+        { "asset_name": "yt-dlp_linux_aarch64",     "source_type": "raw", "os": "linux",   "arch": "aarch64" },
+        { "asset_name": "yt-dlp_linux_armv7l.zip",  "source_type": "zip", "binary_name": "yt-dlp_linux_armv7l", "os": "linux",   "arch": "armv7" },
+        { "asset_name": "yt-dlp_musllinux",         "source_type": "raw", "os": "linux",   "arch": "x86_64",  "variant": "musl" },
+        { "asset_name": "yt-dlp_musllinux_aarch64", "source_type": "raw", "os": "linux",   "arch": "aarch64", "variant": "musl" },
+        { "asset_name": "yt-dlp_macos",             "source_type": "raw", "os": "darwin",  "arch": "universal" },
+        { "asset_name": "yt-dlp.exe",               "source_type": "raw", "os": "windows", "arch": "x86_64" },
+        { "asset_name": "yt-dlp_arm64.exe",          "source_type": "raw", "os": "windows", "arch": "aarch64" },
+        { "asset_name": "yt-dlp_x86.exe",           "source_type": "raw", "os": "windows", "arch": "i686" }
+      ]
     }
   ]
 }

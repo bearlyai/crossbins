@@ -35,6 +35,51 @@ if [[ "$http_code" == "200" ]]; then
   exit 0
 fi
 
+# Validate all binaries before creating the release
+echo "Validating binaries before publish..."
+missing=0
+invalid=0
+for (( i=0; i<num_tools; i++ )); do
+  tool_name=$(jq -r ".tools[$i].name" "$LOCK_FILE")
+  num_assets=$(jq ".tools[$i].assets | length" "$LOCK_FILE")
+
+  if [[ "$num_assets" -eq 0 ]]; then
+    echo "  ERROR: $tool_name has zero assets in lock file"
+    (( invalid++ ))
+    continue
+  fi
+
+  for (( j=0; j<num_assets; j++ )); do
+    normalized=$(jq -r ".tools[$i].assets[$j].normalized" "$LOCK_FILE")
+    filepath="$OUTPUT_DIR/$normalized"
+
+    if [[ ! -f "$filepath" ]]; then
+      echo "  ERROR: $normalized is missing from output/"
+      (( missing++ ))
+      continue
+    fi
+
+    filesize=$(wc -c < "$filepath" | tr -d ' ')
+    if [[ "$filesize" -lt 1024 ]]; then
+      echo "  ERROR: $normalized is only $filesize bytes (expected >= 1KB)"
+      (( invalid++ ))
+      continue
+    fi
+
+    if head -c 256 "$filepath" | grep -qi '<!doctype\|<html'; then
+      echo "  ERROR: $normalized appears to be HTML, not a binary"
+      (( invalid++ ))
+      continue
+    fi
+  done
+done
+
+if [[ "$missing" -gt 0 || "$invalid" -gt 0 ]]; then
+  echo "ERROR: $missing missing, $invalid invalid binaries — aborting publish"
+  exit 1
+fi
+echo "  All binaries validated"
+
 echo "Creating release $release_tag ..."
 echo "  Repo: $REPO"
 
@@ -101,5 +146,85 @@ for (( i=0; i<num_tools; i++ )); do
   done
 done
 
-echo "=> $release_tag published with $total assets"
+# Upload version-less copies for stable /releases/latest/download/ URLs
+echo "Uploading version-less asset names..."
+for (( i=0; i<num_tools; i++ )); do
+  name=$(jq -r ".tools[$i].name" "$LOCK_FILE")
+  num_assets=$(jq ".tools[$i].assets | length" "$LOCK_FILE")
+
+  for (( j=0; j<num_assets; j++ )); do
+    normalized=$(jq -r ".tools[$i].assets[$j].normalized" "$LOCK_FILE")
+    os=$(jq -r ".tools[$i].assets[$j].os" "$LOCK_FILE")
+    arch=$(jq -r ".tools[$i].assets[$j].arch" "$LOCK_FILE")
+    variant=$(jq -r ".tools[$i].assets[$j].variant" "$LOCK_FILE")
+    filepath="$OUTPUT_DIR/$normalized"
+    [[ ! -f "$filepath" ]] && continue
+
+    suffix=""
+    [[ "$os" == "windows" ]] && suffix=".exe"
+    variant_part=""
+    [[ -n "$variant" ]] && variant_part="-${variant}"
+    latest_name="${name}-${os}-${arch}${variant_part}${suffix}"
+
+    curl -s -w '\n%{http_code}' -X POST \
+      -H "Authorization: token $GITHUB_TOKEN" \
+      -H "Content-Type: application/octet-stream" \
+      --data-binary "@$filepath" \
+      "${upload_url}?name=${latest_name}" > /dev/null
+
+    echo "  $latest_name"
+    (( total++ ))
+  done
+done
+
+# Generate and upload manifest.json
+download_base="https://github.com/${REPO}/releases/latest/download"
+
+# Build manifest with jq — includes full URLs and platform mapping for consumers
+manifest=$(jq -n \
+  --arg base "$download_base" \
+  --arg tag "$release_tag" \
+  --slurpfile lock "$LOCK_FILE" \
+'
+{
+  release_tag: $tag,
+  download_base: $base,
+  platform_map: {
+    os:   { darwin: "darwin", linux: "linux", win32: "windows" },
+    arch: { arm64: "aarch64", x64: "x86_64", ia32: "i686", x86: "i686" }
+  },
+  tools: [
+    $lock[0].tools[] | . as $tool | {
+      name: .name,
+      version: .version,
+      assets: [
+        .assets[] | {
+          name: (
+            .os + "-" + .arch
+            + (if .variant != "" then "-" + .variant else "" end)
+          ),
+          os,
+          arch,
+          variant,
+          url: (
+            $base + "/" + $tool.name + "-" + .os + "-" + .arch
+            + (if .variant != "" then "-" + .variant else "" end)
+            + (if .os == "windows" then ".exe" else "" end)
+          )
+        }
+      ]
+    }
+  ]
+}')
+
+echo "$manifest" > "$OUTPUT_DIR/manifest.json"
+curl -s -w '\n%{http_code}' -X POST \
+  -H "Authorization: token $GITHUB_TOKEN" \
+  -H "Content-Type: application/octet-stream" \
+  --data-binary "@$OUTPUT_DIR/manifest.json" \
+  "${upload_url}?name=manifest.json" > /dev/null
+echo "  manifest.json"
+(( total++ ))
+
+echo "=> $release_tag published with $total assets (versioned + version-less + manifest)"
 echo "Done."

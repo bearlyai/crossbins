@@ -3,10 +3,20 @@ name: Publish binaries
 on:
   push:
     branches: [main]
+    paths:
+      - binaries.json
+      - '*.sh'
+  schedule:
+    - cron: '0 9 * * 1'   # Weekly: Monday 9am UTC
   workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   publish:
@@ -22,7 +32,43 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Smoke test
+        run: |
+          tool_count=$(jq '.tools | length' binaries.lock.json)
+          echo "Tools in lock: $tool_count"
+          [[ "$tool_count" -ge 4 ]] || { echo "ERROR: expected >= 4 tools"; exit 1; }
+          # Every tool has at least one asset
+          empty=$(jq -r '.tools[] | select((.assets | length) == 0) | .name' binaries.lock.json)
+          [[ -z "$empty" ]] || { echo "ERROR: tool with zero assets: $empty"; exit 1; }
+
       - name: Publish releases
         run: ./publish.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit lock file and README
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add binaries.lock.json README.md binaries.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update binaries to latest versions"
+            git push
+          fi
+
+      - name: Create issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          existing=$(gh issue list --label "automation" --state open --limit 1 --json number -q '.[0].number // empty')
+          if [[ -n "$existing" ]]; then
+            gh issue comment "$existing" \
+              --body "Still failing as of $(date +%Y-%m-%d). [View run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          else
+            gh issue create \
+              --title "Binary update failed ($(date +%Y-%m-%d))" \
+              --body "The binary update workflow failed. [View run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" \
+              --label "automation"
+          fi
