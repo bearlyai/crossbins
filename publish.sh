@@ -14,9 +14,8 @@ REPO="${GITHUB_REPOSITORY:-$(jq -r '.project_url' "$SCRIPT_DIR/binaries.json" | 
 CURL_COMMON=(-H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json")
 API_BASE="https://api.github.com/repos/${REPO}"
 
-# Read set version from lock file
-set_version=$(jq -r '.version' "$LOCK_FILE")
-release_tag="v${set_version}"
+# Read release tag from lock file
+release_tag=$(jq -r '.release_tag' "$LOCK_FILE")
 
 # Build release body with tool versions
 release_body="Binary set ${release_tag}"$'\n\n'
@@ -224,7 +223,7 @@ curl -s -w '\n%{http_code}' -X POST \
   --data-binary "@$OUTPUT_DIR/manifest.json" \
   "${upload_url}?name=manifest.json" > /dev/null
 echo "  manifest.json"
-(( total++ ))
+(( ++total ))
 
 echo "=> $release_tag published with $total assets (versioned + version-less + manifest)"
 echo "Done."

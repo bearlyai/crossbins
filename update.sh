@@ -41,14 +41,14 @@ validate_binary() {
   return 0
 }
 
-# Read existing lock version (default 0)
-old_version=0
+# Read existing lock release tag (default empty)
+old_release_tag=""
 if [[ -f "$LOCK_FILE" ]]; then
-  old_version=$(jq -r '.version // 0' "$LOCK_FILE")
+  old_release_tag=$(jq -r '.release_tag // empty' "$LOCK_FILE")
 fi
 
 # Initialize lock structure
-lock_json='{"version":0,"tools":[]}'
+lock_json='{"release_tag":"","tools":[]}'
 
 num_tools=$(jq '.tools | length' "$CONFIG")
 for (( i=0; i<num_tools; i++ )); do
@@ -250,31 +250,33 @@ for (( i=0; i<num_tools; i++ )); do
     '.tools += [{name: $name, version: $version, tag: $tag, assets: $assets}]')
 done
 
-# Determine set version
-new_version="$old_version"
-if [[ "$old_version" -eq 0 ]]; then
-  # First run or migrating from old format
-  new_version=1
-  echo "Initial set version: v${new_version}"
+# Determine release tag (date-based)
+today=$(date -u +%Y-%m-%d)
+new_release_tag="$old_release_tag"
+
+if [[ -z "$old_release_tag" ]]; then
+  # First run
+  new_release_tag="$today"
+  echo "Initial release tag: $new_release_tag"
 elif [[ -f "$LOCK_FILE" ]]; then
   old_tools_sig=$(jq -r '[.tools[] | "\(.name):\(.version)"] | sort | join(",")' "$LOCK_FILE")
   new_tools_sig=$(echo "$lock_json" | jq -r '[.tools[] | "\(.name):\(.version)"] | sort | join(",")')
   if [[ "$old_tools_sig" != "$new_tools_sig" ]]; then
-    new_version=$(( old_version + 1 ))
-    echo "Versions changed, bumping set version: v${old_version} -> v${new_version}"
+    new_release_tag="$today"
+    echo "Versions changed, new release tag: $old_release_tag -> $new_release_tag"
   else
-    echo "No version changes detected, keeping set version: v${new_version}"
+    echo "No version changes detected, keeping release tag: $new_release_tag"
   fi
 fi
 
-# Write lock file with version
-echo "$lock_json" | jq --argjson v "$new_version" '.version = $v' > "$LOCK_FILE"
+# Write lock file
+echo "$lock_json" | jq --arg tag "$new_release_tag" '.release_tag = $tag' > "$LOCK_FILE"
 
 # Update README.md with binary listing
 README="$SCRIPT_DIR/README.md"
 if [[ -f "$README" ]] && grep -q 'BINARIES_START' "$README"; then
   project_url=$(jq -r '.project_url' "$CONFIG")
-  release_tag="v${new_version}"
+  release_tag="$new_release_tag"
   release_page="${project_url}/releases/tag/${release_tag}"
   download_base="${project_url}/releases/download/${release_tag}"
 
@@ -329,4 +331,4 @@ if [[ -f "$README" ]] && grep -q 'BINARIES_START' "$README"; then
   echo "Updated README.md with binary listing"
 fi
 
-echo "Done. Binaries in ./output/, lock file at binaries.lock.json (v${new_version})"
+echo "Done. Binaries in ./output/, lock file at binaries.lock.json (${new_release_tag})"
