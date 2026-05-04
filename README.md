@@ -10,6 +10,7 @@ Republishes prebuilt binaries from upstream GitHub releases with normalized file
 | bun | oven-sh/bun | `bun` |
 | uv | astral-sh/uv | `uv` |
 | yt-dlp | yt-dlp/yt-dlp | `yt-dlp` |
+| ffmpeg | BtbN/FFmpeg-Builds; Martin Riedl macOS builds | `ffmpeg` |
 
 ## Naming convention
 
@@ -88,6 +89,17 @@ Examples: `rg-15.1.0-linux-aarch64`, `uv-0.11.3-linux-x86_64-musl`, `yt-dlp-2026
 | `yt-dlp-2026.03.17-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/yt-dlp-2026.03.17-windows-aarch64.exe) |
 | `yt-dlp-2026.03.17-windows-i686.exe` | windows | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/yt-dlp-2026.03.17-windows-i686.exe) |
 
+### ffmpeg 8.1
+
+| File | OS | Arch | Variant | Download |
+|------|----|------|---------|----------|
+| `ffmpeg-8.1-linux-x86_64-gpl` | linux | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/ffmpeg-8.1-linux-x86_64-gpl) |
+| `ffmpeg-8.1-linux-aarch64-gpl` | linux | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/ffmpeg-8.1-linux-aarch64-gpl) |
+| `ffmpeg-8.1-windows-x86_64-gpl.exe` | windows | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/ffmpeg-8.1-windows-x86_64-gpl.exe) |
+| `ffmpeg-8.1-windows-aarch64-gpl.exe` | windows | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/ffmpeg-8.1-windows-aarch64-gpl.exe) |
+| `ffmpeg-8.1-darwin-x86_64-gpl` | darwin | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/ffmpeg-8.1-darwin-x86_64-gpl) |
+| `ffmpeg-8.1-darwin-aarch64-gpl` | darwin | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-05-04/ffmpeg-8.1-darwin-aarch64-gpl) |
+
 <!-- BINARIES_END -->
 
 ## Download (stable URLs, no auth needed)
@@ -145,7 +157,11 @@ Two config modes in `binaries.json`:
 
 **Raw binary tools** (yt-dlp) — use `explicit_assets`:
 - `name`, `repo`, `binary_name` — same as above
-- `explicit_assets` — list of `{asset_name, source_type, os, arch, variant}` entries
+- `release_tag_pattern` — optional regex to select only matching upstream release tags
+- `version_probe_regex` — optional regex with a named `version` capture, resolved from upstream asset names
+- `checksum_asset` — optional release asset containing SHA256 checksums to verify before extraction
+- `explicit_assets` — list of `{asset_name, source_type, os, arch, variant}` entries. `asset_name`, `asset_regex`, or `url` may use `{VERSION}` from `version_probe_regex`; `checksum_url` may use `{EFFECTIVE_URL}` after redirects are resolved. `source_type` supports `raw`, `zip`, `tar.gz`, and `tar.xz`.
+- `checksum_name` and `version_check_regex` — optional direct URL checks for checksum file entries and redirect targets
 
 ### Updating versions
 

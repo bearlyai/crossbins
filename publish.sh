@@ -205,6 +205,7 @@ manifest=$(jq -n \
           os,
           arch,
           variant,
+          sha256: (.sha256 // ""),
           url: (
             $base + "/" + $tool.name + "-" + .os + "-" + .arch
             + (if .variant != "" then "-" + .variant else "" end)

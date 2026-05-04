@@ -12,7 +12,8 @@
           "normalized": "rg-15.1.0-darwin-aarch64",
           "os": "darwin",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "4fdf1d8365af224bc70e3c1490d8461d859c37cc70e739a11e987af0215f3e94"
         },
         {
           "upstream": "ripgrep-15.1.0-aarch64-pc-windows-msvc.zip",
@@ -20,7 +21,8 @@
           "normalized": "rg-15.1.0-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "f7799d737b520e00b10dfa72def23904fe66fb03315636a7b78549845ee9609c"
         },
         {
           "upstream": "ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz",
@@ -28,7 +30,8 @@
           "normalized": "rg-15.1.0-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "968cabe8efed72fd8fd482cb76b6084fcb695fc5293af7fb62296b02f487fb69"
         },
         {
           "upstream": "ripgrep-15.1.0-armv7-unknown-linux-gnueabihf.tar.gz",
@@ -36,7 +39,8 @@
           "normalized": "rg-15.1.0-linux-armv7",
           "os": "linux",
           "arch": "armv7",
-          "variant": ""
+          "variant": "",
+          "sha256": "2eff36d683817923cba8b556b1c45cc3f14da5e951b6f7a9b0a39222663402ee"
         },
         {
           "upstream": "ripgrep-15.1.0-armv7-unknown-linux-musleabihf.tar.gz",
@@ -44,7 +48,8 @@
           "normalized": "rg-15.1.0-linux-armv7-musl",
           "os": "linux",
           "arch": "armv7",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "bbf98cb06efe68c96f53314f1986de1c8991b6b14ff2bcbffa9fd9c270f2a90d"
         },
         {
           "upstream": "ripgrep-15.1.0-i686-pc-windows-msvc.zip",
@@ -52,7 +57,8 @@
           "normalized": "rg-15.1.0-windows-i686.exe",
           "os": "windows",
           "arch": "i686",
-          "variant": ""
+          "variant": "",
+          "sha256": "7773ca1c74315c188a84937adbfa3af5b2fa8ef12be0249d66a6ce372f67e82e"
         },
         {
           "upstream": "ripgrep-15.1.0-i686-unknown-linux-gnu.tar.gz",
@@ -60,7 +66,8 @@
           "normalized": "rg-15.1.0-linux-i686",
           "os": "linux",
           "arch": "i686",
-          "variant": ""
+          "variant": "",
+          "sha256": "5b91bbed814993f5b367ac1600c0da01b053dae22f52c9bdad52cae6c4c38343"
         },
         {
           "upstream": "ripgrep-15.1.0-s390x-unknown-linux-gnu.tar.gz",
@@ -68,7 +75,8 @@
           "normalized": "rg-15.1.0-linux-s390x",
           "os": "linux",
           "arch": "s390x",
-          "variant": ""
+          "variant": "",
+          "sha256": "0ce5d58890e56cac79c9c9beee9d2d2ac8e88f5aa99fbf64214a92151ff3481a"
         },
         {
           "upstream": "ripgrep-15.1.0-x86_64-apple-darwin.tar.gz",
@@ -76,7 +84,8 @@
           "normalized": "rg-15.1.0-darwin-x86_64",
           "os": "darwin",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "3bafa7e6ee51ba3ac4ed065883484a309be09b26ea6dad561ae4049bfe049c50"
         },
         {
           "upstream": "ripgrep-15.1.0-x86_64-pc-windows-msvc.zip",
@@ -84,7 +93,8 @@
           "normalized": "rg-15.1.0-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "decdd4992f3f1b9a5ef9898f1b40ab16886d579d6516b4efd3d5eaa19364e408"
         },
         {
           "upstream": "ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz",
@@ -92,7 +102,8 @@
           "normalized": "rg-15.1.0-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "ebeaf56f8a25e102e9419933423738b3a2a613a444fd749d695e15eba53f71f2"
         }
       ]
     },
@@ -107,7 +118,8 @@
           "normalized": "bun-1.3.13-darwin-aarch64",
           "os": "darwin",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "fc0b4cae13a911098f0c61d13b7d9fd6b640bdb9f6b6a0b78bdb9d778c12bc3f"
         },
         {
           "upstream": "bun-darwin-x64.zip",
@@ -115,7 +127,8 @@
           "normalized": "bun-1.3.13-darwin-x86_64",
           "os": "darwin",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "fab7f1c31fb610d9a3b252afccdc47209bd928ec44826d94f494e71ddbc52b85"
         },
         {
           "upstream": "bun-linux-aarch64-musl.zip",
@@ -123,7 +136,8 @@
           "normalized": "bun-1.3.13-linux-aarch64-musl",
           "os": "linux",
           "arch": "aarch64",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "b7b575dad185563bc2da7c0171e7ea42d03a91729a310c68b51a59bead523c72"
         },
         {
           "upstream": "bun-linux-aarch64.zip",
@@ -131,7 +145,8 @@
           "normalized": "bun-1.3.13-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "67892bb6734ef352f90a964f0a2a680d5f6e6d15bdb5510e56b8065ac4d599ae"
         },
         {
           "upstream": "bun-linux-x64-musl.zip",
@@ -139,7 +154,8 @@
           "normalized": "bun-1.3.13-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "775146ea6fe91e851a85eee223f879f38d4962f16cd78216cec9793f44eff17c"
         },
         {
           "upstream": "bun-linux-x64.zip",
@@ -147,7 +163,8 @@
           "normalized": "bun-1.3.13-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "b29d78892abd5a9398e0700f0cb602f725089602ed1a5082d681c7257b2bf4d0"
         },
         {
           "upstream": "bun-windows-x64.zip",
@@ -155,7 +172,8 @@
           "normalized": "bun-1.3.13-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "8dc0cd4351f596df6bb71c03575168078bb0f9872ef4d5ff1b8579dd9507cf70"
         }
       ]
     },
@@ -170,7 +188,8 @@
           "normalized": "uv-0.11.8-darwin-aarch64",
           "os": "darwin",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "51f0ae3c531a124727fa39e16e8599f2e371e427822a4aa92ebf667b52548b43"
         },
         {
           "upstream": "uv-aarch64-pc-windows-msvc.zip",
@@ -178,7 +197,8 @@
           "normalized": "uv-0.11.8-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "f06cce0c9eef8cde4430c180108d1af443abbff2765a504c3f515ee9649c5999"
         },
         {
           "upstream": "uv-aarch64-unknown-linux-gnu.tar.gz",
@@ -186,7 +206,8 @@
           "normalized": "uv-0.11.8-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "abacf92d397e1f4a790c1f284a3fbc0720ff790e767ef85eb323fc482533494c"
         },
         {
           "upstream": "uv-aarch64-unknown-linux-musl.tar.gz",
@@ -194,7 +215,8 @@
           "normalized": "uv-0.11.8-linux-aarch64-musl",
           "os": "linux",
           "arch": "aarch64",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "b0d44a39a823f3b5fe3fdf175cba2c38fcaf1499a675e5f914975ebe1b709acd"
         },
         {
           "upstream": "uv-arm-unknown-linux-musleabihf.tar.gz",
@@ -202,7 +224,8 @@
           "normalized": "uv-0.11.8-linux-arm-musl",
           "os": "linux",
           "arch": "arm",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "7583bc85b4b133725d9a530bec14ab98ba2380900a6a1879a804e8b670698790"
         },
         {
           "upstream": "uv-armv7-unknown-linux-gnueabihf.tar.gz",
@@ -210,7 +233,8 @@
           "normalized": "uv-0.11.8-linux-armv7",
           "os": "linux",
           "arch": "armv7",
-          "variant": ""
+          "variant": "",
+          "sha256": "c669ac82a1a5e32840b64bc785c1c2403e5ee5bae35859ca30c246d930e3a11a"
         },
         {
           "upstream": "uv-armv7-unknown-linux-musleabihf.tar.gz",
@@ -218,7 +242,8 @@
           "normalized": "uv-0.11.8-linux-armv7-musl",
           "os": "linux",
           "arch": "armv7",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "9296540780343e679f5b1c73d44371a1dd48b8956e24ced50300512dc2aeb314"
         },
         {
           "upstream": "uv-i686-pc-windows-msvc.zip",
@@ -226,7 +251,8 @@
           "normalized": "uv-0.11.8-windows-i686.exe",
           "os": "windows",
           "arch": "i686",
-          "variant": ""
+          "variant": "",
+          "sha256": "bbc19a213c477692ecafc53019d59b472c6d74611375e1e39685613d4a7c6e14"
         },
         {
           "upstream": "uv-i686-unknown-linux-gnu.tar.gz",
@@ -234,7 +260,8 @@
           "normalized": "uv-0.11.8-linux-i686",
           "os": "linux",
           "arch": "i686",
-          "variant": ""
+          "variant": "",
+          "sha256": "b4f8aaf7944366565ad95cd69933764d10a094aafdbc1d80c59689e5797f65b9"
         },
         {
           "upstream": "uv-i686-unknown-linux-musl.tar.gz",
@@ -242,7 +269,8 @@
           "normalized": "uv-0.11.8-linux-i686-musl",
           "os": "linux",
           "arch": "i686",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "26cb735e05f32b9556221126424ded3d1aec5332b862916ac6e0045d491d5a77"
         },
         {
           "upstream": "uv-powerpc64le-unknown-linux-gnu.tar.gz",
@@ -250,7 +278,8 @@
           "normalized": "uv-0.11.8-linux-ppc64le",
           "os": "linux",
           "arch": "ppc64le",
-          "variant": ""
+          "variant": "",
+          "sha256": "d873b73b5e99ea5da56fb7e32c20cda7e54d2cf6f4ad2caf060ba96d3b9580ce"
         },
         {
           "upstream": "uv-riscv64gc-unknown-linux-gnu.tar.gz",
@@ -258,7 +287,8 @@
           "normalized": "uv-0.11.8-linux-riscv64",
           "os": "linux",
           "arch": "riscv64",
-          "variant": ""
+          "variant": "",
+          "sha256": "2b466059607647d47dd16b881f17aa4c98bd615a545966e16c8cfb5f699763bb"
         },
         {
           "upstream": "uv-s390x-unknown-linux-gnu.tar.gz",
@@ -266,7 +296,8 @@
           "normalized": "uv-0.11.8-linux-s390x",
           "os": "linux",
           "arch": "s390x",
-          "variant": ""
+          "variant": "",
+          "sha256": "812c88dec063034ae6336be7e2390cb40d5d41494b1e454839758542a0ebb9ee"
         },
         {
           "upstream": "uv-x86_64-apple-darwin.tar.gz",
@@ -274,7 +305,8 @@
           "normalized": "uv-0.11.8-darwin-x86_64",
           "os": "darwin",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "9ce7f803b7a4cf61c3fe753f593a7b1e94e4d905fcaa3a6ff8da5d4dba99fee7"
         },
         {
           "upstream": "uv-x86_64-pc-windows-msvc.zip",
@@ -282,7 +314,8 @@
           "normalized": "uv-0.11.8-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "c3f337907f233811954d96e0ecf2d46df094413250ebdcd10d40d9b5c48febd2"
         },
         {
           "upstream": "uv-x86_64-unknown-linux-gnu.tar.gz",
@@ -290,7 +323,8 @@
           "normalized": "uv-0.11.8-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "646adf5cf12ba17d1a41fa77c8dd6496f73651dcfeeed6b5f4ec019b36bc7153"
         },
         {
           "upstream": "uv-x86_64-unknown-linux-musl.tar.gz",
@@ -298,7 +332,8 @@
           "normalized": "uv-0.11.8-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "e992b3254ab26d55152d484adf9534e9ff8f3a7fd5d68041673f9936b602409e"
         }
       ]
     },
@@ -313,7 +348,8 @@
           "normalized": "yt-dlp-2026.03.17-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "c2b0189f581fe4a2ddd41954f1bcb7d327db04b07ed0dea97e4f1b3e09b5dd8e"
         },
         {
           "upstream": "yt-dlp_linux_aarch64",
@@ -321,7 +357,8 @@
           "normalized": "yt-dlp-2026.03.17-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "6bfa19736181da9e2e066f9c767da2f24fdcc5e148fa5034d1feb09132f89ad5"
         },
         {
           "upstream": "yt-dlp_linux_armv7l.zip",
@@ -329,7 +366,8 @@
           "normalized": "yt-dlp-2026.03.17-linux-armv7",
           "os": "linux",
           "arch": "armv7",
-          "variant": ""
+          "variant": "",
+          "sha256": "fb2a2499e96c2ff76c8e1f95fd7da7a4767412b26a173ec2b95af3fc5924f088"
         },
         {
           "upstream": "yt-dlp_musllinux",
@@ -337,7 +375,8 @@
           "normalized": "yt-dlp-2026.03.17-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "d2f449e66131d914f1f5e9a7881cdb5203b091a3cb356d43c4e286e03384f0b7"
         },
         {
           "upstream": "yt-dlp_musllinux_aarch64",
@@ -345,7 +384,8 @@
           "normalized": "yt-dlp-2026.03.17-linux-aarch64-musl",
           "os": "linux",
           "arch": "aarch64",
-          "variant": "musl"
+          "variant": "musl",
+          "sha256": "27c3dd8180c9f40796eee8e28db5ae9037de2b0f156701d580c4c84ddd7615f7"
         },
         {
           "upstream": "yt-dlp_macos",
@@ -353,7 +393,8 @@
           "normalized": "yt-dlp-2026.03.17-darwin-universal",
           "os": "darwin",
           "arch": "universal",
-          "variant": ""
+          "variant": "",
+          "sha256": "e80c47b3ce712acee51d5e3d4eace2d181b44d38f1942c3a32e3c7ff53cd9ed5"
         },
         {
           "upstream": "yt-dlp.exe",
@@ -361,7 +402,8 @@
           "normalized": "yt-dlp-2026.03.17-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
-          "variant": ""
+          "variant": "",
+          "sha256": "3db811b366b2da47337d2fcfdfe5bbd9a258dad3f350c54974f005df115a1545"
         },
         {
           "upstream": "yt-dlp_arm64.exe",
@@ -369,7 +411,8 @@
           "normalized": "yt-dlp-2026.03.17-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
-          "variant": ""
+          "variant": "",
+          "sha256": "6cfba1af5147da0196d8c015961b1422bdd47fc2f9bb6df8cb4d1dc029939c51"
         },
         {
           "upstream": "yt-dlp_x86.exe",
@@ -377,7 +420,75 @@
           "normalized": "yt-dlp-2026.03.17-windows-i686.exe",
           "os": "windows",
           "arch": "i686",
-          "variant": ""
+          "variant": "",
+          "sha256": "d53f4b98a928da2d01fb598baa02b161bc387084c1fb4ed20971b567071a20a7"
+        }
+      ]
+    },
+    {
+      "name": "ffmpeg",
+      "version": "8.1",
+      "tag": "autobuild-2026-05-03-13-13",
+      "assets": [
+        {
+          "upstream": "ffmpeg-n8.1-11-g75d37c499d-linux64-gpl-8.1.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-05-03-13-13/ffmpeg-n8.1-11-g75d37c499d-linux64-gpl-8.1.tar.xz",
+          "normalized": "ffmpeg-8.1-linux-x86_64-gpl",
+          "os": "linux",
+          "arch": "x86_64",
+          "variant": "gpl",
+          "source_sha256": "f7e01ecb030b16d42682e08debfb24955d0034a4246b5e3bd94737a2eb547272",
+          "sha256": "0d3b814e892e52b8ef1169594763bd2e47f8c0dc2478107db4acbe458a49d6df"
+        },
+        {
+          "upstream": "ffmpeg-n8.1-11-g75d37c499d-linuxarm64-gpl-8.1.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-05-03-13-13/ffmpeg-n8.1-11-g75d37c499d-linuxarm64-gpl-8.1.tar.xz",
+          "normalized": "ffmpeg-8.1-linux-aarch64-gpl",
+          "os": "linux",
+          "arch": "aarch64",
+          "variant": "gpl",
+          "source_sha256": "ff919064dfc3f32c04f9c9368fbe2ff8ebc3d43fc5783179913f175726bc421a",
+          "sha256": "f2e882d9b1cc664b199992187f5a4f09ce83ca4a39e51f96e567a23273cff553"
+        },
+        {
+          "upstream": "ffmpeg-n8.1-11-g75d37c499d-win64-gpl-8.1.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-05-03-13-13/ffmpeg-n8.1-11-g75d37c499d-win64-gpl-8.1.zip",
+          "normalized": "ffmpeg-8.1-windows-x86_64-gpl.exe",
+          "os": "windows",
+          "arch": "x86_64",
+          "variant": "gpl",
+          "source_sha256": "8d6f568d83e70177568f42cb487238f74fa4b079b7cd36c92ff96c494f8fc380",
+          "sha256": "50ed505fde02244fab58aff9261b70b09c4c2f428f269927f70c7f1ac5e9641e"
+        },
+        {
+          "upstream": "ffmpeg-n8.1-11-g75d37c499d-winarm64-gpl-8.1.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-05-03-13-13/ffmpeg-n8.1-11-g75d37c499d-winarm64-gpl-8.1.zip",
+          "normalized": "ffmpeg-8.1-windows-aarch64-gpl.exe",
+          "os": "windows",
+          "arch": "aarch64",
+          "variant": "gpl",
+          "source_sha256": "7f94b1e87fd59755f3294a3170bd6bae230f38c8a7cbd4b92127ef0065b79b48",
+          "sha256": "98cbda07b9cb59cd98a9243cddf910e995b3e0cbb1217fc44afdc2fe492b7fca"
+        },
+        {
+          "upstream": "ffmpeg.zip",
+          "download_url": "https://ffmpeg.martin-riedl.de/download/macos/amd64/1774556648_8.1/ffmpeg.zip",
+          "normalized": "ffmpeg-8.1-darwin-x86_64-gpl",
+          "os": "darwin",
+          "arch": "x86_64",
+          "variant": "gpl",
+          "source_sha256": "eaa8aa619f8eccc7f548a730097f5d299cbf2d418888421c137557344d821130",
+          "sha256": "3980559c6560960c99bd9b051c1bb3537624f2b382547d4e8f2880003f3a40a6"
+        },
+        {
+          "upstream": "ffmpeg.zip",
+          "download_url": "https://ffmpeg.martin-riedl.de/download/macos/arm64/1774549676_8.1/ffmpeg.zip",
+          "normalized": "ffmpeg-8.1-darwin-aarch64-gpl",
+          "os": "darwin",
+          "arch": "aarch64",
+          "variant": "gpl",
+          "source_sha256": "cc3a7e0cce36c5eca6c17eeb93830984c657637a8e710dc98f19c8051201fa3a",
+          "sha256": "1dda5d1bdde134222dd02a00be649a8e7d0190922e4104b017d995c60f261926"
         }
       ]
     }

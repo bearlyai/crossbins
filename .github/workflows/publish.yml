@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y jq unzip
+        run: sudo apt-get update && sudo apt-get install -y jq unzip xz-utils
 
       - name: Update binaries
         run: ./update.sh
@@ -36,7 +36,7 @@ jobs:
         run: |
           tool_count=$(jq '.tools | length' binaries.lock.json)
           echo "Tools in lock: $tool_count"
-          [[ "$tool_count" -ge 4 ]] || { echo "ERROR: expected >= 4 tools"; exit 1; }
+          [[ "$tool_count" -ge 5 ]] || { echo "ERROR: expected >= 5 tools"; exit 1; }
           # Every tool has at least one asset
           empty=$(jq -r '.tools[] | select((.assets | length) == 0) | .name' binaries.lock.json)
           [[ -z "$empty" ]] || { echo "ERROR: tool with zero assets: $empty"; exit 1; }

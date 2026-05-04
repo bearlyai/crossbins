@@ -16,6 +16,54 @@ fi
 
 mkdir -p "$OUTPUT_DIR"
 
+sha256_file() {
+  local filepath="$1"
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$filepath" | awk '{print $1}'
+  else
+    shasum -a 256 "$filepath" | awk '{print $1}'
+  fi
+}
+
+append_locked_asset() {
+  local locked="$1" upstream="$2" download_url="$3" normalized="$4"
+  local os="$5" arch="$6" variant="$7" source_sha256="$8" output_sha256="$9"
+
+  echo "$locked" | jq \
+    --arg up "$upstream" \
+    --arg dl "$download_url" \
+    --arg norm "$normalized" \
+    --arg os "$os" \
+    --arg arch "$arch" \
+    --arg variant "$variant" \
+    --arg source_sha256 "$source_sha256" \
+    --arg output_sha256 "$output_sha256" \
+    '. + [({upstream: $up, download_url: $dl, normalized: $norm, os: $os, arch: $arch, variant: $variant}
+      + (if $source_sha256 != "" then {source_sha256: $source_sha256} else {} end)
+      + (if $output_sha256 != "" then {sha256: $output_sha256} else {} end))]'
+}
+
+verify_checksum() {
+  local checksum_file="$1" asset_name="$2" filepath="$3"
+  local expected actual
+
+  expected=$(awk -v asset="$asset_name" '$2 == asset { print $1; found=1; exit } END { if (!found) exit 1 }' "$checksum_file" || true)
+  if [[ -z "$expected" ]]; then
+    echo "  ERROR: checksum for $asset_name not found in $(basename "$checksum_file")" >&2
+    return 1
+  fi
+
+  actual=$(sha256_file "$filepath")
+  if [[ "$actual" != "$expected" ]]; then
+    echo "  ERROR: checksum mismatch for $asset_name" >&2
+    echo "    expected: $expected" >&2
+    echo "    actual:   $actual" >&2
+    return 1
+  fi
+
+  printf '%s' "$expected"
+}
+
 # Validate a binary is not empty, not HTML, and meets minimum size
 validate_binary() {
   local filepath="$1" name="$2"
@@ -55,22 +103,52 @@ for (( i=0; i<num_tools; i++ )); do
   name=$(jq -r ".tools[$i].name" "$CONFIG")
   repo=$(jq -r ".tools[$i].repo" "$CONFIG")
   binary_name=$(jq -r ".tools[$i].binary_name // empty" "$CONFIG")
+  release_tag_pattern=$(jq -r ".tools[$i].release_tag_pattern // empty" "$CONFIG")
+  version_probe_regex=$(jq -r ".tools[$i].version_probe_regex // empty" "$CONFIG")
+  checksum_asset=$(jq -r ".tools[$i].checksum_asset // empty" "$CONFIG")
 
   # Fetch latest stable release (first non-draft, non-prerelease)
   releases_json=$(curl -sfL "${CURL_AUTH[@]+"${CURL_AUTH[@]}"}" \
     "https://api.github.com/repos/$repo/releases?per_page=20")
 
-  release=$(echo "$releases_json" | jq -e 'map(select(.draft == false and .prerelease == false)) | first')
+  if [[ -n "$release_tag_pattern" ]]; then
+    release=$(echo "$releases_json" | jq -e --arg re "$release_tag_pattern" \
+      'map(select(.draft == false and .prerelease == false and (.tag_name | test($re)))) | first')
+  else
+    release=$(echo "$releases_json" | jq -e 'map(select(.draft == false and .prerelease == false)) | first')
+  fi
   tag=$(echo "$release" | jq -r '.tag_name')
 
   # Clean version: strip leading "v", "bun-v", etc.
-  clean_version="$tag"
-  clean_version="${clean_version#bun-v}"
-  clean_version="${clean_version#v}"
+  if [[ -n "$version_probe_regex" ]]; then
+    clean_version=$(echo "$release" | jq -r --arg re "$version_probe_regex" '
+      def version_key: split(".") | map(tonumber? // 0);
+      [.assets[].name | capture($re)? | .version] | unique | sort_by(version_key) | last // empty
+    ')
+    if [[ -z "$clean_version" ]]; then
+      echo "  ERROR: could not resolve version with version_probe_regex for $name"
+      exit 1
+    fi
+  else
+    clean_version="$tag"
+    clean_version="${clean_version#bun-v}"
+    clean_version="${clean_version#v}"
+  fi
 
   echo "=== $name: version $clean_version (tag: $tag) ==="
 
   locked_assets="[]"
+  checksum_file=""
+  if [[ -n "$checksum_asset" ]]; then
+    checksum_url=$(echo "$release" | jq -r \
+      --arg name "$checksum_asset" '.assets[] | select(.name == $name) | .browser_download_url')
+    if [[ -z "$checksum_url" ]]; then
+      echo "  ERROR: checksum asset '$checksum_asset' not found in release $tag"
+      exit 1
+    fi
+    checksum_file="$WORK_DIR/${name}_${checksum_asset}"
+    curl -fSL -o "$checksum_file" "$checksum_url"
+  fi
 
   # Check if tool uses explicit_assets mode
   has_explicit=$(jq -r ".tools[$i].explicit_assets // empty" "$CONFIG")
@@ -79,18 +157,43 @@ for (( i=0; i<num_tools; i++ )); do
     # --- explicit_assets mode (for tools like yt-dlp with non-standard naming) ---
     num_explicit=$(jq ".tools[$i].explicit_assets | length" "$CONFIG")
     for (( j=0; j<num_explicit; j++ )); do
-      asset_name=$(jq -r ".tools[$i].explicit_assets[$j].asset_name" "$CONFIG")
+      asset_name_tpl=$(jq -r ".tools[$i].explicit_assets[$j].asset_name // empty" "$CONFIG")
+      asset_regex_tpl=$(jq -r ".tools[$i].explicit_assets[$j].asset_regex // empty" "$CONFIG")
+      asset_url_tpl=$(jq -r ".tools[$i].explicit_assets[$j].url // empty" "$CONFIG")
+      checksum_url_tpl=$(jq -r ".tools[$i].explicit_assets[$j].checksum_url // empty" "$CONFIG")
+      checksum_name=$(jq -r ".tools[$i].explicit_assets[$j].checksum_name // empty" "$CONFIG")
+      version_check_regex_tpl=$(jq -r ".tools[$i].explicit_assets[$j].version_check_regex // empty" "$CONFIG")
+      is_direct=0
+      downloaded_file=""
+
+      if [[ -n "$asset_url_tpl" ]]; then
+        is_direct=1
+        download_url="${asset_url_tpl//\{VERSION\}/$clean_version}"
+        asset_name=""
+      elif [[ -n "$asset_regex_tpl" ]]; then
+        asset_regex="${asset_regex_tpl//\{VERSION\}/$clean_version}"
+        asset_name=$(echo "$release" | jq -r --arg re "$asset_regex" \
+          '[.assets[].name | select(test($re))] | sort | last // empty')
+        if [[ -z "$asset_name" ]]; then
+          echo "  ERROR: no asset matched regex '$asset_regex' in release $tag"
+          exit 1
+        fi
+      else
+        asset_name="${asset_name_tpl//\{VERSION\}/$clean_version}"
+      fi
       source_type=$(jq -r ".tools[$i].explicit_assets[$j].source_type" "$CONFIG")
       os=$(jq -r ".tools[$i].explicit_assets[$j].os" "$CONFIG")
       arch=$(jq -r ".tools[$i].explicit_assets[$j].arch" "$CONFIG")
       variant=$(jq -r ".tools[$i].explicit_assets[$j].variant // empty" "$CONFIG")
 
-      # Find this asset in the release — fail hard if missing
-      download_url=$(echo "$release" | jq -r \
-        --arg name "$asset_name" '.assets[] | select(.name == $name) | .browser_download_url')
-      if [[ -z "$download_url" ]]; then
-        echo "  ERROR: expected asset '$asset_name' not found in release $tag"
-        exit 1
+      if [[ "$is_direct" -eq 0 ]]; then
+        # Find this asset in the release — fail hard if missing
+        download_url=$(echo "$release" | jq -r \
+          --arg name "$asset_name" '.assets[] | select(.name == $name) | .browser_download_url')
+        if [[ -z "$download_url" ]]; then
+          echo "  ERROR: expected asset '$asset_name' not found in release $tag"
+          exit 1
+        fi
       fi
 
       # Build normalized name
@@ -100,20 +203,55 @@ for (( i=0; i<num_tools; i++ )); do
       [[ -n "$variant" ]] && variant_part="-${variant}"
       normalized="${name}-${clean_version}-${os}-${arch}${variant_part}${suffix}"
 
+      # Download
+      if [[ "$is_direct" -eq 1 ]]; then
+        downloaded_file="$WORK_DIR/direct_${name}_${j}"
+        effective_url=$(curl -fL -w '%{url_effective}' -o "$downloaded_file" "$download_url")
+        download_url="$effective_url"
+        asset_name=$(basename "${effective_url%%\?*}")
+        if [[ -z "$checksum_name" ]]; then
+          checksum_name="$asset_name"
+        fi
+        if [[ -n "$version_check_regex_tpl" ]]; then
+          version_check_regex="${version_check_regex_tpl//\{VERSION\}/$clean_version}"
+          if ! [[ "$download_url" =~ $version_check_regex ]]; then
+            echo "  ERROR: direct asset URL '$download_url' did not match version_check_regex '$version_check_regex'"
+            exit 1
+          fi
+        fi
+      else
+        downloaded_file="$WORK_DIR/$asset_name"
+        curl -fSL -o "$downloaded_file" "$download_url"
+      fi
+
       echo "  $asset_name -> $normalized"
 
-      # Download
-      curl -fSL -o "$WORK_DIR/$asset_name" "$download_url"
+      expected_sha256=""
+      if [[ "$is_direct" -eq 1 && -n "$checksum_url_tpl" ]]; then
+        direct_checksum_url="${checksum_url_tpl//\{EFFECTIVE_URL\}/$download_url}"
+        direct_checksum_url="${direct_checksum_url//\{VERSION\}/$clean_version}"
+        direct_checksum_file="$WORK_DIR/direct_${name}_${j}.sha256"
+        curl -fSL -o "$direct_checksum_file" "$direct_checksum_url"
+        expected_sha256=$(verify_checksum "$direct_checksum_file" "$checksum_name" "$downloaded_file")
+      elif [[ -n "$checksum_file" ]]; then
+        expected_sha256=$(verify_checksum "$checksum_file" "$asset_name" "$downloaded_file")
+      fi
 
       if [[ "$source_type" == "raw" ]]; then
         # Raw binary — just copy directly
-        cp "$WORK_DIR/$asset_name" "$OUTPUT_DIR/$normalized"
+        cp "$downloaded_file" "$OUTPUT_DIR/$normalized"
         chmod +x "$OUTPUT_DIR/$normalized"
-      elif [[ "$source_type" == "zip" ]]; then
-        # Zip archive — extract and find binary
+      elif [[ "$source_type" == "zip" || "$source_type" == "tar.gz" || "$source_type" == "tar.xz" ]]; then
+        # Archive — extract and find binary
         extract_dir="$WORK_DIR/extract_${RANDOM}"
         mkdir -p "$extract_dir"
-        unzip -q "$WORK_DIR/$asset_name" -d "$extract_dir"
+        if [[ "$source_type" == "zip" ]]; then
+          unzip -q "$downloaded_file" -d "$extract_dir"
+        elif [[ "$source_type" == "tar.gz" ]]; then
+          tar xzf "$downloaded_file" -C "$extract_dir"
+        elif [[ "$source_type" == "tar.xz" ]]; then
+          tar xJf "$downloaded_file" -C "$extract_dir"
+        fi
         # Per-asset binary_name override, fall back to tool-level binary_name
         asset_binary_name=$(jq -r ".tools[$i].explicit_assets[$j].binary_name // empty" "$CONFIG")
         bin_find="${asset_binary_name:-$binary_name}"
@@ -126,24 +264,21 @@ for (( i=0; i<num_tools; i++ )); do
         cp "$found" "$OUTPUT_DIR/$normalized"
         chmod +x "$OUTPUT_DIR/$normalized"
         rm -rf "$extract_dir"
+      else
+        echo "  ERROR: unsupported source_type '$source_type' for $asset_name"
+        exit 1
       fi
-      rm -f "$WORK_DIR/$asset_name"
+      rm -f "$downloaded_file"
 
       # Validate the output binary
       if ! validate_binary "$OUTPUT_DIR/$normalized" "$normalized"; then
         rm -f "$OUTPUT_DIR/$normalized"
         exit 1
       fi
+      output_sha256=$(sha256_file "$OUTPUT_DIR/$normalized")
 
       # Append to locked assets array
-      locked_assets=$(echo "$locked_assets" | jq \
-        --arg up "$asset_name" \
-        --arg dl "$download_url" \
-        --arg norm "$normalized" \
-        --arg os "$os" \
-        --arg arch "$arch" \
-        --arg variant "$variant" \
-        '. + [{upstream: $up, download_url: $dl, normalized: $norm, os: $os, arch: $arch, variant: $variant}]')
+      locked_assets=$(append_locked_asset "$locked_assets" "$asset_name" "$download_url" "$normalized" "$os" "$arch" "$variant" "$expected_sha256" "$output_sha256")
     done
   else
     # --- triple_map mode (archive-based tools like rg, bun, uv) ---
@@ -158,6 +293,8 @@ for (( i=0; i<num_tools; i++ )); do
       ext=""
       if [[ "$asset_name" == *.tar.gz ]]; then
         ext=".tar.gz"
+      elif [[ "$asset_name" == *.tar.xz ]]; then
+        ext=".tar.xz"
       elif [[ "$asset_name" == *.zip ]]; then
         ext=".zip"
       else
@@ -194,11 +331,18 @@ for (( i=0; i<num_tools; i++ )); do
       # Download
       curl -fSL -o "$WORK_DIR/$asset_name" "$download_url"
 
+      expected_sha256=""
+      if [[ -n "$checksum_file" ]]; then
+        expected_sha256=$(verify_checksum "$checksum_file" "$asset_name" "$WORK_DIR/$asset_name")
+      fi
+
       # Extract
       extract_dir="$WORK_DIR/extract_${RANDOM}"
       mkdir -p "$extract_dir"
       if [[ "$ext" == ".tar.gz" ]]; then
         tar xzf "$WORK_DIR/$asset_name" -C "$extract_dir"
+      elif [[ "$ext" == ".tar.xz" ]]; then
+        tar xJf "$WORK_DIR/$asset_name" -C "$extract_dir"
       elif [[ "$ext" == ".zip" ]]; then
         unzip -q "$WORK_DIR/$asset_name" -d "$extract_dir"
       fi
@@ -223,16 +367,10 @@ for (( i=0; i<num_tools; i++ )); do
         rm -f "$OUTPUT_DIR/$normalized"
         continue
       fi
+      output_sha256=$(sha256_file "$OUTPUT_DIR/$normalized")
 
       # Append to locked assets array
-      locked_assets=$(echo "$locked_assets" | jq \
-        --arg up "$asset_name" \
-        --arg dl "$download_url" \
-        --arg norm "$normalized" \
-        --arg os "$os" \
-        --arg arch "$arch" \
-        --arg variant "$variant" \
-        '. + [{upstream: $up, download_url: $dl, normalized: $norm, os: $os, arch: $arch, variant: $variant}]')
+      locked_assets=$(append_locked_asset "$locked_assets" "$asset_name" "$download_url" "$normalized" "$os" "$arch" "$variant" "$expected_sha256" "$output_sha256")
 
     done < <(echo "$release" | jq -c '.assets[]')
   fi
@@ -259,8 +397,8 @@ if [[ -z "$old_release_tag" ]]; then
   new_release_tag="$today"
   echo "Initial release tag: $new_release_tag"
 elif [[ -f "$LOCK_FILE" ]]; then
-  old_tools_sig=$(jq -r '[.tools[] | "\(.name):\(.version)"] | sort | join(",")' "$LOCK_FILE")
-  new_tools_sig=$(echo "$lock_json" | jq -r '[.tools[] | "\(.name):\(.version)"] | sort | join(",")')
+  old_tools_sig=$(jq -c '[.tools[] | {name, version, tag, assets: [.assets[] | {upstream, normalized, source_sha256: (.source_sha256 // ""), sha256: (.sha256 // "")}]}] | sort_by(.name)' "$LOCK_FILE")
+  new_tools_sig=$(echo "$lock_json" | jq -c '[.tools[] | {name, version, tag, assets: [.assets[] | {upstream, normalized, source_sha256: (.source_sha256 // ""), sha256: (.sha256 // "")}]}] | sort_by(.name)')
   if [[ "$old_tools_sig" != "$new_tools_sig" ]]; then
     new_release_tag="$today"
     echo "Versions changed, new release tag: $old_release_tag -> $new_release_tag"
