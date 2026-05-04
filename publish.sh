@@ -26,14 +26,6 @@ for (( i=0; i<num_tools; i++ )); do
   release_body+="- **${name}** ${version}"$'\n'
 done
 
-# Check if release already exists
-http_code=$(curl -s -o /dev/null -w '%{http_code}' "${CURL_COMMON[@]}" \
-  "${API_BASE}/releases/tags/$release_tag")
-if [[ "$http_code" == "200" ]]; then
-  echo "Release $release_tag already exists, nothing to do"
-  exit 0
-fi
-
 # Validate all binaries before creating the release
 echo "Validating binaries before publish..."
 missing=0
@@ -79,25 +71,60 @@ if [[ "$missing" -gt 0 || "$invalid" -gt 0 ]]; then
 fi
 echo "  All binaries validated"
 
-echo "Creating release $release_tag ..."
 echo "  Repo: $REPO"
 
-# Create release
-release_response=$(curl -s -w '\n%{http_code}' -X POST "${CURL_COMMON[@]}" \
-  -H "Content-Type: application/json" \
-  -d "$(jq -n \
-    --arg tag "$release_tag" \
-    --arg rname "Binary set ${release_tag}" \
-    --arg body "$release_body" \
-    '{tag_name: $tag, name: $rname, body: $body, draft: false, prerelease: false}')" \
-  "${API_BASE}/releases")
+delete_existing_asset() {
+  local asset_name="$1"
+  local asset_id="" page=1
 
-# Split response body and HTTP status code
-http_code=$(echo "$release_response" | tail -1)
-response_body=$(echo "$release_response" | sed '$d')
+  while [[ "$page" -le 5 ]]; do
+    asset_id=$(curl -sfL "${CURL_COMMON[@]}" \
+      "${API_BASE}/releases/${release_id}/assets?per_page=100&page=${page}" |
+      jq -r --arg name "$asset_name" '.[] | select(.name == $name) | .id' | head -1)
+    [[ -n "$asset_id" ]] && break
+    (( page++ ))
+  done
+
+  if [[ -n "$asset_id" ]]; then
+    curl -sfL -X DELETE "${CURL_COMMON[@]}" \
+      "${API_BASE}/releases/assets/${asset_id}" > /dev/null
+  fi
+}
+
+# Create release, or update the existing same-day release when automation already ran.
+release_lookup=$(curl -s -w '\n%{http_code}' "${CURL_COMMON[@]}" \
+  "${API_BASE}/releases/tags/$release_tag")
+http_code=$(echo "$release_lookup" | tail -1)
+response_body=$(echo "$release_lookup" | sed '$d')
+
+if [[ "$http_code" == "200" ]]; then
+  echo "Updating existing release $release_tag ..."
+  existing_release_id=$(echo "$response_body" | jq -r '.id')
+  release_response=$(curl -s -w '\n%{http_code}' -X PATCH "${CURL_COMMON[@]}" \
+    -H "Content-Type: application/json" \
+    -d "$(jq -n \
+      --arg rname "Binary set ${release_tag}" \
+      --arg body "$release_body" \
+      '{name: $rname, body: $body, draft: false, prerelease: false}')" \
+    "${API_BASE}/releases/${existing_release_id}")
+  http_code=$(echo "$release_response" | tail -1)
+  response_body=$(echo "$release_response" | sed '$d')
+else
+  echo "Creating release $release_tag ..."
+  release_response=$(curl -s -w '\n%{http_code}' -X POST "${CURL_COMMON[@]}" \
+    -H "Content-Type: application/json" \
+    -d "$(jq -n \
+      --arg tag "$release_tag" \
+      --arg rname "Binary set ${release_tag}" \
+      --arg body "$release_body" \
+      '{tag_name: $tag, name: $rname, body: $body, draft: false, prerelease: false}')" \
+    "${API_BASE}/releases")
+  http_code=$(echo "$release_response" | tail -1)
+  response_body=$(echo "$release_response" | sed '$d')
+fi
 
 if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
-  echo "ERROR: failed to create release (HTTP $http_code)"
+  echo "ERROR: failed to create/update release (HTTP $http_code)"
   echo "$response_body"
   exit 1
 fi
@@ -126,6 +153,7 @@ for (( i=0; i<num_tools; i++ )); do
     filesize=$(wc -c < "$filepath" | tr -d ' ')
     echo "  Uploading $normalized (${filesize} bytes) ..."
 
+    delete_existing_asset "$normalized"
     upload_response=$(curl -s -w '\n%{http_code}' -X POST \
       -H "Authorization: token $GITHUB_TOKEN" \
       -H "Content-Type: application/octet-stream" \
@@ -165,6 +193,7 @@ for (( i=0; i<num_tools; i++ )); do
     [[ -n "$variant" ]] && variant_part="-${variant}"
     latest_name="${name}-${os}-${arch}${variant_part}${suffix}"
 
+    delete_existing_asset "$latest_name"
     curl -s -w '\n%{http_code}' -X POST \
       -H "Authorization: token $GITHUB_TOKEN" \
       -H "Content-Type: application/octet-stream" \
@@ -218,6 +247,7 @@ manifest=$(jq -n \
 }')
 
 echo "$manifest" > "$OUTPUT_DIR/manifest.json"
+delete_existing_asset "manifest.json"
 curl -s -w '\n%{http_code}' -X POST \
   -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/octet-stream" \
