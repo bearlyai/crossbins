@@ -89,8 +89,8 @@
         { "asset_regex": "^ffmpeg-n.*-linuxarm64-gpl-{VERSION}\\.tar\\.xz$",  "source_type": "tar.xz", "os": "linux",   "arch": "aarch64", "variant": "gpl" },
         { "asset_regex": "^ffmpeg-n.*-win64-gpl-{VERSION}\\.zip$",            "source_type": "zip",    "os": "windows", "arch": "x86_64",  "variant": "gpl" },
         { "asset_regex": "^ffmpeg-n.*-winarm64-gpl-{VERSION}\\.zip$",         "source_type": "zip",    "os": "windows", "arch": "aarch64", "variant": "gpl" },
-        { "url": "https://ffmpeg.martin-riedl.de/redirect/latest/macos/amd64/release/ffmpeg.zip", "checksum_url": "{EFFECTIVE_URL}.sha256", "checksum_name": "ffmpeg.zip", "version_check_regex": "_{VERSION}/", "source_type": "zip", "os": "darwin", "arch": "x86_64", "variant": "gpl" },
-        { "url": "https://ffmpeg.martin-riedl.de/redirect/latest/macos/arm64/release/ffmpeg.zip", "checksum_url": "{EFFECTIVE_URL}.sha256", "checksum_name": "ffmpeg.zip", "version_check_regex": "_{VERSION}/", "source_type": "zip", "os": "darwin", "arch": "aarch64", "variant": "gpl" }
+        { "url": "https://ffmpeg.martin-riedl.de/redirect/latest/macos/amd64/release/ffmpeg.zip", "checksum_url": "{EFFECTIVE_URL}.sha256", "checksum_name": "ffmpeg.zip", "version_check_regex": "_{VERSION}(\\.[0-9]+)?/", "source_type": "zip", "os": "darwin", "arch": "x86_64", "variant": "gpl" },
+        { "url": "https://ffmpeg.martin-riedl.de/redirect/latest/macos/arm64/release/ffmpeg.zip", "checksum_url": "{EFFECTIVE_URL}.sha256", "checksum_name": "ffmpeg.zip", "version_check_regex": "_{VERSION}(\\.[0-9]+)?/", "source_type": "zip", "os": "darwin", "arch": "aarch64", "variant": "gpl" }
       ]
     }
   ]
