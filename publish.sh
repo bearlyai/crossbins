@@ -17,6 +17,54 @@ API_BASE="https://api.github.com/repos/${REPO}"
 # Read release tag from lock file
 release_tag=$(jq -r '.release_tag' "$LOCK_FILE")
 
+# python3 + openssl confirm Windows binaries are signed by Bearly before publish.
+command -v python3 >/dev/null 2>&1 || { echo "ERROR: python3 is required to verify Windows signatures" >&2; exit 1; }
+command -v openssl >/dev/null 2>&1 || { echo "ERROR: openssl is required to verify Windows signatures" >&2; exit 1; }
+
+sha256_file() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | awk '{print $1}'
+  else
+    shasum -a 256 "$1" | awk '{print $1}'
+  fi
+}
+
+# True only when the PE carries an Authenticode signature whose certificate chain
+# includes "Bearly, Inc." — the publisher identity enterprises allow-list. A bare
+# presence check is too weak: some upstream binaries (e.g. bun) already ship signed
+# under a *different* publisher, which would not satisfy a Bearly allow-list.
+pe_signed_by_bearly() {
+  local filepath="$1" der
+  der=$(mktemp)
+  # Extract the embedded PKCS#7 (strip the 8-byte WIN_CERTIFICATE header -> DER).
+  if ! python3 - "$filepath" >"$der" <<'PY'
+import struct, sys
+try:
+    data = open(sys.argv[1], "rb").read()
+    pe = struct.unpack_from("<I", data, 0x3C)[0]
+    if data[pe:pe + 4] != b"PE\0\0":
+        sys.exit(2)
+    magic = struct.unpack_from("<H", data, pe + 24)[0]
+    dirs = pe + 24 + (112 if magic == 0x20b else 96)  # data directory array (PE32+ vs PE32)
+    off, size = struct.unpack_from("<II", data, dirs + 4 * 8)  # entry 4 = IMAGE_DIRECTORY_ENTRY_SECURITY
+    if size == 0:
+        sys.exit(1)  # unsigned
+    sys.stdout.buffer.write(data[off + 8: off + size])
+except Exception:
+    sys.exit(3)
+PY
+  then
+    rm -f "$der"
+    return 1
+  fi
+  if openssl pkcs7 -inform DER -in "$der" -print_certs -noout 2>/dev/null | grep -qi "Bearly, Inc\."; then
+    rm -f "$der"
+    return 0
+  fi
+  rm -f "$der"
+  return 1
+}
+
 # Build release body with tool versions
 release_body="Binary set ${release_tag}"$'\n\n'
 num_tools=$(jq '.tools | length' "$LOCK_FILE")
@@ -42,6 +90,7 @@ for (( i=0; i<num_tools; i++ )); do
 
   for (( j=0; j<num_assets; j++ )); do
     normalized=$(jq -r ".tools[$i].assets[$j].normalized" "$LOCK_FILE")
+    os=$(jq -r ".tools[$i].assets[$j].os" "$LOCK_FILE")
     filepath="$OUTPUT_DIR/$normalized"
 
     if [[ ! -f "$filepath" ]]; then
@@ -59,6 +108,13 @@ for (( i=0; i<num_tools; i++ )); do
 
     if head -c 256 "$filepath" | grep -qi '<!doctype\|<html'; then
       echo "  ERROR: $normalized appears to be HTML, not a binary"
+      (( invalid++ ))
+      continue
+    fi
+
+    # Never publish a Windows binary that isn't signed by Bearly — the whole point.
+    if [[ "$os" == "windows" ]] && ! pe_signed_by_bearly "$filepath"; then
+      echo "  ERROR: $normalized is not signed by \"Bearly, Inc.\" (run ./sign-windows.sh before publishing)"
       (( invalid++ ))
       continue
     fi
@@ -208,10 +264,26 @@ done
 # Generate and upload manifest.json
 download_base="https://github.com/${REPO}/releases/latest/download"
 
+# Hash the files we actually uploaded so the manifest reflects post-signing bytes.
+# The lock's sha256 is the *unsigned* output hash (it anchors release-tag change
+# detection in update.sh and must stay signing-independent), so it can't be trusted
+# for the manifest once Windows binaries are signed.
+hashes_json="{}"
+for (( i=0; i<num_tools; i++ )); do
+  num_assets=$(jq ".tools[$i].assets | length" "$LOCK_FILE")
+  for (( j=0; j<num_assets; j++ )); do
+    normalized=$(jq -r ".tools[$i].assets[$j].normalized" "$LOCK_FILE")
+    filepath="$OUTPUT_DIR/$normalized"
+    [[ -f "$filepath" ]] || continue
+    hashes_json=$(jq --arg n "$normalized" --arg h "$(sha256_file "$filepath")" '. + {($n): $h}' <<<"$hashes_json")
+  done
+done
+
 # Build manifest with jq — includes full URLs and platform mapping for consumers
 manifest=$(jq -n \
   --arg base "$download_base" \
   --arg tag "$release_tag" \
+  --argjson hashes "$hashes_json" \
   --slurpfile lock "$LOCK_FILE" \
 '
 {
@@ -234,7 +306,7 @@ manifest=$(jq -n \
           os,
           arch,
           variant,
-          sha256: (.sha256 // ""),
+          sha256: ($hashes[.normalized] // .sha256 // ""),
           url: (
             $base + "/" + $tool.name + "-" + .os + "-" + .arch
             + (if .variant != "" then "-" + .variant else "" end)

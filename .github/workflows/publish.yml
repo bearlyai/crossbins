@@ -41,6 +41,21 @@ jobs:
           empty=$(jq -r '.tools[] | select((.assets | length) == 0) | .name' binaries.lock.json)
           [[ -z "$empty" ]] || { echo "ERROR: tool with zero assets: $empty"; exit 1; }
 
+      - name: Set up Java for signing
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Sign Windows binaries (Azure Trusted Signing)
+        run: ./sign-windows.sh
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          TRUSTED_SIGNING_ACCOUNT: ${{ secrets.TRUSTED_SIGNING_ACCOUNT }}
+          TRUSTED_SIGNING_PROFILE: ${{ secrets.TRUSTED_SIGNING_PROFILE }}
+
       - name: Publish releases
         run: ./publish.sh
         env:
