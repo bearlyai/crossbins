@@ -26,7 +26,10 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 OUTPUT_DIR="$SCRIPT_DIR/output"
 CACHE_DIR="$SCRIPT_DIR/.cache"
 
-ENDPOINT="${TRUSTED_SIGNING_ENDPOINT:-https://eus.codesigning.azure.net/}"
+# Strip any trailing slash: jsign appends "/codesigningaccounts/..." to this, and a
+# trailing slash here yields a double slash that the signing API rejects with HTTP 404.
+ENDPOINT="${TRUSTED_SIGNING_ENDPOINT:-https://eus.codesigning.azure.net}"
+ENDPOINT="${ENDPOINT%/}"
 ACCOUNT="${TRUSTED_SIGNING_ACCOUNT:-}"
 PROFILE="${TRUSTED_SIGNING_PROFILE:-}"
 
