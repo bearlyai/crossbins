@@ -1,5 +1,5 @@
 {
-  "release_tag": "2026-06-15",
+  "release_tag": "2026-06-22",
   "tools": [
     {
       "name": "rg",
@@ -179,161 +179,161 @@
     },
     {
       "name": "uv",
-      "version": "0.11.21",
-      "tag": "0.11.21",
+      "version": "0.11.23",
+      "tag": "0.11.23",
       "assets": [
         {
           "upstream": "uv-aarch64-apple-darwin.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-aarch64-apple-darwin.tar.gz",
-          "normalized": "uv-0.11.21-darwin-aarch64",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-aarch64-apple-darwin.tar.gz",
+          "normalized": "uv-0.11.23-darwin-aarch64",
           "os": "darwin",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "a25cb7a6721d0ddc84f048697ee53fd6910bf02db5259b8c78217326b964c58c"
+          "sha256": "1cdf5520b22940540e5e0a650ed95a7674ab91f7465285f60a92716e269de08d"
         },
         {
           "upstream": "uv-aarch64-pc-windows-msvc.zip",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-aarch64-pc-windows-msvc.zip",
-          "normalized": "uv-0.11.21-windows-aarch64.exe",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-aarch64-pc-windows-msvc.zip",
+          "normalized": "uv-0.11.23-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "3c2beb98ad06f4d30238d9070ee48ad7afc91a71b88f19e548930e921a4ba7c3"
+          "sha256": "f210589bde907754c0fcc9bfbf333a6c2ee97505e3ea4dda3ae605a101797e54"
         },
         {
           "upstream": "uv-aarch64-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-aarch64-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.11.21-linux-aarch64",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-aarch64-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.11.23-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "ae68aa0bc3a34008330f168c9a178e7062d8b4dcedacace9015eebc91afb963f"
+          "sha256": "90a14571e0c40327c7f2579dcd22c7d593e60be13b39cd82020b380d0b55e008"
         },
         {
           "upstream": "uv-aarch64-unknown-linux-musl.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-aarch64-unknown-linux-musl.tar.gz",
-          "normalized": "uv-0.11.21-linux-aarch64-musl",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-aarch64-unknown-linux-musl.tar.gz",
+          "normalized": "uv-0.11.23-linux-aarch64-musl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "musl",
-          "sha256": "4e29559ed3f6ab73d5ad58962c32e155e8966a4b720f39cb19d284195dc6e724"
+          "sha256": "b6918803c412d819a45646ca2aab66135b9921840f7ae6a1909ed755c299bd3e"
         },
         {
           "upstream": "uv-arm-unknown-linux-musleabihf.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-arm-unknown-linux-musleabihf.tar.gz",
-          "normalized": "uv-0.11.21-linux-arm-musl",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-arm-unknown-linux-musleabihf.tar.gz",
+          "normalized": "uv-0.11.23-linux-arm-musl",
           "os": "linux",
           "arch": "arm",
           "variant": "musl",
-          "sha256": "5990093b2e27c56e3b7bd530910667515df278623d3cea9c85553e9d786e8b7c"
+          "sha256": "11b264e23bf592fc2cfd2bf1e5d4f7e6753c96aeecb0f7e5a56a6c728f12457e"
         },
         {
           "upstream": "uv-armv7-unknown-linux-gnueabihf.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-armv7-unknown-linux-gnueabihf.tar.gz",
-          "normalized": "uv-0.11.21-linux-armv7",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-armv7-unknown-linux-gnueabihf.tar.gz",
+          "normalized": "uv-0.11.23-linux-armv7",
           "os": "linux",
           "arch": "armv7",
           "variant": "",
-          "sha256": "3e768c78b8d0abec344a6d0829d5fa0543397b499aa21046577a568aacf7dccd"
+          "sha256": "bfd54725043b676ce0bdfefa8902ef1757595af8acb32221c0b9585f93120c38"
         },
         {
           "upstream": "uv-armv7-unknown-linux-musleabihf.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-armv7-unknown-linux-musleabihf.tar.gz",
-          "normalized": "uv-0.11.21-linux-armv7-musl",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-armv7-unknown-linux-musleabihf.tar.gz",
+          "normalized": "uv-0.11.23-linux-armv7-musl",
           "os": "linux",
           "arch": "armv7",
           "variant": "musl",
-          "sha256": "068c36489e233bdea23215b52ef4f64fcfb073841378f8d05049c806256ce0e6"
+          "sha256": "2955a1c3572f6b4f7ddc3fa90393ba709cd8b4f782653cb9c0fb9725372caa90"
         },
         {
           "upstream": "uv-i686-pc-windows-msvc.zip",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-i686-pc-windows-msvc.zip",
-          "normalized": "uv-0.11.21-windows-i686.exe",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-i686-pc-windows-msvc.zip",
+          "normalized": "uv-0.11.23-windows-i686.exe",
           "os": "windows",
           "arch": "i686",
           "variant": "",
-          "sha256": "525618e436103239f5563ee90923da68e7d7f4cafd24fc95113db80517dd1de9"
+          "sha256": "3e57f18685161ec6d19dfefa1477d5d7fc49883e9f154b6b6f7b1efec239aa70"
         },
         {
           "upstream": "uv-i686-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-i686-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.11.21-linux-i686",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-i686-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.11.23-linux-i686",
           "os": "linux",
           "arch": "i686",
           "variant": "",
-          "sha256": "50624c6c0753fcb5bf815ad3489160affd0f3e5438c0fc354d1a14c44893f906"
+          "sha256": "853d291792571e015675fdb81e1d5656fbee45ced16c6974e3e50b48f3e1ea5d"
         },
         {
           "upstream": "uv-i686-unknown-linux-musl.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-i686-unknown-linux-musl.tar.gz",
-          "normalized": "uv-0.11.21-linux-i686-musl",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-i686-unknown-linux-musl.tar.gz",
+          "normalized": "uv-0.11.23-linux-i686-musl",
           "os": "linux",
           "arch": "i686",
           "variant": "musl",
-          "sha256": "f9c73328c9ed86bc4591644c3864564375a7ea8f6af2f90e56320a4b443927ad"
+          "sha256": "bfae858e89a0c970012fb4dc946db38185979c6255bdac6e2416d0f6cd065f2b"
         },
         {
           "upstream": "uv-powerpc64le-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-powerpc64le-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.11.21-linux-ppc64le",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-powerpc64le-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.11.23-linux-ppc64le",
           "os": "linux",
           "arch": "ppc64le",
           "variant": "",
-          "sha256": "e8662802b34e524caabf0742ca901fd3d5920bf4196e65ce0258f01baee1c434"
+          "sha256": "9097cb6e029edca11f781384f16b3678ea6624a95855254654c581ba3c888745"
         },
         {
           "upstream": "uv-riscv64gc-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-riscv64gc-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.11.21-linux-riscv64",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-riscv64gc-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.11.23-linux-riscv64",
           "os": "linux",
           "arch": "riscv64",
           "variant": "",
-          "sha256": "627f03ac0582f4f810c266b9c16424e7937113eea3189768defa9e3f2ab2c767"
+          "sha256": "f6982ba1e4542f5607076d1d5a583566c646a93b75a7ca3db2136e48b9bf19cd"
         },
         {
           "upstream": "uv-s390x-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-s390x-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.11.21-linux-s390x",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-s390x-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.11.23-linux-s390x",
           "os": "linux",
           "arch": "s390x",
           "variant": "",
-          "sha256": "e0e36b20c1c5fd252b9bf925a9fa612d3a65853c848ef943b08bdd85ce4b1248"
+          "sha256": "b517c3e28cf526326ff5a2c7f1cfaa8c689382661516dcc5c105f9e9aef9a772"
         },
         {
           "upstream": "uv-x86_64-apple-darwin.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-x86_64-apple-darwin.tar.gz",
-          "normalized": "uv-0.11.21-darwin-x86_64",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-apple-darwin.tar.gz",
+          "normalized": "uv-0.11.23-darwin-x86_64",
           "os": "darwin",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "2a2b19fa1e5a1c61fe3613298474405e3f0a0f1131962645317841b0cacac16b"
+          "sha256": "8418ccc18437bea4a7234441f6925bb64c62baeb6e2cfb13418792c51f785c52"
         },
         {
           "upstream": "uv-x86_64-pc-windows-msvc.zip",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-x86_64-pc-windows-msvc.zip",
-          "normalized": "uv-0.11.21-windows-x86_64.exe",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-pc-windows-msvc.zip",
+          "normalized": "uv-0.11.23-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "5a7ec85884c2ccb1be560cb8fac3eb890df1adf49bfcc070a270ba70401bdd68"
+          "sha256": "2a406d26f0f696d47314e5940006d99a3c450890383a0463ca776f3e47bbcf22"
         },
         {
           "upstream": "uv-x86_64-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-x86_64-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.11.21-linux-x86_64",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-unknown-linux-gnu.tar.gz",
+          "normalized": "uv-0.11.23-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "2856d1bf7e5bcfba7df20ae6f939340ae1f8022d2d103cada1a6da597df86e32"
+          "sha256": "8bec1053d461e6b62f062419e62daa65ab7430884829d6fafcb7157b76edb7a2"
         },
         {
           "upstream": "uv-x86_64-unknown-linux-musl.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-x86_64-unknown-linux-musl.tar.gz",
-          "normalized": "uv-0.11.21-linux-x86_64-musl",
+          "download_url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-unknown-linux-musl.tar.gz",
+          "normalized": "uv-0.11.23-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "musl",
-          "sha256": "ddb3caa7471ace2a7a584917ee3fa2616693bd4c07f0a1c97ab380a2f52ff893"
+          "sha256": "4d0b5f6db966bcf1f35541f4697043608aef8c0eccce2bc22270a9f7a861b8eb"
         }
       ]
     },
@@ -428,47 +428,47 @@
     {
       "name": "ffmpeg",
       "version": "8.1",
-      "tag": "autobuild-2026-06-14-13-33",
+      "tag": "autobuild-2026-06-21-13-34",
       "assets": [
         {
-          "upstream": "ffmpeg-n8.1.1-117-g7aecd49777-linux64-gpl-8.1.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-14-13-33/ffmpeg-n8.1.1-117-g7aecd49777-linux64-gpl-8.1.tar.xz",
+          "upstream": "ffmpeg-n8.1.2-linux64-gpl-8.1.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-21-13-34/ffmpeg-n8.1.2-linux64-gpl-8.1.tar.xz",
           "normalized": "ffmpeg-8.1-linux-x86_64-gpl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "1d9609f3fd29f9eeffafaad1154c8edd24d11d445fd9744d0e345bfd0e3cd425",
-          "sha256": "d098f46d28d5f8efa00700c0365dc61603957172c796a9963708da15ac06f878"
+          "source_sha256": "55d3a917973ef59f2685fee6635abc7ddd0d4736c27ccd5f6ea679afd719e729",
+          "sha256": "13bae1a5f9b2a321d103980a9804038639e62a7b3c3ee6c52fd462c904306748"
         },
         {
-          "upstream": "ffmpeg-n8.1.1-117-g7aecd49777-linuxarm64-gpl-8.1.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-14-13-33/ffmpeg-n8.1.1-117-g7aecd49777-linuxarm64-gpl-8.1.tar.xz",
+          "upstream": "ffmpeg-n8.1.2-linuxarm64-gpl-8.1.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-21-13-34/ffmpeg-n8.1.2-linuxarm64-gpl-8.1.tar.xz",
           "normalized": "ffmpeg-8.1-linux-aarch64-gpl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "1ee20b3ac8a57e54c6da641db54997929804cfc0fd11bf46b9d2a54a6bf4f048",
-          "sha256": "9a79ebf08add638fa52cf1a89d65059cb1b2a298c428478716b37b3d94ebed35"
+          "source_sha256": "cd926baf77bd9348dbdaf52d29ef9baf944181a315c7221d8319c3455e734afd",
+          "sha256": "84f9b44f6ddf1a2c57d684d44a95cd04d0d13c1bf4d06bb6dd57474d02c5f99f"
         },
         {
-          "upstream": "ffmpeg-n8.1.1-118-g1034b144ff-win64-gpl-8.1.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-14-13-33/ffmpeg-n8.1.1-118-g1034b144ff-win64-gpl-8.1.zip",
+          "upstream": "ffmpeg-n8.1.2-win64-gpl-8.1.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-21-13-34/ffmpeg-n8.1.2-win64-gpl-8.1.zip",
           "normalized": "ffmpeg-8.1-windows-x86_64-gpl.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "27de249c51e9f369623dddd0743e1918ec174dcf85c3594225f5732966ecb95e",
-          "sha256": "317ffd14d9943f7784d210d8e7f7b673318d93f79370575708500959f6e89b9f"
+          "source_sha256": "23e7d43a4bacb404bc3df95223b74f2c777276229a995ee98660e036ded8b90a",
+          "sha256": "3b72b099cab3bbb28726fcd641ba8f507cb2d888582814e870350185bd2e171d"
         },
         {
-          "upstream": "ffmpeg-n8.1.1-118-g1034b144ff-winarm64-gpl-8.1.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-14-13-33/ffmpeg-n8.1.1-118-g1034b144ff-winarm64-gpl-8.1.zip",
+          "upstream": "ffmpeg-n8.1.2-winarm64-gpl-8.1.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-06-21-13-34/ffmpeg-n8.1.2-winarm64-gpl-8.1.zip",
           "normalized": "ffmpeg-8.1-windows-aarch64-gpl.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "8b3e128366bc7efc84bb1eb2ce46964e78d9bb378e6a3aedbcbf2f634020652a",
-          "sha256": "56bdc4293b13535af53e1ec58abdcae5ef9fa707f0809085106581fc66cd4393"
+          "source_sha256": "3ada3d873120ceb8172b3976660595bf433cd9f0d027846dba5b2e89602d474f",
+          "sha256": "5d2d342c71cc01ffc610aa652616517f8a1fb90dd95cb4a7518139d86109d46e"
         },
         {
           "upstream": "ffmpeg.zip",
