@@ -89,6 +89,25 @@ validate_binary() {
   return 0
 }
 
+validate_archive() {
+  local filepath="$1" name="$2" source_type="$3"
+
+  if ! validate_binary "$filepath" "$name"; then
+    return 1
+  fi
+
+  if [[ "$source_type" == "zip" ]]; then
+    unzip -tq "$filepath" >/dev/null
+  elif [[ "$source_type" == "tar.gz" ]]; then
+    tar tzf "$filepath" >/dev/null
+  elif [[ "$source_type" == "tar.xz" ]]; then
+    tar tJf "$filepath" >/dev/null
+  else
+    echo "  ERROR: unsupported preserved archive type '$source_type' for $name"
+    return 1
+  fi
+}
+
 # Read existing lock release tag (default empty)
 old_release_tag=""
 if [[ -f "$LOCK_FILE" ]]; then
@@ -104,18 +123,20 @@ for (( i=0; i<num_tools; i++ )); do
   repo=$(jq -r ".tools[$i].repo" "$CONFIG")
   binary_name=$(jq -r ".tools[$i].binary_name // empty" "$CONFIG")
   release_tag_pattern=$(jq -r ".tools[$i].release_tag_pattern // empty" "$CONFIG")
+  include_prereleases=$(jq -r ".tools[$i].include_prereleases // false" "$CONFIG")
   version_probe_regex=$(jq -r ".tools[$i].version_probe_regex // empty" "$CONFIG")
   checksum_asset=$(jq -r ".tools[$i].checksum_asset // empty" "$CONFIG")
 
   # Fetch latest stable release (first non-draft, non-prerelease)
   releases_json=$(curl -sfL "${CURL_AUTH[@]+"${CURL_AUTH[@]}"}" \
-    "https://api.github.com/repos/$repo/releases?per_page=20")
+    "https://api.github.com/repos/$repo/releases?per_page=100")
 
   if [[ -n "$release_tag_pattern" ]]; then
-    release=$(echo "$releases_json" | jq -e --arg re "$release_tag_pattern" \
-      'map(select(.draft == false and .prerelease == false and (.tag_name | test($re)))) | first')
+    release=$(echo "$releases_json" | jq -e --arg re "$release_tag_pattern" --argjson include_prereleases "$include_prereleases" \
+      'map(select(.draft == false and ($include_prereleases or .prerelease == false) and (.tag_name | test($re)))) | first')
   else
-    release=$(echo "$releases_json" | jq -e 'map(select(.draft == false and .prerelease == false)) | first')
+    release=$(echo "$releases_json" | jq -e --argjson include_prereleases "$include_prereleases" \
+      'map(select(.draft == false and ($include_prereleases or .prerelease == false))) | first')
   fi
   tag=$(echo "$release" | jq -r '.tag_name')
 
@@ -163,6 +184,8 @@ for (( i=0; i<num_tools; i++ )); do
       checksum_url_tpl=$(jq -r ".tools[$i].explicit_assets[$j].checksum_url // empty" "$CONFIG")
       checksum_name=$(jq -r ".tools[$i].explicit_assets[$j].checksum_name // empty" "$CONFIG")
       version_check_regex_tpl=$(jq -r ".tools[$i].explicit_assets[$j].version_check_regex // empty" "$CONFIG")
+      preserve_archive=$(jq -r ".tools[$i].explicit_assets[$j].preserve_archive // false" "$CONFIG")
+      output_extension=$(jq -r ".tools[$i].explicit_assets[$j].output_extension // empty" "$CONFIG")
       is_direct=0
       downloaded_file=""
 
@@ -197,8 +220,8 @@ for (( i=0; i<num_tools; i++ )); do
       fi
 
       # Build normalized name
-      suffix=""
-      [[ "$os" == "windows" ]] && suffix=".exe"
+      suffix="$output_extension"
+      [[ -z "$suffix" && "$os" == "windows" ]] && suffix=".exe"
       variant_part=""
       [[ -n "$variant" ]] && variant_part="-${variant}"
       normalized="${name}-${clean_version}-${os}-${arch}${variant_part}${suffix}"
@@ -237,7 +260,13 @@ for (( i=0; i<num_tools; i++ )); do
         expected_sha256=$(verify_checksum "$checksum_file" "$asset_name" "$downloaded_file")
       fi
 
-      if [[ "$source_type" == "raw" ]]; then
+      if [[ "$preserve_archive" == "true" ]]; then
+        if [[ -z "$output_extension" ]]; then
+          echo "  ERROR: preserve_archive requires output_extension for $asset_name"
+          exit 1
+        fi
+        cp "$downloaded_file" "$OUTPUT_DIR/$normalized"
+      elif [[ "$source_type" == "raw" ]]; then
         # Raw binary — just copy directly
         cp "$downloaded_file" "$OUTPUT_DIR/$normalized"
         chmod +x "$OUTPUT_DIR/$normalized"
@@ -270,8 +299,19 @@ for (( i=0; i<num_tools; i++ )); do
       fi
       rm -f "$downloaded_file"
 
-      # Validate the output binary
-      if ! validate_binary "$OUTPUT_DIR/$normalized" "$normalized"; then
+      # Validate the output artifact
+      if [[ "$preserve_archive" == "true" ]]; then
+        if validate_archive "$OUTPUT_DIR/$normalized" "$normalized" "$source_type"; then
+          validation_status=0
+        else
+          validation_status=1
+        fi
+      elif validate_binary "$OUTPUT_DIR/$normalized" "$normalized"; then
+        validation_status=0
+      else
+        validation_status=1
+      fi
+      if [[ "$validation_status" -ne 0 ]]; then
         rm -f "$OUTPUT_DIR/$normalized"
         exit 1
       fi

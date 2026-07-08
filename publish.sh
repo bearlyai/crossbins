@@ -113,7 +113,7 @@ for (( i=0; i<num_tools; i++ )); do
     fi
 
     # Never publish a Windows binary that isn't signed by Bearly — the whole point.
-    if [[ "$os" == "windows" ]] && ! pe_signed_by_bearly "$filepath"; then
+    if [[ "$os" == "windows" && "$filepath" == *.exe ]] && ! pe_signed_by_bearly "$filepath"; then
       echo "  ERROR: $normalized is not signed by \"Bearly, Inc.\" (run ./sign-windows.sh before publishing)"
       (( invalid++ ))
       continue
@@ -240,13 +240,14 @@ for (( i=0; i<num_tools; i++ )); do
     os=$(jq -r ".tools[$i].assets[$j].os" "$LOCK_FILE")
     arch=$(jq -r ".tools[$i].assets[$j].arch" "$LOCK_FILE")
     variant=$(jq -r ".tools[$i].assets[$j].variant" "$LOCK_FILE")
+    version=$(jq -r ".tools[$i].version" "$LOCK_FILE")
     filepath="$OUTPUT_DIR/$normalized"
     [[ ! -f "$filepath" ]] && continue
 
-    suffix=""
-    [[ "$os" == "windows" ]] && suffix=".exe"
     variant_part=""
     [[ -n "$variant" ]] && variant_part="-${variant}"
+    versioned_prefix="${name}-${version}-${os}-${arch}${variant_part}"
+    suffix="${normalized#"$versioned_prefix"}"
     latest_name="${name}-${os}-${arch}${variant_part}${suffix}"
 
     delete_existing_asset "$latest_name"
@@ -310,7 +311,11 @@ manifest=$(jq -n \
           url: (
             $base + "/" + $tool.name + "-" + .os + "-" + .arch
             + (if .variant != "" then "-" + .variant else "" end)
-            + (if .os == "windows" then ".exe" else "" end)
+            + (
+              . as $asset
+              | ($tool.name + "-" + $tool.version + "-" + $asset.os + "-" + $asset.arch + (if $asset.variant != "" then "-" + $asset.variant else "" end)) as $prefix
+              | ($asset.normalized | ltrimstr($prefix))
+            )
           )
         }
       ]
