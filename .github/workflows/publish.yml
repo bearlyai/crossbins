@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - .github/workflows/publish.yml
       - binaries.json
       - '*.sh'
       - '*.py'
