@@ -21,6 +21,15 @@ release_tag=$(jq -r '.release_tag' "$LOCK_FILE")
 command -v python3 >/dev/null 2>&1 || { echo "ERROR: python3 is required to verify Windows signatures" >&2; exit 1; }
 command -v openssl >/dev/null 2>&1 || { echo "ERROR: openssl is required to verify Windows signatures" >&2; exit 1; }
 
+if jq -e '.tools[].assets[] | select(.os == "darwin")' "$LOCK_FILE" >/dev/null; then
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "ERROR: macOS assets require publish.sh to run on macOS so codesign/notarization can be verified" >&2
+    exit 1
+  fi
+  command -v codesign >/dev/null 2>&1 || { echo "ERROR: codesign is required to verify macOS signatures" >&2; exit 1; }
+  command -v xcrun >/dev/null 2>&1 || { echo "ERROR: xcrun is required to verify macOS notarization" >&2; exit 1; }
+fi
+
 sha256_file() {
   if command -v sha256sum >/dev/null 2>&1; then
     sha256sum "$1" | awk '{print $1}'
@@ -62,6 +71,49 @@ PY
     return 0
   fi
   rm -f "$der"
+  return 1
+}
+
+codesign_identity_ok() {
+  local target="$1" require_notary="${2:-false}" details
+  if ! codesign --verify --deep --strict --verbose=2 "$target" >/dev/null 2>&1; then
+    return 1
+  fi
+  details=$(codesign -dv --verbose=4 "$target" 2>&1)
+  if [[ -n "${APPLE_TEAM_ID:-}" ]]; then
+    grep -q "TeamIdentifier=${APPLE_TEAM_ID}" <<<"$details" || return 1
+  else
+    grep -q 'Authority=Developer ID Application: .*Bearly' <<<"$details" || return 1
+  fi
+  if [[ "$require_notary" == "true" ]]; then
+    xcrun stapler validate "$target" >/dev/null 2>&1 || return 1
+  fi
+}
+
+macos_asset_signed_by_bearly() {
+  local filepath="$1" temp_dir app_path executable
+  if [[ "$filepath" == *.tar.gz ]]; then
+    temp_dir=$(mktemp -d)
+    tar xzf "$filepath" -C "$temp_dir"
+    while IFS= read -r app_path; do
+      if ! codesign_identity_ok "$app_path" true; then
+        rm -rf "$temp_dir"
+        return 1
+      fi
+    done < <(find "$temp_dir" -type d -name '*.app' | sort)
+    while IFS= read -r executable; do
+      if file "$executable" | grep -q 'Mach-O' && ! codesign_identity_ok "$executable" false; then
+        rm -rf "$temp_dir"
+        return 1
+      fi
+    done < <(find "$temp_dir" -type f -perm -111 | sort)
+    rm -rf "$temp_dir"
+    return 0
+  fi
+  if file "$filepath" | grep -q 'Mach-O'; then
+    codesign_identity_ok "$filepath" false
+    return $?
+  fi
   return 1
 }
 
@@ -115,6 +167,13 @@ for (( i=0; i<num_tools; i++ )); do
     # Never publish a Windows binary that isn't signed by Bearly — the whole point.
     if [[ "$os" == "windows" && "$filepath" == *.exe ]] && ! pe_signed_by_bearly "$filepath"; then
       echo "  ERROR: $normalized is not signed by \"Bearly, Inc.\" (run ./sign-windows.sh before publishing)"
+      (( invalid++ ))
+      continue
+    fi
+
+    # Never publish a macOS executable/app bundle that isn't Bearly-signed.
+    if [[ "$os" == "darwin" ]] && ! macos_asset_signed_by_bearly "$filepath"; then
+      echo "  ERROR: $normalized is not signed/notarized by Bearly (run ./sign-macos.sh before publishing)"
       (( invalid++ ))
       continue
     fi

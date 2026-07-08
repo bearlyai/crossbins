@@ -11,6 +11,8 @@ Republishes prebuilt binaries from upstream GitHub releases with normalized file
 | uv | astral-sh/uv | `uv` |
 | yt-dlp | yt-dlp/yt-dlp | `yt-dlp` |
 | ffmpeg | BtbN/FFmpeg-Builds; Martin Riedl macOS builds | `ffmpeg` |
+| cua-driver | trycua/cua | `cua-driver` |
+| cua-driver-uia | trycua/cua | `cua-driver-uia` |
 
 ## Naming convention
 
@@ -184,7 +186,9 @@ Two config modes in `binaries.json`:
 
 Just run `./update.sh` — it always fetches the latest stable (non-draft, non-prerelease) release from GitHub.
 
-## Windows code signing
+## Code signing
+
+### Windows
 
 The published Windows binaries (`*-windows-*.exe`) are Authenticode-signed under Bearly's
 identity (`CN = Bearly, Inc.`) using [Azure Trusted Signing](https://learn.microsoft.com/azure/trusted-signing/) —
@@ -199,11 +203,26 @@ signed as `Bearly, Inc.` (upstream signatures from other publishers do not satis
 > and each binary's hash changes whenever its upstream tool updates. The publisher identity is
 > the only value that stays constant across every version, and it matches the installer.
 
+### macOS
+
+The published macOS binaries and app bundles (`*-darwin-*`) are signed with Bearly's
+Developer ID Application certificate. App bundles are also notarized and stapled before
+publish. `publish.sh` refuses to upload macOS artifacts unless they verify under Bearly's
+Apple team identity; app-bundle archives must also carry a stapled notarization ticket.
+
+The CUA macOS archive is intentionally rewrapped before signing: upstream `CuaDriver.app`
+becomes `Bearly Computer Use Helper.app` with bundle id `com.bearly.computer-use-helper`.
+This keeps macOS privacy prompts attributed to Bearly's helper. CUA is MIT licensed; the
+required notice is included in the archive root and inside the helper app resources.
+
+Linux binaries are not OS-signed; their release manifest entries carry SHA-256 hashes.
+
 ### CI setup
 
 The signing step needs an Azure service principal with the Trusted Signing **Certificate
 Profile Signer** role, exposed to this repo as Actions secrets (no Azure-specific values are
-hardcoded in this public repo):
+hardcoded in this public repo). macOS signing reuses the Bearly desktop Developer ID
+certificate and Apple notarization credentials:
 
 | Secret | Description |
 |--------|-------------|
@@ -212,9 +231,14 @@ hardcoded in this public repo):
 | `AZURE_CLIENT_SECRET` | App Registration secret value |
 | `TRUSTED_SIGNING_ACCOUNT` | Trusted Signing account name |
 | `TRUSTED_SIGNING_PROFILE` | Certificate profile name |
+| `ELECTRON_PUBLISH_CSC_LINK` | Bearly Developer ID Application certificate (`.p12` or base64) |
+| `ELECTRON_PUBLISH_CSC_KEY_PASSWORD` | Developer ID certificate password |
+| `ELECTRON_PUBLISH_APPLE_ID` | Apple ID used for notarization |
+| `ELECTRON_PUBLISH_APPLEID_KEY` | App-specific password or notary credential |
+| `ELECTRON_APPLE_TEAM_ID` | Apple Developer Team ID |
 
-The endpoint defaults to the East US Trusted Signing endpoint (`TRUSTED_SIGNING_ENDPOINT` to
-override). macOS and Linux binaries are not signed.
+The Windows endpoint defaults to the East US Trusted Signing endpoint
+(`TRUSTED_SIGNING_ENDPOINT` to override).
 
 ## Automation
 
@@ -222,7 +246,7 @@ A GitHub Actions workflow runs weekly (Monday 9am UTC) to check for upstream upd
 When versions change, it publishes a new release and commits the updated lock file and README.
 Failures create a GitHub issue labeled `automation`.
 
-The workflow also runs on pushes to `main` (when `binaries.json` or `*.sh` change) and can be triggered manually.
+The workflow also runs on pushes to `main` when binary config, scripts, or license notices change, and can be triggered manually.
 
 ## Dependencies
 

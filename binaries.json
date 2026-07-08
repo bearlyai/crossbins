@@ -102,7 +102,23 @@
       "version_probe_regex": "^cua-driver-rs-(?<version>[0-9]+\\.[0-9]+\\.[0-9]+)-.*$",
       "checksum_asset": "checksums.txt",
       "explicit_assets": [
-        { "asset_name": "cua-driver-rs-{VERSION}-darwin-universal.tar.gz", "source_type": "tar.gz", "preserve_archive": true, "output_extension": ".tar.gz", "os": "darwin", "arch": "universal" },
+        {
+          "asset_name": "cua-driver-rs-{VERSION}-darwin-universal.tar.gz",
+          "source_type": "tar.gz",
+          "preserve_archive": true,
+          "output_extension": ".tar.gz",
+          "os": "darwin",
+          "arch": "universal",
+          "macos_app_rewrap": {
+            "source_app_name": "CuaDriver.app",
+            "app_name": "Bearly Computer Use Helper.app",
+            "bundle_id": "com.bearly.computer-use-helper",
+            "display_name": "Bearly Computer Use Helper",
+            "archive_root": "bearly-computer-use-helper-{VERSION}-darwin-universal",
+            "license_file": "licenses/cua-driver-MIT.md",
+            "root_binary_name": "cua-driver"
+          }
+        },
         { "asset_name": "cua-driver-rs-{VERSION}-linux-x86_64-binary.tar.gz", "source_type": "tar.gz", "os": "linux", "arch": "x86_64" },
         { "asset_name": "cua-driver-rs-{VERSION}-linux-arm64-binary.tar.gz", "source_type": "tar.gz", "os": "linux", "arch": "aarch64" },
         { "asset_name": "cua-driver-rs-{VERSION}-windows-x86_64.zip", "source_type": "zip", "os": "windows", "arch": "x86_64" },

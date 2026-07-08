@@ -186,6 +186,7 @@ for (( i=0; i<num_tools; i++ )); do
       version_check_regex_tpl=$(jq -r ".tools[$i].explicit_assets[$j].version_check_regex // empty" "$CONFIG")
       preserve_archive=$(jq -r ".tools[$i].explicit_assets[$j].preserve_archive // false" "$CONFIG")
       output_extension=$(jq -r ".tools[$i].explicit_assets[$j].output_extension // empty" "$CONFIG")
+      macos_app_rewrap=$(jq -c ".tools[$i].explicit_assets[$j].macos_app_rewrap // empty" "$CONFIG")
       is_direct=0
       downloaded_file=""
 
@@ -265,7 +266,29 @@ for (( i=0; i<num_tools; i++ )); do
           echo "  ERROR: preserve_archive requires output_extension for $asset_name"
           exit 1
         fi
-        cp "$downloaded_file" "$OUTPUT_DIR/$normalized"
+        if [[ -n "$macos_app_rewrap" ]]; then
+          source_app_name=$(echo "$macos_app_rewrap" | jq -r '.source_app_name')
+          app_name=$(echo "$macos_app_rewrap" | jq -r '.app_name')
+          bundle_id=$(echo "$macos_app_rewrap" | jq -r '.bundle_id')
+          display_name=$(echo "$macos_app_rewrap" | jq -r '.display_name')
+          archive_root_tpl=$(echo "$macos_app_rewrap" | jq -r '.archive_root')
+          archive_root="${archive_root_tpl//\{VERSION\}/$clean_version}"
+          license_file=$(echo "$macos_app_rewrap" | jq -r '.license_file')
+          root_binary_name=$(echo "$macos_app_rewrap" | jq -r '.root_binary_name // empty')
+          python3 "$SCRIPT_DIR/rewrap-macos-app.py" \
+            --archive "$downloaded_file" \
+            --output "$OUTPUT_DIR/$normalized" \
+            --source-app-name "$source_app_name" \
+            --app-name "$app_name" \
+            --bundle-id "$bundle_id" \
+            --display-name "$display_name" \
+            --version "$clean_version" \
+            --archive-root "$archive_root" \
+            --license-file "$SCRIPT_DIR/$license_file" \
+            --root-binary-name "$root_binary_name"
+        else
+          cp "$downloaded_file" "$OUTPUT_DIR/$normalized"
+        fi
       elif [[ "$source_type" == "raw" ]]; then
         # Raw binary — just copy directly
         cp "$downloaded_file" "$OUTPUT_DIR/$normalized"

@@ -505,7 +505,7 @@
           "arch": "universal",
           "variant": "",
           "source_sha256": "3bd574f162bf293089ca9d28653c8ac2b869f1577a15b92ff95203c6279a08a1",
-          "sha256": "3bd574f162bf293089ca9d28653c8ac2b869f1577a15b92ff95203c6279a08a1"
+          "sha256": "9b3d316a641c90e97b638c0ce6881115e38e7416d37148eb2a6930bdd9778690"
         },
         {
           "upstream": "cua-driver-rs-0.7.1-linux-x86_64-binary.tar.gz",

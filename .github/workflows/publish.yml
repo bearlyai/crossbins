@@ -6,6 +6,8 @@ on:
     paths:
       - binaries.json
       - '*.sh'
+      - '*.py'
+      - 'licenses/**'
   schedule:
     - cron: '0 9 * * 1'   # Weekly: Monday 9am UTC
   workflow_dispatch:
@@ -19,7 +21,7 @@ permissions:
   issues: write
 
 jobs:
-  publish:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -56,10 +58,70 @@ jobs:
           TRUSTED_SIGNING_ACCOUNT: ${{ secrets.TRUSTED_SIGNING_ACCOUNT }}
           TRUSTED_SIGNING_PROFILE: ${{ secrets.TRUSTED_SIGNING_PROFILE }}
 
+      - name: Upload prepared binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: crossbins-prepared
+          path: |
+            binaries.json
+            binaries.lock.json
+            README.md
+            output/**
+
+  macos-sign:
+    runs-on: macos-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download prepared binaries
+        uses: actions/download-artifact@v4
+        with:
+          name: crossbins-prepared
+          path: .
+
+      - name: Sign and notarize macOS binaries
+        run: ./sign-macos.sh
+        env:
+          APPLEID: ${{ secrets.ELECTRON_PUBLISH_APPLE_ID }}
+          APPLEIDPASSWORD: ${{ secrets.ELECTRON_PUBLISH_APPLEID_KEY }}
+          APPLE_TEAM_ID: ${{ secrets.ELECTRON_APPLE_TEAM_ID }}
+          CSC_LINK: ${{ secrets.ELECTRON_PUBLISH_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.ELECTRON_PUBLISH_CSC_KEY_PASSWORD }}
+
+      - name: Upload signed binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: crossbins-signed
+          path: |
+            binaries.json
+            binaries.lock.json
+            README.md
+            output/**
+
+  publish:
+    runs-on: macos-latest
+    needs: macos-sign
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download signed binaries
+        uses: actions/download-artifact@v4
+        with:
+          name: crossbins-signed
+          path: .
+
+      - name: Install dependencies
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            brew install jq
+          fi
+
       - name: Publish releases
         run: ./publish.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_TEAM_ID: ${{ secrets.ELECTRON_APPLE_TEAM_ID }}
 
       - name: Commit lock file and README
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
@@ -72,18 +134,32 @@ jobs:
             git push
           fi
 
+  notify-failure:
+    runs-on: ubuntu-latest
+    needs: [prepare, macos-sign, publish]
+    if: ${{ always() && (needs.prepare.result == 'failure' || needs.macos-sign.result == 'failure' || needs.publish.result == 'failure') }}
+    steps:
       - name: Create issue on failure
-        if: failure()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           existing=$(gh issue list --label "automation" --state open --limit 1 --json number -q '.[0].number // empty')
+          body=$(cat <<BODY
+          Binary publish failed as of $(date +%Y-%m-%d).
+
+          Results:
+          - prepare: ${{ needs.prepare.result }}
+          - macos-sign: ${{ needs.macos-sign.result }}
+          - publish: ${{ needs.publish.result }}
+
+          View run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BODY
+          )
           if [[ -n "$existing" ]]; then
-            gh issue comment "$existing" \
-              --body "Still failing as of $(date +%Y-%m-%d). [View run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+            gh issue comment "$existing" --body "$body"
           else
             gh issue create \
               --title "Binary update failed ($(date +%Y-%m-%d))" \
-              --body "The binary update workflow failed. [View run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" \
+              --body "$body" \
               --label "automation"
           fi
