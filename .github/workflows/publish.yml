@@ -80,6 +80,23 @@ jobs:
           name: crossbins-prepared
           path: .
 
+      - name: Check macOS signing secrets
+        run: |
+          missing=0
+          for name in APPLEID APPLEIDPASSWORD APPLE_TEAM_ID CSC_LINK CSC_KEY_PASSWORD; do
+            if [[ -z "${!name:-}" ]]; then
+              echo "ERROR: missing macOS signing secret mapped to $name"
+              missing=1
+            fi
+          done
+          exit "$missing"
+        env:
+          APPLEID: ${{ secrets.ELECTRON_PUBLISH_APPLE_ID }}
+          APPLEIDPASSWORD: ${{ secrets.ELECTRON_PUBLISH_APPLEID_KEY }}
+          APPLE_TEAM_ID: ${{ secrets.ELECTRON_APPLE_TEAM_ID }}
+          CSC_LINK: ${{ secrets.ELECTRON_PUBLISH_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.ELECTRON_PUBLISH_CSC_KEY_PASSWORD }}
+
       - name: Sign and notarize macOS binaries
         run: ./sign-macos.sh
         env:
@@ -142,6 +159,7 @@ jobs:
       - name: Create issue on failure
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           existing=$(gh issue list --label "automation" --state open --limit 1 --json number -q '.[0].number // empty')
           body=$(cat <<BODY
