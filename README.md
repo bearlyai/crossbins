@@ -217,34 +217,12 @@ required notice is included in the archive root and inside the helper app resour
 
 Linux binaries are not OS-signed; their release manifest entries carry SHA-256 hashes.
 
-### CI setup
-
-The signing step needs an Azure service principal with the Trusted Signing **Certificate
-Profile Signer** role, exposed to this repo as Actions secrets (no Azure-specific values are
-hardcoded in this public repo). macOS signing reuses the Bearly desktop Developer ID
-certificate and Apple notarization credentials:
-
-| Secret | Description |
-|--------|-------------|
-| `AZURE_TENANT_ID` | Azure AD tenant (directory) ID |
-| `AZURE_CLIENT_ID` | App Registration client ID |
-| `AZURE_CLIENT_SECRET` | App Registration secret value |
-| `TRUSTED_SIGNING_ACCOUNT` | Trusted Signing account name |
-| `TRUSTED_SIGNING_PROFILE` | Certificate profile name |
-| `ELECTRON_PUBLISH_CSC_LINK` | Bearly Developer ID Application certificate (`.p12` or base64) |
-| `ELECTRON_PUBLISH_CSC_KEY_PASSWORD` | Developer ID certificate password |
-| `ELECTRON_PUBLISH_APPLE_ID` | Apple ID used for notarization |
-| `ELECTRON_PUBLISH_APPLEID_KEY` | App-specific password or notary credential |
-| `ELECTRON_APPLE_TEAM_ID` | Apple Developer Team ID |
-
-The Windows endpoint defaults to the East US Trusted Signing endpoint
-(`TRUSTED_SIGNING_ENDPOINT` to override).
-
 ## Automation
 
 A GitHub Actions workflow runs weekly (Monday 9am UTC) to check for upstream updates.
 When versions change, it publishes a new release and commits the updated lock file and README.
-Failures create a GitHub issue labeled `automation`.
+Before publish, CI verifies checksums, signs Windows and macOS artifacts, notarizes macOS app
+bundles, and refuses artifacts that do not verify under Bearly's signing identities.
 
 The workflow also runs on pushes to `main` when binary config, scripts, or license notices change, and can be triggered manually.
 
