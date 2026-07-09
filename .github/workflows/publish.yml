@@ -24,6 +24,7 @@ permissions:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    environment: signing
     steps:
       - uses: actions/checkout@v4
 
@@ -58,6 +59,7 @@ jobs:
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
           TRUSTED_SIGNING_ACCOUNT: ${{ secrets.TRUSTED_SIGNING_ACCOUNT }}
           TRUSTED_SIGNING_PROFILE: ${{ secrets.TRUSTED_SIGNING_PROFILE }}
+          TRUSTED_SIGNING_ENDPOINT: ${{ secrets.TRUSTED_SIGNING_ENDPOINT }}
 
       - name: Upload prepared binaries
         uses: actions/upload-artifact@v4
@@ -72,6 +74,7 @@ jobs:
   macos-sign:
     runs-on: macos-latest
     needs: prepare
+    environment: signing
     steps:
       - uses: actions/checkout@v4
 
@@ -139,7 +142,7 @@ jobs:
         run: ./publish.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          APPLE_TEAM_ID: ${{ secrets.ELECTRON_APPLE_TEAM_ID }}
+          APPLE_TEAM_ID: NK6K4BACCF
 
       - name: Commit lock file and README
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
