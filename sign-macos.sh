@@ -58,18 +58,31 @@ install_certificate() {
   security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
   security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
   security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+  current_keychains=()
+  while IFS= read -r keychain; do
+    keychain="${keychain#\"}"
+    keychain="${keychain%\"}"
+    if [[ -n "$keychain" && "$keychain" != "$KEYCHAIN_PATH" ]]; then
+      current_keychains+=("$keychain")
+    fi
+  done < <(security list-keychains -d user)
+  security list-keychains -d user -s "$KEYCHAIN_PATH" "${current_keychains[@]}"
+  security default-keychain -d user -s "$KEYCHAIN_PATH"
   security import "$CERT_PATH" -k "$KEYCHAIN_PATH" -P "$CSC_KEY_PASSWORD" -T /usr/bin/codesign -T /usr/bin/productsign
   security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH" >/dev/null
 
   SIGNING_IDENTITY="${MACOS_SIGNING_IDENTITY:-}"
+  SIGNING_IDENTITY_NAME="$SIGNING_IDENTITY"
   if [[ -z "$SIGNING_IDENTITY" ]]; then
-    SIGNING_IDENTITY=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | awk -F '"' '/Developer ID Application/ { print $2; exit }')
+    identity_line="$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | awk '/Developer ID Application/ { print; exit }')"
+    SIGNING_IDENTITY="$(awk '{ print $2 }' <<< "$identity_line")"
+    SIGNING_IDENTITY_NAME="$(awk -F '"' '{ print $2 }' <<< "$identity_line")"
   fi
   if [[ -z "$SIGNING_IDENTITY" ]]; then
     echo "ERROR: no Developer ID Application identity found in imported certificate" >&2
     exit 1
   fi
-  echo "sign-macos: using identity: $SIGNING_IDENTITY"
+  echo "sign-macos: using identity: ${SIGNING_IDENTITY_NAME:-$SIGNING_IDENTITY}"
 }
 
 is_macho() {
