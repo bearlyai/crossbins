@@ -8,6 +8,7 @@ on:
       - binaries.json
       - '*.sh'
       - '*.py'
+      - 'macos-*.plist'
       - 'licenses/**'
   schedule:
     - cron: '0 9 * * 1'   # Weekly: Monday 9am UTC
@@ -109,6 +110,14 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.ELECTRON_APPLE_TEAM_ID }}
           CSC_LINK: ${{ secrets.ELECTRON_PUBLISH_CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.ELECTRON_PUBLISH_CSC_KEY_PASSWORD }}
+
+      - name: Smoke test signed yt-dlp
+        run: |
+          yt_dlp=$(jq -r '.tools[] | select(.name == "yt-dlp") | .assets[] | select(.os == "darwin") | .normalized' binaries.lock.json)
+          expected=$(jq -r '.tools[] | select(.name == "yt-dlp") | .version' binaries.lock.json)
+          [[ -x "output/$yt_dlp" ]] || { echo "ERROR: missing signed $yt_dlp"; exit 1; }
+          actual=$("output/$yt_dlp" --version)
+          [[ "$actual" == "$expected" ]] || { echo "ERROR: yt-dlp version $actual, expected $expected"; exit 1; }
 
       - name: Upload signed binaries
         uses: actions/upload-artifact@v4

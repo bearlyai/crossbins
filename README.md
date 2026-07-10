@@ -209,6 +209,9 @@ The published macOS binaries and app bundles (`*-darwin-*`) are signed with Bear
 Developer ID Application certificate. App bundles are also notarized and stapled before
 publish. `publish.sh` refuses to upload macOS artifacts unless they verify under Bearly's
 Apple team identity; app-bundle archives must also carry a stapled notarization ticket.
+The PyInstaller-based `yt-dlp` binary is signed with a library-validation exception so its
+embedded Python framework can load under the hardened runtime; other raw binaries do not
+receive that entitlement.
 
 The CUA macOS archive is intentionally rewrapped before signing: upstream `CuaDriver.app`
 becomes `Bearly Computer Use Helper.app` with bundle id `com.bearly.computer-use-helper`.

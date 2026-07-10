@@ -92,11 +92,15 @@ is_macho() {
 
 sign_binary() {
   local filepath="$1"
+  local codesign_args=(--force --timestamp --options runtime --keychain "$KEYCHAIN_PATH" --sign "$SIGNING_IDENTITY")
   if ! is_macho "$filepath"; then
     echo "sign-macos: skipping non-Mach-O $(basename "$filepath")"
     return
   fi
-  codesign --force --timestamp --options runtime --keychain "$KEYCHAIN_PATH" --sign "$SIGNING_IDENTITY" "$filepath"
+  if [[ "$(basename "$filepath")" == yt-dlp-* ]]; then
+    codesign_args+=(--entitlements "$SCRIPT_DIR/macos-yt-dlp.entitlements.plist")
+  fi
+  codesign "${codesign_args[@]}" "$filepath"
   codesign --verify --strict --verbose=2 "$filepath"
 }
 
