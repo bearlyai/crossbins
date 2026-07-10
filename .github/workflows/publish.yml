@@ -115,7 +115,8 @@ jobs:
         run: |
           yt_dlp=$(jq -r '.tools[] | select(.name == "yt-dlp") | .assets[] | select(.os == "darwin") | .normalized' binaries.lock.json)
           expected=$(jq -r '.tools[] | select(.name == "yt-dlp") | .version' binaries.lock.json)
-          [[ -x "output/$yt_dlp" ]] || { echo "ERROR: missing signed $yt_dlp"; exit 1; }
+          [[ -f "output/$yt_dlp" ]] || { echo "ERROR: missing signed $yt_dlp"; exit 1; }
+          chmod +x "output/$yt_dlp"
           actual=$("output/$yt_dlp" --version)
           [[ "$actual" == "$expected" ]] || { echo "ERROR: yt-dlp version $actual, expected $expected"; exit 1; }
 
