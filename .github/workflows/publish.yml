@@ -9,6 +9,7 @@ on:
       - '*.sh'
       - '*.py'
       - 'macos-*.plist'
+      - 'assets/**'
       - 'licenses/**'
   schedule:
     - cron: '0 9 * * 1'   # Weekly: Monday 9am UTC
@@ -119,6 +120,18 @@ jobs:
           chmod +x "output/$yt_dlp"
           actual=$("output/$yt_dlp" --version)
           [[ "$actual" == "$expected" ]] || { echo "ERROR: yt-dlp version $actual, expected $expected"; exit 1; }
+
+      - name: Smoke test Bearly helper branding
+        run: |
+          cua_archive=$(jq -r '.tools[] | select(.name == "cua-driver") | .assets[] | select(.os == "darwin") | .normalized' binaries.lock.json)
+          temp_dir=$(mktemp -d)
+          trap 'rm -rf "$temp_dir"' EXIT
+          tar xzf "output/$cua_archive" -C "$temp_dir"
+          helper=$(find "$temp_dir" -type d -name 'Bearly Computer Use Helper.app' -print -quit)
+          [[ -n "$helper" ]] || { echo "ERROR: Bearly Computer Use Helper.app is missing"; exit 1; }
+          cmp "$helper/Contents/Resources/AppIcon.icns" assets/bearly-icon.icns
+          [[ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIconFile' "$helper/Contents/Info.plist")" == "AppIcon" ]]
+          [[ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIconName' "$helper/Contents/Info.plist")" == "AppIcon" ]]
 
       - name: Upload signed binaries
         uses: actions/upload-artifact@v4

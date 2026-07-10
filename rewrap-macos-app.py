@@ -22,6 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--version", required=True)
     parser.add_argument("--archive-root", required=True)
     parser.add_argument("--license-file", required=True)
+    parser.add_argument("--icon-file", default="")
     parser.add_argument("--root-binary-name", default="")
     return parser.parse_args()
 
@@ -46,7 +47,7 @@ def find_root_file(root: Path, name: str) -> Optional[Path]:
     return matches[0]
 
 
-def update_plist(app_path: Path, bundle_id: str, display_name: str, version: str) -> None:
+def update_plist(app_path: Path, bundle_id: str, display_name: str, version: str, has_custom_icon: bool) -> None:
     plist_path = app_path / "Contents" / "Info.plist"
     if not plist_path.is_file():
         raise RuntimeError(f"missing Info.plist: {plist_path}")
@@ -58,6 +59,9 @@ def update_plist(app_path: Path, bundle_id: str, display_name: str, version: str
     plist["CFBundleShortVersionString"] = version
     plist["CFBundleVersion"] = version
     plist["NSHumanReadableCopyright"] = "Copyright (c) Bearly. Contains CUA driver components licensed under MIT."
+    if has_custom_icon:
+        plist["CFBundleIconFile"] = "AppIcon"
+        plist["CFBundleIconName"] = "AppIcon"
     with plist_path.open("wb") as handle:
         plistlib.dump(plist, handle, sort_keys=False)
 
@@ -79,6 +83,17 @@ def copy_license(license_file: Path, archive_root: Path, app_path: Path) -> None
     resources_dir = app_path / "Contents" / "Resources"
     resources_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(license_file, resources_dir / "CUA_LICENSE.md")
+
+
+def copy_icon(icon_file: Path, app_path: Path) -> None:
+    if not icon_file.is_file():
+        raise RuntimeError(f"invalid ICNS icon file: {icon_file}")
+    with icon_file.open("rb") as handle:
+        if handle.read(4) != b"icns":
+            raise RuntimeError(f"invalid ICNS icon file: {icon_file}")
+    resources_dir = app_path / "Contents" / "Resources"
+    resources_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(icon_file, resources_dir / "AppIcon.icns")
 
 
 def create_archive(source_root: Path, output: Path) -> None:
@@ -122,6 +137,7 @@ def main() -> int:
     archive_path = Path(args.archive).resolve()
     output_path = Path(args.output).resolve()
     license_file = Path(args.license_file).resolve()
+    icon_file = Path(args.icon_file).resolve() if args.icon_file else None
 
     with tempfile.TemporaryDirectory(prefix="crossbins-rewrap-macos-app-") as temp:
         temp_path = Path(temp)
@@ -136,7 +152,9 @@ def main() -> int:
         source_app = find_directory(extract_root, args.source_app_name)
         target_app = staging_root / args.app_name
         shutil.copytree(source_app, target_app, symlinks=True)
-        update_plist(target_app, args.bundle_id, args.display_name, args.version)
+        if icon_file:
+            copy_icon(icon_file, target_app)
+        update_plist(target_app, args.bundle_id, args.display_name, args.version, icon_file is not None)
         remove_stale_signature(target_app)
         copy_license(license_file, staging_root, target_app)
 

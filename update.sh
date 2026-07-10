@@ -274,18 +274,24 @@ for (( i=0; i<num_tools; i++ )); do
           archive_root_tpl=$(echo "$macos_app_rewrap" | jq -r '.archive_root')
           archive_root="${archive_root_tpl//\{VERSION\}/$clean_version}"
           license_file=$(echo "$macos_app_rewrap" | jq -r '.license_file')
+          icon_file=$(echo "$macos_app_rewrap" | jq -r '.icon_file // empty')
           root_binary_name=$(echo "$macos_app_rewrap" | jq -r '.root_binary_name // empty')
-          python3 "$SCRIPT_DIR/rewrap-macos-app.py" \
-            --archive "$downloaded_file" \
-            --output "$OUTPUT_DIR/$normalized" \
-            --source-app-name "$source_app_name" \
-            --app-name "$app_name" \
-            --bundle-id "$bundle_id" \
-            --display-name "$display_name" \
-            --version "$clean_version" \
-            --archive-root "$archive_root" \
-            --license-file "$SCRIPT_DIR/$license_file" \
+          rewrap_args=(
+            --archive "$downloaded_file"
+            --output "$OUTPUT_DIR/$normalized"
+            --source-app-name "$source_app_name"
+            --app-name "$app_name"
+            --bundle-id "$bundle_id"
+            --display-name "$display_name"
+            --version "$clean_version"
+            --archive-root "$archive_root"
+            --license-file "$SCRIPT_DIR/$license_file"
             --root-binary-name "$root_binary_name"
+          )
+          if [[ -n "$icon_file" ]]; then
+            rewrap_args+=(--icon-file "$SCRIPT_DIR/$icon_file")
+          fi
+          python3 "$SCRIPT_DIR/rewrap-macos-app.py" "${rewrap_args[@]}"
         else
           cp "$downloaded_file" "$OUTPUT_DIR/$normalized"
         fi

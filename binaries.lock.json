@@ -1,5 +1,5 @@
 {
-  "release_tag": "2026-07-08",
+  "release_tag": "2026-07-10",
   "tools": [
     {
       "name": "rg",
@@ -428,47 +428,47 @@
     {
       "name": "ffmpeg",
       "version": "8.1",
-      "tag": "autobuild-2026-07-08-13-30",
+      "tag": "autobuild-2026-07-09-14-21",
       "assets": [
         {
           "upstream": "ffmpeg-n8.1.2-22-g94138f6973-linux64-gpl-8.1.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-08-13-30/ffmpeg-n8.1.2-22-g94138f6973-linux64-gpl-8.1.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-09-14-21/ffmpeg-n8.1.2-22-g94138f6973-linux64-gpl-8.1.tar.xz",
           "normalized": "ffmpeg-8.1-linux-x86_64-gpl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "1bb66f57ffe969051e0773fb98177e522764918060df71db9960213fcbefd48a",
-          "sha256": "091941795263b5ca0e97e1bdfaeb646f4dbde4d2408c1cde43628844f166426f"
+          "source_sha256": "f61454d174154e27f0eb2216a172e91bab24ce0db599b83f05c6efa22733f7cd",
+          "sha256": "8d5c66e91ed91d7eda5f256420062cb389ea9d01b36d1ec8940f62801fb6743a"
         },
         {
           "upstream": "ffmpeg-n8.1.2-22-g94138f6973-linuxarm64-gpl-8.1.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-08-13-30/ffmpeg-n8.1.2-22-g94138f6973-linuxarm64-gpl-8.1.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-09-14-21/ffmpeg-n8.1.2-22-g94138f6973-linuxarm64-gpl-8.1.tar.xz",
           "normalized": "ffmpeg-8.1-linux-aarch64-gpl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "186f1cdc0c37a922befdfc87f95bf26ee4c0437f1d97a9b7f7eef06f471451fd",
-          "sha256": "2bcea2f6274cf2b2546f2102a0f953df7203080eb2186ce10fe21c1d176cc8e7"
+          "source_sha256": "49e0766260cb485b861eec9f80c8b4ac8fafc49882570a65c3ac7b7415963b42",
+          "sha256": "896336e80fd023e771d1774116d5b0bd0e0279ae6610bbcd40f711b5f6373c8a"
         },
         {
           "upstream": "ffmpeg-n8.1.2-22-g94138f6973-win64-gpl-8.1.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-08-13-30/ffmpeg-n8.1.2-22-g94138f6973-win64-gpl-8.1.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-09-14-21/ffmpeg-n8.1.2-22-g94138f6973-win64-gpl-8.1.zip",
           "normalized": "ffmpeg-8.1-windows-x86_64-gpl.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "7ca29427235503f779c5fcec7eca541941aff67eb0b4919cadd371bd9062874b",
-          "sha256": "6835539b7ef9838b3b3806bcf59c22efd6c0b50e9d4a7b58f8c88416bcbab528"
+          "source_sha256": "f5de33a4026993601d46678ebbf94f93931574e7c7c7d3992eb39e8bb0443400",
+          "sha256": "0782d7be5a38b97bf6b910b9365b7adc7a9d7272e5ffd708fae118a54fe23be0"
         },
         {
           "upstream": "ffmpeg-n8.1.2-22-g94138f6973-winarm64-gpl-8.1.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-08-13-30/ffmpeg-n8.1.2-22-g94138f6973-winarm64-gpl-8.1.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-07-09-14-21/ffmpeg-n8.1.2-22-g94138f6973-winarm64-gpl-8.1.zip",
           "normalized": "ffmpeg-8.1-windows-aarch64-gpl.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "2ef8e3f57e069d234361a2f90b939234d1b4feccaee7ba3e4aa5051d5a2c617b",
-          "sha256": "305cf39c453b99e427eb2aeaf0c3e659c4d157bd055fb1e74abad0cb987aa167"
+          "source_sha256": "f13f5eba114c08412166fbe70d44bf415e506e8424b518ed9a5768d13b33dc2c",
+          "sha256": "fa30cb799639690803c71c5e82a50ec3ac6b8d28d1486ef704e7d42add9d0838"
         },
         {
           "upstream": "ffmpeg.zip",
@@ -505,7 +505,7 @@
           "arch": "universal",
           "variant": "",
           "source_sha256": "3bd574f162bf293089ca9d28653c8ac2b869f1577a15b92ff95203c6279a08a1",
-          "sha256": "9b3d316a641c90e97b638c0ce6881115e38e7416d37148eb2a6930bdd9778690"
+          "sha256": "687325810316fec10e62029ed3930d7077053d02f7c550a3e0c155a65c265599"
         },
         {
           "upstream": "cua-driver-rs-0.7.1-linux-x86_64-binary.tar.gz",

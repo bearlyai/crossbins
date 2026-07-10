@@ -116,6 +116,7 @@
             "display_name": "Bearly Computer Use Helper",
             "archive_root": "bearly-computer-use-helper-{VERSION}-darwin-universal",
             "license_file": "licenses/cua-driver-MIT.md",
+            "icon_file": "assets/bearly-icon.icns",
             "root_binary_name": "cua-driver"
           }
         },
