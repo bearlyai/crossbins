@@ -1,5 +1,5 @@
 {
-  "release_tag": "2026-08-29",
+  "release_tag": "2026-08-31",
   "tools": [
     {
       "name": "rg",
@@ -419,47 +419,47 @@
     {
       "name": "ffmpeg",
       "version": "9.0",
-      "tag": "autobuild-2026-08-29-13-12",
+      "tag": "autobuild-2026-08-30-13-12",
       "assets": [
         {
           "upstream": "ffmpeg-n9.0.1-11-ge47273f4d9-linux64-gpl-9.0.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-29-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-linux64-gpl-9.0.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-30-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-linux64-gpl-9.0.tar.xz",
           "normalized": "ffmpeg-9.0-linux-x86_64-gpl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "f5959e808f812b73ba6035bf47b03a68ace2bdabe3c638893dc466a1e55ca1df",
-          "sha256": "036b1f91cb6972e7119c22760f8a808756105909e713b40b47cc0669848f0edf"
+          "source_sha256": "000356099709f2f2b7f92195f689648aa4b8906632f194eecce5d7686596674c",
+          "sha256": "0cdfd5147841bd035c28c66acb478e0fc5c84060f12cc347a9fb39761f89f6ea"
         },
         {
           "upstream": "ffmpeg-n9.0.1-11-ge47273f4d9-linuxarm64-gpl-9.0.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-29-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-linuxarm64-gpl-9.0.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-30-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-linuxarm64-gpl-9.0.tar.xz",
           "normalized": "ffmpeg-9.0-linux-aarch64-gpl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "4242d1591f868832959fec43ad1b493d5fa662a8474b8a861da6f6bf04ff158d",
-          "sha256": "ca050207106faa1970b5d1db41fe7b9ce255c0de4e161582b3350defe2f21e74"
+          "source_sha256": "19bb036e8bf4161f7d1945805909e8b473709be6570b2af72e55cf385e43842c",
+          "sha256": "f6eb1ffa9cd5dc5093123a633ce665f9f603ca1931ed513370a8a910a00e861d"
         },
         {
           "upstream": "ffmpeg-n9.0.1-11-ge47273f4d9-win64-gpl-9.0.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-29-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-win64-gpl-9.0.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-30-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-win64-gpl-9.0.zip",
           "normalized": "ffmpeg-9.0-windows-x86_64-gpl.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "30bac4e9cd39dbd0873077c15afec858c69a31a195b1b41388a62f4de368f3ea",
-          "sha256": "42074c0d62b0187487a3c7a9246d0dbf962bb8b75df8dd964d15c50fa55ad692"
+          "source_sha256": "3c93cabd6aa5bcabd9f8f5e1a4711edbcb1f233c8cf78a672c286063009c5f6d",
+          "sha256": "5970e2bb8ae35d08f1179cec30069ada966855770a8a9b83b353b1b60a9030b3"
         },
         {
           "upstream": "ffmpeg-n9.0.1-11-ge47273f4d9-winarm64-gpl-9.0.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-29-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-winarm64-gpl-9.0.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-08-30-13-12/ffmpeg-n9.0.1-11-ge47273f4d9-winarm64-gpl-9.0.zip",
           "normalized": "ffmpeg-9.0-windows-aarch64-gpl.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "6a77ff2bbbccb94f6977e81133e8a4301674a7ad35e28f73442fa7b298912354",
-          "sha256": "9d93a2a8f11c2d2d1a24785f5725b8d4ac7c5cf878361ebbf2992c4d4cf1fe36"
+          "source_sha256": "d3419b5377f2b0d7597c7defbfdbf9aecff13084edb9b120a20a52c5a9400900",
+          "sha256": "c2bc58d803037f27fe549588d32a1dc8ec3206a2b9da98889a1739a80d4c15f5"
         },
         {
           "upstream": "ffmpeg.zip",
