@@ -1,5 +1,5 @@
 {
-  "release_tag": "2026-09-11",
+  "release_tag": "2026-09-14",
   "tools": [
     {
       "name": "rg",
@@ -419,47 +419,47 @@
     {
       "name": "ffmpeg",
       "version": "9.0",
-      "tag": "autobuild-2026-09-11-13-20",
+      "tag": "autobuild-2026-09-14-13-17",
       "assets": [
         {
           "upstream": "ffmpeg-n9.0.1-29-gad500d59cb-linux64-gpl-9.0.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-11-13-20/ffmpeg-n9.0.1-29-gad500d59cb-linux64-gpl-9.0.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-14-13-17/ffmpeg-n9.0.1-29-gad500d59cb-linux64-gpl-9.0.tar.xz",
           "normalized": "ffmpeg-9.0-linux-x86_64-gpl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "2bb135a418f23049e7e2321f95a731cbb45f68bbc5b2d2fc78e8a4c1e4cfa54d",
-          "sha256": "452329cb295f3afd67b292b666498e473559d50ea97d1c408f69ffda0b55fc10"
+          "source_sha256": "f78852b0c4286d245a6bc989704ea03f8f7dcd8b66cd1ad55d190131d4f21bb9",
+          "sha256": "693997243e25684ab5976522d97111f44dbc14cfb47f968c2e2283b8fe070a17"
         },
         {
           "upstream": "ffmpeg-n9.0.1-29-gad500d59cb-linuxarm64-gpl-9.0.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-11-13-20/ffmpeg-n9.0.1-29-gad500d59cb-linuxarm64-gpl-9.0.tar.xz",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-14-13-17/ffmpeg-n9.0.1-29-gad500d59cb-linuxarm64-gpl-9.0.tar.xz",
           "normalized": "ffmpeg-9.0-linux-aarch64-gpl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "64d40fb6708eeaecdb68907d67c54227d5e772db9458fd8fd2d12515d9dcc743",
-          "sha256": "3ce88df41c68cc8f3c781fae5e5d0917ad3410b372626e9975e2989807ad6302"
+          "source_sha256": "522f4bacc6b05f4540d778c4dcb4dd26212896087738c22a0247d02c9b16d424",
+          "sha256": "139071bca3459bb5c133b8afdc0197599c8f055dd3243111b2a767a3784a23f8"
         },
         {
           "upstream": "ffmpeg-n9.0.1-29-gad500d59cb-win64-gpl-9.0.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-11-13-20/ffmpeg-n9.0.1-29-gad500d59cb-win64-gpl-9.0.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-14-13-17/ffmpeg-n9.0.1-29-gad500d59cb-win64-gpl-9.0.zip",
           "normalized": "ffmpeg-9.0-windows-x86_64-gpl.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "af971817c209439bb0374b5e623aca894042aa435426217d0dd5cfd15fb69d1b",
-          "sha256": "0a28909c41b2ab05a519cc015d733b1aa8e93caaff99d5a94f3e553fbfee5114"
+          "source_sha256": "755186bad114362356359d8e4e6e6f1e2bac3ed4df12b94588f004b411859428",
+          "sha256": "1510f326881638dd2bb7e39e6e387ca59a06a564399e0537637fd2b74fba7deb"
         },
         {
           "upstream": "ffmpeg-n9.0.1-29-gad500d59cb-winarm64-gpl-9.0.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-11-13-20/ffmpeg-n9.0.1-29-gad500d59cb-winarm64-gpl-9.0.zip",
+          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-14-13-17/ffmpeg-n9.0.1-29-gad500d59cb-winarm64-gpl-9.0.zip",
           "normalized": "ffmpeg-9.0-windows-aarch64-gpl.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "8961216fe1fea620fefe893ae8b00f215b3351c3baa7705f7855d61c968296b1",
-          "sha256": "22d67b4b66f9164f62ec862601e76a7b38989cfc9f56000e553866dd60493680"
+          "source_sha256": "04a379a584f8f7d8f7df674c6672d9dfeef42f770b09681275865e35b3fcbc81",
+          "sha256": "4d78a88cac95f1f08849c617c0d157ed14dd5602fb6f13edc71be8c39dfaab98"
         },
         {
           "upstream": "ffmpeg.zip",
@@ -485,85 +485,85 @@
     },
     {
       "name": "cua-driver",
-      "version": "0.28.0",
-      "tag": "cua-driver-rs-v0.28.0",
+      "version": "0.28.1",
+      "tag": "cua-driver-rs-v0.28.1",
       "assets": [
         {
-          "upstream": "cua-driver-rs-0.28.0-darwin-universal.tar.gz",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.0/cua-driver-rs-0.28.0-darwin-universal.tar.gz",
-          "normalized": "cua-driver-0.28.0-darwin-universal.tar.gz",
+          "upstream": "cua-driver-rs-0.28.1-darwin-universal.tar.gz",
+          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.1/cua-driver-rs-0.28.1-darwin-universal.tar.gz",
+          "normalized": "cua-driver-0.28.1-darwin-universal.tar.gz",
           "os": "darwin",
           "arch": "universal",
           "variant": "",
-          "source_sha256": "8130507d2a107975e665fd6308ffa1b289418aaf017b5c7ba4b1ccae524c5557",
-          "sha256": "3fc3c1b17065e3402d01954ffbe5951eb73c97b61b8ed1aab647151d98963a03"
+          "source_sha256": "52fdabd1947c9b252d881a257d3169372ed1a2d4ea90cdcce7dd624e8360d133",
+          "sha256": "01f9b113f9af02df1c2b0c179e62fc3c4cb362c85ed6a3865863cf60e9c0aeab"
         },
         {
-          "upstream": "cua-driver-rs-0.28.0-linux-x86_64-binary.tar.gz",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.0/cua-driver-rs-0.28.0-linux-x86_64-binary.tar.gz",
-          "normalized": "cua-driver-0.28.0-linux-x86_64",
+          "upstream": "cua-driver-rs-0.28.1-linux-x86_64-binary.tar.gz",
+          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.1/cua-driver-rs-0.28.1-linux-x86_64-binary.tar.gz",
+          "normalized": "cua-driver-0.28.1-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "120cd7f40340c5e012422aca393932767e228c224dd8b9df2124ca29c5e48226",
-          "sha256": "ff3290d13f042f64cbf8e4857a31118a09c722af03c3027c2847f6e012ed5cab"
+          "source_sha256": "71aa92533de90a68a0a2af930243f1770d23e45b896b57d67a1763da4bfaeaf7",
+          "sha256": "542d929ea90d780ad046a3c8587002920955b8c835b15bd2d43f0d74d8009773"
         },
         {
-          "upstream": "cua-driver-rs-0.28.0-linux-arm64-binary.tar.gz",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.0/cua-driver-rs-0.28.0-linux-arm64-binary.tar.gz",
-          "normalized": "cua-driver-0.28.0-linux-aarch64",
+          "upstream": "cua-driver-rs-0.28.1-linux-arm64-binary.tar.gz",
+          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.1/cua-driver-rs-0.28.1-linux-arm64-binary.tar.gz",
+          "normalized": "cua-driver-0.28.1-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "6f687c3eadcc47e0f8cc25cf74f996bf0d55ddc7839154df7bff44bbb7c35c6f",
-          "sha256": "8ae7fe65ff687ce9d3c8ace03548a723059e5ab1c7dba462e1ddf36e0a289862"
+          "source_sha256": "02693499d34d6fe30bef99ef2f3051974ee7989469e3e7a9edc404896bdc6bbd",
+          "sha256": "0c760b8f0d7ad76c83a58fae5173acff189f188e69ff0fc5583b199d25db18ff"
         },
         {
-          "upstream": "cua-driver-rs-0.28.0-windows-x86_64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.0/cua-driver-rs-0.28.0-windows-x86_64.zip",
-          "normalized": "cua-driver-0.28.0-windows-x86_64.exe",
+          "upstream": "cua-driver-rs-0.28.1-windows-x86_64.zip",
+          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.1/cua-driver-rs-0.28.1-windows-x86_64.zip",
+          "normalized": "cua-driver-0.28.1-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "dbae495361a3d5862f7ed57cb82dc7a83f46e7a9ab111a6a23a8acaa79ec6265",
-          "sha256": "b67f6bf2f6066000c8efb809a49df34f88e51ac3bdf77e454c4da5fcc431fc22"
+          "source_sha256": "0f864381d3bcf29e7caf20d4b93bdf8476faf4e1ba986ce03890162beba5c3ee",
+          "sha256": "87d6353a6c808e860cbae4289613b38b06420732c5b84caa81e1ed7c2e9e312c"
         },
         {
-          "upstream": "cua-driver-rs-0.28.0-windows-arm64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.0/cua-driver-rs-0.28.0-windows-arm64.zip",
-          "normalized": "cua-driver-0.28.0-windows-aarch64.exe",
+          "upstream": "cua-driver-rs-0.28.1-windows-arm64.zip",
+          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.1/cua-driver-rs-0.28.1-windows-arm64.zip",
+          "normalized": "cua-driver-0.28.1-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "86f9af260d64693f61736193891cdf65bfdfc010df0f91491f3ba8fbd38de498",
-          "sha256": "c37b26f17bcc7c04fd57dd22d252a996711db45ba0c064eb95d42abaab172a65"
+          "source_sha256": "b21dd46691b9fb268f9668a9a3c0537578df39bea29d4ac54e5d6a663bdb0d17",
+          "sha256": "9d2b51a6b009aad3103c0779e8295e72d3a62fd44dea0fb403e329954337c1a4"
         }
       ]
     },
     {
       "name": "cua-driver-uia",
-      "version": "0.28.0",
-      "tag": "cua-driver-rs-v0.28.0",
+      "version": "0.28.1",
+      "tag": "cua-driver-rs-v0.28.1",
       "assets": [
         {
-          "upstream": "cua-driver-rs-0.28.0-windows-x86_64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.0/cua-driver-rs-0.28.0-windows-x86_64.zip",
-          "normalized": "cua-driver-uia-0.28.0-windows-x86_64.exe",
+          "upstream": "cua-driver-rs-0.28.1-windows-x86_64.zip",
+          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.1/cua-driver-rs-0.28.1-windows-x86_64.zip",
+          "normalized": "cua-driver-uia-0.28.1-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "dbae495361a3d5862f7ed57cb82dc7a83f46e7a9ab111a6a23a8acaa79ec6265",
-          "sha256": "066c0ef4af907c183cb3a38d053b6648ea178b3a847e0e52557dca01ea529ee4"
+          "source_sha256": "0f864381d3bcf29e7caf20d4b93bdf8476faf4e1ba986ce03890162beba5c3ee",
+          "sha256": "75faa80ea5b34d7ecdd2cfe751afc3e546520289e00d7361814d57e0d2c9e684"
         },
         {
-          "upstream": "cua-driver-rs-0.28.0-windows-arm64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.0/cua-driver-rs-0.28.0-windows-arm64.zip",
-          "normalized": "cua-driver-uia-0.28.0-windows-aarch64.exe",
+          "upstream": "cua-driver-rs-0.28.1-windows-arm64.zip",
+          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.28.1/cua-driver-rs-0.28.1-windows-arm64.zip",
+          "normalized": "cua-driver-uia-0.28.1-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "86f9af260d64693f61736193891cdf65bfdfc010df0f91491f3ba8fbd38de498",
-          "sha256": "26e40248b30b55c156412fcc13a73781f328f7f84bfde723141fc30bf6265b7c"
+          "source_sha256": "b21dd46691b9fb268f9668a9a3c0537578df39bea29d4ac54e5d6a663bdb0d17",
+          "sha256": "2fb79283acbd9e1d339d0d92d3774eaba6f3a6ae0173d7ce0ea618e342c2c783"
         }
       ]
     }
