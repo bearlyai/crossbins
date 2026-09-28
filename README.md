@@ -25,98 +25,98 @@ Examples: `rg-15.1.0-linux-aarch64`, `uv-0.11.3-linux-x86_64-musl`, `yt-dlp-2026
 ## Available binaries
 
 <!-- BINARIES_START -->
-**Release: [2026-09-21](https://github.com/bearlyai/crossbins/releases/tag/2026-09-21)**
+**Release: [2026-09-28](https://github.com/bearlyai/crossbins/releases/tag/2026-09-28)**
 
 ### rg 15.2.0
 
 | File | OS | Arch | Variant | Download |
 |------|----|------|---------|----------|
-| `rg-15.2.0-darwin-aarch64` | darwin | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-darwin-aarch64) |
-| `rg-15.2.0-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-aarch64) |
-| `rg-15.2.0-darwin-x86_64` | darwin | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-darwin-x86_64) |
-| `rg-15.2.0-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-windows-x86_64.exe) |
-| `rg-15.2.0-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-windows-aarch64.exe) |
-| `rg-15.2.0-linux-armv7-musl` | linux | armv7 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-armv7-musl) |
-| `rg-15.2.0-linux-armv7` | linux | armv7 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-armv7) |
-| `rg-15.2.0-linux-s390x` | linux | s390x | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-s390x) |
-| `rg-15.2.0-windows-i686.exe` | windows | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-windows-i686.exe) |
-| `rg-15.2.0-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-x86_64-musl) |
+| `rg-15.2.0-darwin-aarch64` | darwin | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-darwin-aarch64) |
+| `rg-15.2.0-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-linux-aarch64) |
+| `rg-15.2.0-darwin-x86_64` | darwin | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-darwin-x86_64) |
+| `rg-15.2.0-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-windows-x86_64.exe) |
+| `rg-15.2.0-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-windows-aarch64.exe) |
+| `rg-15.2.0-linux-armv7-musl` | linux | armv7 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-linux-armv7-musl) |
+| `rg-15.2.0-linux-armv7` | linux | armv7 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-linux-armv7) |
+| `rg-15.2.0-linux-s390x` | linux | s390x | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-linux-s390x) |
+| `rg-15.2.0-windows-i686.exe` | windows | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-windows-i686.exe) |
+| `rg-15.2.0-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/rg-15.2.0-linux-x86_64-musl) |
 
 ### bun 1.4.2
 
 | File | OS | Arch | Variant | Download |
 |------|----|------|---------|----------|
-| `bun-1.4.2-darwin-aarch64` | darwin | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-darwin-aarch64) |
-| `bun-1.4.2-darwin-x86_64` | darwin | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-darwin-x86_64) |
-| `bun-1.4.2-linux-aarch64-musl` | linux | aarch64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-aarch64-musl) |
-| `bun-1.4.2-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-aarch64) |
-| `bun-1.4.2-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-x86_64-musl) |
-| `bun-1.4.2-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-x86_64) |
-| `bun-1.4.2-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-windows-x86_64.exe) |
+| `bun-1.4.2-darwin-aarch64` | darwin | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/bun-1.4.2-darwin-aarch64) |
+| `bun-1.4.2-darwin-x86_64` | darwin | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/bun-1.4.2-darwin-x86_64) |
+| `bun-1.4.2-linux-aarch64-musl` | linux | aarch64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/bun-1.4.2-linux-aarch64-musl) |
+| `bun-1.4.2-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/bun-1.4.2-linux-aarch64) |
+| `bun-1.4.2-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/bun-1.4.2-linux-x86_64-musl) |
+| `bun-1.4.2-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/bun-1.4.2-linux-x86_64) |
+| `bun-1.4.2-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/bun-1.4.2-windows-x86_64.exe) |
 
-### uv 0.12.17
+### uv 0.12.19
 
 | File | OS | Arch | Variant | Download |
 |------|----|------|---------|----------|
-| `uv-0.12.17-darwin-aarch64` | darwin | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-darwin-aarch64) |
-| `uv-0.12.17-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-windows-aarch64.exe) |
-| `uv-0.12.17-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-aarch64) |
-| `uv-0.12.17-linux-aarch64-musl` | linux | aarch64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-aarch64-musl) |
-| `uv-0.12.17-linux-arm-musl` | linux | arm | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-arm-musl) |
-| `uv-0.12.17-linux-armv7` | linux | armv7 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-armv7) |
-| `uv-0.12.17-linux-armv7-musl` | linux | armv7 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-armv7-musl) |
-| `uv-0.12.17-windows-i686.exe` | windows | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-windows-i686.exe) |
-| `uv-0.12.17-linux-i686` | linux | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-i686) |
-| `uv-0.12.17-linux-i686-musl` | linux | i686 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-i686-musl) |
-| `uv-0.12.17-linux-ppc64le` | linux | ppc64le | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-ppc64le) |
-| `uv-0.12.17-linux-riscv64` | linux | riscv64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-riscv64) |
-| `uv-0.12.17-linux-s390x` | linux | s390x | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-s390x) |
-| `uv-0.12.17-darwin-x86_64` | darwin | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-darwin-x86_64) |
-| `uv-0.12.17-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-windows-x86_64.exe) |
-| `uv-0.12.17-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-x86_64) |
-| `uv-0.12.17-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-x86_64-musl) |
+| `uv-0.12.19-darwin-aarch64` | darwin | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-darwin-aarch64) |
+| `uv-0.12.19-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-windows-aarch64.exe) |
+| `uv-0.12.19-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-aarch64) |
+| `uv-0.12.19-linux-aarch64-musl` | linux | aarch64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-aarch64-musl) |
+| `uv-0.12.19-linux-arm-musl` | linux | arm | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-arm-musl) |
+| `uv-0.12.19-linux-armv7` | linux | armv7 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-armv7) |
+| `uv-0.12.19-linux-armv7-musl` | linux | armv7 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-armv7-musl) |
+| `uv-0.12.19-windows-i686.exe` | windows | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-windows-i686.exe) |
+| `uv-0.12.19-linux-i686` | linux | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-i686) |
+| `uv-0.12.19-linux-i686-musl` | linux | i686 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-i686-musl) |
+| `uv-0.12.19-linux-ppc64le` | linux | ppc64le | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-ppc64le) |
+| `uv-0.12.19-linux-riscv64` | linux | riscv64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-riscv64) |
+| `uv-0.12.19-linux-s390x` | linux | s390x | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-s390x) |
+| `uv-0.12.19-darwin-x86_64` | darwin | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-darwin-x86_64) |
+| `uv-0.12.19-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-windows-x86_64.exe) |
+| `uv-0.12.19-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-x86_64) |
+| `uv-0.12.19-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/uv-0.12.19-linux-x86_64-musl) |
 
 ### yt-dlp 2026.08.19
 
 | File | OS | Arch | Variant | Download |
 |------|----|------|---------|----------|
-| `yt-dlp-2026.08.19-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-x86_64) |
-| `yt-dlp-2026.08.19-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-aarch64) |
-| `yt-dlp-2026.08.19-linux-armv7` | linux | armv7 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-armv7) |
-| `yt-dlp-2026.08.19-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-x86_64-musl) |
-| `yt-dlp-2026.08.19-linux-aarch64-musl` | linux | aarch64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-aarch64-musl) |
-| `yt-dlp-2026.08.19-darwin-universal` | darwin | universal | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-darwin-universal) |
-| `yt-dlp-2026.08.19-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-windows-x86_64.exe) |
-| `yt-dlp-2026.08.19-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-windows-aarch64.exe) |
-| `yt-dlp-2026.08.19-windows-i686.exe` | windows | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-windows-i686.exe) |
+| `yt-dlp-2026.08.19-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-linux-x86_64) |
+| `yt-dlp-2026.08.19-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-linux-aarch64) |
+| `yt-dlp-2026.08.19-linux-armv7` | linux | armv7 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-linux-armv7) |
+| `yt-dlp-2026.08.19-linux-x86_64-musl` | linux | x86_64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-linux-x86_64-musl) |
+| `yt-dlp-2026.08.19-linux-aarch64-musl` | linux | aarch64 | musl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-linux-aarch64-musl) |
+| `yt-dlp-2026.08.19-darwin-universal` | darwin | universal | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-darwin-universal) |
+| `yt-dlp-2026.08.19-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-windows-x86_64.exe) |
+| `yt-dlp-2026.08.19-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-windows-aarch64.exe) |
+| `yt-dlp-2026.08.19-windows-i686.exe` | windows | i686 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/yt-dlp-2026.08.19-windows-i686.exe) |
 
 ### ffmpeg 9.0
 
 | File | OS | Arch | Variant | Download |
 |------|----|------|---------|----------|
-| `ffmpeg-9.0-linux-x86_64-gpl` | linux | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-linux-x86_64-gpl) |
-| `ffmpeg-9.0-linux-aarch64-gpl` | linux | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-linux-aarch64-gpl) |
-| `ffmpeg-9.0-windows-x86_64-gpl.exe` | windows | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-windows-x86_64-gpl.exe) |
-| `ffmpeg-9.0-windows-aarch64-gpl.exe` | windows | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-windows-aarch64-gpl.exe) |
-| `ffmpeg-9.0-darwin-x86_64-gpl` | darwin | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-darwin-x86_64-gpl) |
-| `ffmpeg-9.0-darwin-aarch64-gpl` | darwin | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-darwin-aarch64-gpl) |
+| `ffmpeg-9.0-linux-x86_64-gpl` | linux | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/ffmpeg-9.0-linux-x86_64-gpl) |
+| `ffmpeg-9.0-linux-aarch64-gpl` | linux | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/ffmpeg-9.0-linux-aarch64-gpl) |
+| `ffmpeg-9.0-windows-x86_64-gpl.exe` | windows | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/ffmpeg-9.0-windows-x86_64-gpl.exe) |
+| `ffmpeg-9.0-windows-aarch64-gpl.exe` | windows | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/ffmpeg-9.0-windows-aarch64-gpl.exe) |
+| `ffmpeg-9.0-darwin-x86_64-gpl` | darwin | x86_64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/ffmpeg-9.0-darwin-x86_64-gpl) |
+| `ffmpeg-9.0-darwin-aarch64-gpl` | darwin | aarch64 | gpl | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/ffmpeg-9.0-darwin-aarch64-gpl) |
 
-### cua-driver 0.28.2
-
-| File | OS | Arch | Variant | Download |
-|------|----|------|---------|----------|
-| `cua-driver-0.28.2-darwin-universal.tar.gz` | darwin | universal | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-darwin-universal.tar.gz) |
-| `cua-driver-0.28.2-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-linux-x86_64) |
-| `cua-driver-0.28.2-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-linux-aarch64) |
-| `cua-driver-0.28.2-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-windows-x86_64.exe) |
-| `cua-driver-0.28.2-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-windows-aarch64.exe) |
-
-### cua-driver-uia 0.28.2
+### cua-driver 0.30.2
 
 | File | OS | Arch | Variant | Download |
 |------|----|------|---------|----------|
-| `cua-driver-uia-0.28.2-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-uia-0.28.2-windows-x86_64.exe) |
-| `cua-driver-uia-0.28.2-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-uia-0.28.2-windows-aarch64.exe) |
+| `cua-driver-0.30.2-darwin-universal.tar.gz` | darwin | universal | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/cua-driver-0.30.2-darwin-universal.tar.gz) |
+| `cua-driver-0.30.2-linux-x86_64` | linux | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/cua-driver-0.30.2-linux-x86_64) |
+| `cua-driver-0.30.2-linux-aarch64` | linux | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/cua-driver-0.30.2-linux-aarch64) |
+| `cua-driver-0.30.2-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/cua-driver-0.30.2-windows-x86_64.exe) |
+| `cua-driver-0.30.2-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/cua-driver-0.30.2-windows-aarch64.exe) |
+
+### cua-driver-uia 0.30.2
+
+| File | OS | Arch | Variant | Download |
+|------|----|------|---------|----------|
+| `cua-driver-uia-0.30.2-windows-x86_64.exe` | windows | x86_64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/cua-driver-uia-0.30.2-windows-x86_64.exe) |
+| `cua-driver-uia-0.30.2-windows-aarch64.exe` | windows | aarch64 | - | [download](https://github.com/bearlyai/crossbins/releases/download/2026-09-28/cua-driver-uia-0.30.2-windows-aarch64.exe) |
 
 <!-- BINARIES_END -->
 
