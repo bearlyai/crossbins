@@ -151,6 +151,33 @@ def self_test(config):
             raise AssertionError('Guard accepted changed frozen output bytes')
 
 
+    # Use the real signed baseline, so the versioned bytes stay correct while
+    # only the alias that older desktops download is corrupted.
+    source_output = Path(__file__).resolve().parent / 'output'
+    frozen = [stage_frozen(name, source_output) for name in FROZEN_HASHES]
+    alias_lock = copy.deepcopy(lock)
+    for entry in frozen:
+        alias_lock['tools'] = [entry if tool['name'] == entry['name'] else tool for tool in alias_lock['tools']]
+    changed_alias = frozen[0]['assets'][0]['frozen_alias']
+    with tempfile.TemporaryDirectory() as folder:
+        output = Path(folder)
+        for entry in frozen:
+            for asset in entry['assets']:
+                for filename in (asset['normalized'], asset['frozen_alias']):
+                    if filename == changed_alias:
+                        output.joinpath(filename).write_bytes(b'changed version-less signed asset')
+                    else:
+                        output.joinpath(filename).symlink_to((source_output / filename).resolve())
+        try:
+            validate(config, alias_lock, output)
+        except ValueError as error:
+            if changed_alias not in str(error):
+                raise
+            print('PASS: rejected changed version-less alias with correct versioned bytes')
+        else:
+            raise AssertionError('Guard accepted changed frozen alias')
+
+
 def validate_manifest(manifest):
     for name, expected in FROZEN_HASHES.items():
         tool = next(tool for tool in manifest['tools'] if tool['name'] == name)
