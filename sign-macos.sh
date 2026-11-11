@@ -161,7 +161,7 @@ install_certificate
 macos_assets=()
 while IFS= read -r f; do
   macos_assets+=("$f")
-done < <(find "$OUTPUT_DIR" -maxdepth 1 -type f \( -name '*-darwin-*' -o -name '*-macos-*' \) | sort)
+done < <(find "$OUTPUT_DIR" -maxdepth 1 -type f ! -name 'cua-driver-*' \( -name '*-darwin-*' -o -name '*-macos-*' \) | sort)
 
 if [[ "${#macos_assets[@]}" -eq 0 ]]; then
   echo "sign-macos: no macOS assets in output/ - nothing to sign."

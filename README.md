@@ -214,7 +214,7 @@ The PyInstaller-based `yt-dlp` binary is signed with a library-validation except
 embedded Python framework can load under the hardened runtime; other raw binaries do not
 receive that entitlement.
 
-The CUA macOS archive is intentionally rewrapped before signing: upstream `CuaDriver.app`
+The new computer-use-driver macOS archive is intentionally rewrapped before signing: upstream `CuaDriver.app`
 becomes `Bearly Computer Use Helper.app` with bundle id `com.bearly.computer-use-helper`.
 The helper's `AppIcon.icns` is the canonical Bearly Electron icon copied from
 `projects/electron/build/icon.icns` in the Bearly repository.
@@ -235,7 +235,19 @@ gh release edit <release-tag> --repo bearlyai/crossbins --latest
 
 A dispatch with `promote=true` promotes only after all artifacts and the manifest upload. Never reuse a release tag: the publisher refuses to overwrite an existing release. Roll back by marking the previous compatible crossbins release latest.
 
-The legacy `cua-driver` and `cua-driver-uia` entries stay pinned at upstream 0.28.2 for older desktop builds. The `computer-use-driver` and `computer-use-driver-uia` entries are Bearly builds from `bearlyai/cua`, pinned to a reviewed `cua-driver-rs-v<version>-bearly.<revision>` tag. Current desktop apps prefer the new entries and fall back to the legacy entries when the new entries are absent. `validate-driver-channels.py` enforces the exact pins before download and before publish, and checks all four locked versions and platform sets. No workflow input bypasses it; changing a frozen pin requires a deliberate reviewed source change. Legacy binaries are still rewrapped and signed for each crossbins release, so signatures and hashes can change while the upstream 0.28.2 code stays frozen.
+The legacy `cua-driver` and `cua-driver-uia` entries preserve the already signed stock 0.28.2 assets from crossbins release `2026-09-21` byte for byte. Both versioned and version-less asset names are downloaded directly from that immutable release and checked against the pinned per-platform SHA-256 values in `validate-driver-channels.py`. They skip upstream downloads, rewrapping, signing and notarization. Before publishing, the guard rehashes every frozen output and refuses any changed byte; their manifest versions and hashes stay identical to the baseline. No workflow input bypasses the guard.
+
+The `computer-use-driver` and `computer-use-driver-uia` entries are Bearly builds from `bearlyai/cua`, pinned to a reviewed `cua-driver-rs-v<version>-bearly.<revision>` tag. Current desktop apps prefer the new entries and fall back to the legacy entries when the new entries are absent. The separate Windows Program Files helper remains pinned by the desktop app at 0.28.0.
+
+The prepare job runs `python3 validate-driver-channels.py --self-test`, proving that changed legacy tags, discovery patterns, repos, platform sets and hashes are rejected. Each staged release's notes and workflow summary include every tool's baseline and staged version, including ordinary tools that refresh to current upstream releases.
+
+To check an actual generated manifest against the production reader functions from desktop 5.2.3 and current master (requires the Bearly checkout and its Electron esbuild dependency):
+
+```sh
+node check-desktop-manifest.cjs output/manifest.json /path/to/bearly /path/to/bearly/projects/electron
+```
+
+The check exercises the actual source functions for Mac, Windows and Linux, both x64 and arm64. Old desktops resolve the unchanged legacy bytes; current master resolves the new channel. The asset's complete URL controls downloads; `download_base` is unused metadata in both readers.
 
 ## Dependencies
 

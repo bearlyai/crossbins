@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 LOCK_FILE="$SCRIPT_DIR/binaries.lock.json"
 OUTPUT_DIR="$SCRIPT_DIR/output"
 
-python3 "$SCRIPT_DIR/validate-driver-channels.py" --lock
+python3 "$SCRIPT_DIR/validate-driver-channels.py" --lock --outputs
 
 # Required environment variable
 : "${GITHUB_TOKEN:?Set GITHUB_TOKEN with repo scope}"
@@ -119,6 +119,9 @@ macos_asset_signed_by_bearly() {
   return 1
 }
 
+python3 "$SCRIPT_DIR/generate-manifest.py"
+python3 "$SCRIPT_DIR/release-notes.py"
+
 # Build release body with tool versions
 release_body="Binary set ${release_tag}"$'\n\n'
 num_tools=$(jq '.tools | length' "$LOCK_FILE")
@@ -127,6 +130,8 @@ for (( i=0; i<num_tools; i++ )); do
   version=$(jq -r ".tools[$i].version" "$LOCK_FILE")
   release_body+="- **${name}** ${version}"$'\n'
 done
+
+release_body+=$'\n'"$(cat "$OUTPUT_DIR/versions.md")"
 
 # Validate all binaries before creating the release
 echo "Validating binaries before publish..."
@@ -305,6 +310,9 @@ for (( i=0; i<num_tools; i++ )); do
     suffix="${normalized#"$versioned_prefix"}"
     latest_name="${name}-${os}-${arch}${variant_part}${suffix}"
 
+    if [[ "$name" == "cua-driver" || "$name" == "cua-driver-uia" ]]; then
+      filepath="$OUTPUT_DIR/$latest_name"
+    fi
     delete_existing_asset "$latest_name"
     curl -fsS -w '\n%{http_code}' -X POST \
       -H "Authorization: token $GITHUB_TOKEN" \

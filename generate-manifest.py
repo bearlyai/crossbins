@@ -3,6 +3,7 @@
 import hashlib
 import json
 import os
+import runpy
 from pathlib import Path
 
 root = Path(__file__).resolve().parent
@@ -44,4 +45,5 @@ for tool in lock['tools']:
     if not assets:
         raise ValueError(f"No assets for {tool['name']}")
     manifest['tools'].append({'name': tool['name'], 'version': tool['version'], 'assets': assets})
+runpy.run_path(str(root / 'validate-driver-channels.py'))['validate_manifest'](manifest)
 (root / 'output' / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')

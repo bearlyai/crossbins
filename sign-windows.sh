@@ -50,7 +50,7 @@ sha256_file() {
 windows_binaries=()
 while IFS= read -r f; do
   windows_binaries+=("$f")
-done < <(find "$OUTPUT_DIR" -type f -name '*-windows-*.exe' | sort)
+done < <(find "$OUTPUT_DIR" -type f ! -name 'cua-driver-*' -name '*-windows-*.exe' | sort)
 
 if [[ "${#windows_binaries[@]}" -eq 0 ]]; then
   # Non-fatal: a release with no Windows assets (mac/linux only) is still valid.

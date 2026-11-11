@@ -30,11 +30,17 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y jq unzip xz-utils
 
+      - name: Prove frozen channel guard
+        run: python3 validate-driver-channels.py --self-test
+
       - name: Update binaries
         run: ./update.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_TAG: ${{ inputs.release_tag }}
+
+      - name: Show changes against production baseline
+        run: cat output/versions.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Smoke test
         run: |
@@ -121,7 +127,7 @@ jobs:
 
       - name: Smoke test Bearly helper branding
         run: |
-          for cua_archive in $(jq -r '.tools[] | select(.name == "cua-driver" or .name == "computer-use-driver") | .assets[] | select(.os == "darwin") | .normalized' binaries.lock.json); do
+          for cua_archive in $(jq -r '.tools[] | select(.name == "computer-use-driver") | .assets[] | select(.os == "darwin") | .normalized' binaries.lock.json); do
             temp_dir=$(mktemp -d)
             trap 'rm -rf "$temp_dir"' EXIT
             tar xzf "output/$cua_archive" -C "$temp_dir"

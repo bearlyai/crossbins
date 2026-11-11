@@ -129,6 +129,13 @@ for (( i=0; i<num_tools; i++ )); do
   version_probe_regex=$(jq -r ".tools[$i].version_probe_regex // empty" "$CONFIG")
   checksum_asset=$(jq -r ".tools[$i].checksum_asset // empty" "$CONFIG")
 
+  if [[ "$name" == "cua-driver" || "$name" == "cua-driver-uia" ]]; then
+    frozen_tool=$(python3 "$SCRIPT_DIR/validate-driver-channels.py" --stage "$name")
+    lock_json=$(jq --argjson tool "$frozen_tool" '.tools += [$tool]' <<<"$lock_json")
+    echo "=== $name: preserving signed 0.28.2 bytes from 2026-09-21 ==="
+    continue
+  fi
+
   release_tag=$(jq -r ".tools[$i].release_tag // empty" "$CONFIG")
 
   if [[ -n "$release_tag" ]]; then
@@ -554,5 +561,7 @@ fi
 
 echo "Done. Binaries in ./output/, lock file at binaries.lock.json (${new_release_tag})"
 
-python3 "$SCRIPT_DIR/validate-driver-channels.py" --lock
+python3 "$SCRIPT_DIR/validate-driver-channels.py" --lock --outputs
 python3 "$SCRIPT_DIR/generate-manifest.py"
+
+python3 "$SCRIPT_DIR/release-notes.py"
