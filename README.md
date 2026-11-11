@@ -155,7 +155,8 @@ The `manifest.json` includes a `platform_map` with these translations.
 ### Local testing
 
 ```bash
-./update.sh          # downloads, extracts, normalizes into ./output/
+./update.sh          # downloads, normalizes and writes ./output/manifest.json
+python3 generate-manifest.py  # rehash local bytes after signing, without publishing
 ls -la output/
 file output/*        # verify binary types
 ```
@@ -175,6 +176,7 @@ Two config modes in `binaries.json`:
 
 **Raw binary tools** (yt-dlp) — use `explicit_assets`:
 - `name`, `repo`, `binary_name` — same as above
+- `release_tag` — optional exact GitHub release tag; takes precedence over discovery
 - `release_tag_pattern` — optional regex to select only matching upstream release tags
 - `version_probe_regex` — optional regex with a named `version` capture, resolved from upstream asset names
 - `checksum_asset` — optional release asset containing SHA256 checksums to verify before extraction
@@ -183,7 +185,7 @@ Two config modes in `binaries.json`:
 
 ### Updating versions
 
-Just run `./update.sh` — it always fetches the latest stable (non-draft, non-prerelease) release from GitHub.
+Run `./update.sh`. Tools with `release_tag` fetch that exact release, including tags older than the most recent 100 releases. Both driver channels must always have exact tags; they never track upstream automatically. Other tools select the latest matching release.
 
 ## Code signing
 
@@ -223,12 +225,17 @@ Linux binaries are not OS-signed; their release manifest entries carry SHA-256 h
 
 ## Automation
 
-A GitHub Actions workflow runs weekly (Monday 9am UTC) to check for upstream updates.
-When versions change, it publishes a new release and commits the updated lock file and README.
-Before publish, CI verifies checksums, signs Windows and macOS artifacts, notarizes macOS app
-bundles, and refuses artifacts that do not verify under Bearly's signing identities.
+Publishing is manual. The Publish binaries workflow remains disabled until deliberately enabled. Once enabled, dispatch it with a unique `release_tag`; `promote` defaults to false. The resulting release has `make_latest=false`, so installed desktop apps keep their current feed. Its manifest URLs point at that immutable release, so staged validation cannot accidentally download production bytes.
 
-The workflow also runs on pushes to `main` when binary config, scripts, or license notices change, and can be triggered manually.
+After verifying the signed artifacts and desktop transport, promote the already staged release without rebuilding:
+
+```bash
+gh release edit <release-tag> --repo bearlyai/crossbins --latest
+```
+
+A dispatch with `promote=true` promotes only after all artifacts and the manifest upload. Never reuse a release tag: the publisher refuses to overwrite an existing release. Roll back by marking the previous compatible crossbins release latest.
+
+The legacy `cua-driver` and `cua-driver-uia` entries stay pinned at upstream 0.28.2 for older desktop builds. The `computer-use-driver` and `computer-use-driver-uia` entries are Bearly builds from `bearlyai/cua`, pinned to a reviewed `cua-driver-rs-v<version>-bearly.<revision>` tag. Current desktop apps prefer the new entries and fall back to the legacy entries when the new entries are absent. `validate-driver-channels.py` enforces the exact pins before download and before publish, and checks all four locked versions and platform sets. No workflow input bypasses it; changing a frozen pin requires a deliberate reviewed source change. Legacy binaries are still rewrapped and signed for each crossbins release, so signatures and hashes can change while the upstream 0.28.2 code stays frozen.
 
 ## Dependencies
 

@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 LOCK_FILE="$SCRIPT_DIR/binaries.lock.json"
 OUTPUT_DIR="$SCRIPT_DIR/output"
 
+python3 "$SCRIPT_DIR/validate-driver-channels.py" --lock
+
 # Required environment variable
 : "${GITHUB_TOKEN:?Set GITHUB_TOKEN with repo scope}"
 
@@ -206,33 +208,27 @@ delete_existing_asset() {
   fi
 }
 
-# Create release, or update the existing same-day release when automation already ran.
-release_lookup=$(curl -s -w '\n%{http_code}' "${CURL_COMMON[@]}" \
+# Releases are immutable: choose a new tag for each staged build.
+release_lookup=$(curl -sS -w '\n%{http_code}' "${CURL_COMMON[@]}" \
   "${API_BASE}/releases/tags/$release_tag")
 http_code=$(echo "$release_lookup" | tail -1)
 response_body=$(echo "$release_lookup" | sed '$d')
 
 if [[ "$http_code" == "200" ]]; then
-  echo "Updating existing release $release_tag ..."
-  existing_release_id=$(echo "$response_body" | jq -r '.id')
-  release_response=$(curl -s -w '\n%{http_code}' -X PATCH "${CURL_COMMON[@]}" \
-    -H "Content-Type: application/json" \
-    -d "$(jq -n \
-      --arg rname "Binary set ${release_tag}" \
-      --arg body "$release_body" \
-      '{name: $rname, body: $body, draft: false, prerelease: false}')" \
-    "${API_BASE}/releases/${existing_release_id}")
-  http_code=$(echo "$release_response" | tail -1)
-  response_body=$(echo "$release_response" | sed '$d')
+  echo "ERROR: release $release_tag already exists; use a unique RELEASE_TAG" >&2
+  exit 1
+elif [[ "$http_code" != "404" ]]; then
+  echo "ERROR: release lookup failed (HTTP $http_code)" >&2
+  exit 1
 else
   echo "Creating release $release_tag ..."
-  release_response=$(curl -s -w '\n%{http_code}' -X POST "${CURL_COMMON[@]}" \
+  release_response=$(curl -fsS -w '\n%{http_code}' -X POST "${CURL_COMMON[@]}" \
     -H "Content-Type: application/json" \
     -d "$(jq -n \
       --arg tag "$release_tag" \
       --arg rname "Binary set ${release_tag}" \
       --arg body "$release_body" \
-      '{tag_name: $tag, name: $rname, body: $body, draft: false, prerelease: false}')" \
+      '{tag_name: $tag, name: $rname, body: $body, draft: false, prerelease: false, make_latest: "false"}')" \
     "${API_BASE}/releases")
   http_code=$(echo "$release_response" | tail -1)
   response_body=$(echo "$release_response" | sed '$d')
@@ -269,7 +265,7 @@ for (( i=0; i<num_tools; i++ )); do
     echo "  Uploading $normalized (${filesize} bytes) ..."
 
     delete_existing_asset "$normalized"
-    upload_response=$(curl -s -w '\n%{http_code}' -X POST \
+    upload_response=$(curl -fsS -w '\n%{http_code}' -X POST \
       -H "Authorization: token $GITHUB_TOKEN" \
       -H "Content-Type: application/octet-stream" \
       --data-binary "@$filepath" \
@@ -310,7 +306,7 @@ for (( i=0; i<num_tools; i++ )); do
     latest_name="${name}-${os}-${arch}${variant_part}${suffix}"
 
     delete_existing_asset "$latest_name"
-    curl -s -w '\n%{http_code}' -X POST \
+    curl -fsS -w '\n%{http_code}' -X POST \
       -H "Authorization: token $GITHUB_TOKEN" \
       -H "Content-Type: application/octet-stream" \
       --data-binary "@$filepath" \
@@ -321,70 +317,10 @@ for (( i=0; i<num_tools; i++ )); do
   done
 done
 
-# Generate and upload manifest.json
-download_base="https://github.com/${REPO}/releases/latest/download"
-
-# Hash the files we actually uploaded so the manifest reflects post-signing bytes.
-# The lock's sha256 is the *unsigned* output hash (it anchors release-tag change
-# detection in update.sh and must stay signing-independent), so it can't be trusted
-# for the manifest once Windows binaries are signed.
-hashes_json="{}"
-for (( i=0; i<num_tools; i++ )); do
-  num_assets=$(jq ".tools[$i].assets | length" "$LOCK_FILE")
-  for (( j=0; j<num_assets; j++ )); do
-    normalized=$(jq -r ".tools[$i].assets[$j].normalized" "$LOCK_FILE")
-    filepath="$OUTPUT_DIR/$normalized"
-    [[ -f "$filepath" ]] || continue
-    hashes_json=$(jq --arg n "$normalized" --arg h "$(sha256_file "$filepath")" '. + {($n): $h}' <<<"$hashes_json")
-  done
-done
-
-# Build manifest with jq — includes full URLs and platform mapping for consumers
-manifest=$(jq -n \
-  --arg base "$download_base" \
-  --arg tag "$release_tag" \
-  --argjson hashes "$hashes_json" \
-  --slurpfile lock "$LOCK_FILE" \
-'
-{
-  release_tag: $tag,
-  download_base: $base,
-  platform_map: {
-    os:   { darwin: "darwin", linux: "linux", win32: "windows" },
-    arch: { arm64: "aarch64", x64: "x86_64", ia32: "i686", x86: "i686" }
-  },
-  tools: [
-    $lock[0].tools[] | . as $tool | {
-      name: .name,
-      version: .version,
-      assets: [
-        .assets[] | {
-          name: (
-            .os + "-" + .arch
-            + (if .variant != "" then "-" + .variant else "" end)
-          ),
-          os,
-          arch,
-          variant,
-          sha256: ($hashes[.normalized] // .sha256 // ""),
-          url: (
-            $base + "/" + $tool.name + "-" + .os + "-" + .arch
-            + (if .variant != "" then "-" + .variant else "" end)
-            + (
-              . as $asset
-              | ($tool.name + "-" + $tool.version + "-" + $asset.os + "-" + $asset.arch + (if $asset.variant != "" then "-" + $asset.variant else "" end)) as $prefix
-              | ($asset.normalized | ltrimstr($prefix))
-            )
-          )
-        }
-      ]
-    }
-  ]
-}')
-
-echo "$manifest" > "$OUTPUT_DIR/manifest.json"
+# Recompute hashes after signing before publishing the manifest.
+python3 "$SCRIPT_DIR/generate-manifest.py"
 delete_existing_asset "manifest.json"
-curl -s -w '\n%{http_code}' -X POST \
+curl -fsS -w '\n%{http_code}' -X POST \
   -H "Authorization: token $GITHUB_TOKEN" \
   -H "Content-Type: application/octet-stream" \
   --data-binary "@$OUTPUT_DIR/manifest.json" \
@@ -394,3 +330,9 @@ echo "  manifest.json"
 
 echo "=> $release_tag published with $total assets (versioned + version-less + manifest)"
 echo "Done."
+
+# Promote only after every asset and the immutable manifest have been uploaded.
+if [[ "${PROMOTE_LATEST:-false}" == "true" ]]; then
+  curl -fsSL -X PATCH "${CURL_COMMON[@]}" -H "Content-Type: application/json" \
+    -d '{"make_latest":"true"}' "${API_BASE}/releases/${release_id}" >/dev/null
+fi

@@ -1,19 +1,16 @@
 name: Publish binaries
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/publish.yml
-      - binaries.json
-      - '*.sh'
-      - '*.py'
-      - 'macos-*.plist'
-      - 'assets/**'
-      - 'licenses/**'
-  schedule:
-    - cron: '0 9 * * 1'   # Weekly: Monday 9am UTC
   workflow_dispatch:
+    inputs:
+      promote:
+        description: 'Make this release the latest feed after verification'
+        type: boolean
+        default: false
+      release_tag:
+        description: 'Unique release tag (for example 2026-11-11-driver-1)'
+        required: true
+        type: string
 
 concurrency:
   group: publish
@@ -37,6 +34,7 @@ jobs:
         run: ./update.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
 
       - name: Smoke test
         run: |
@@ -123,15 +121,17 @@ jobs:
 
       - name: Smoke test Bearly helper branding
         run: |
-          cua_archive=$(jq -r '.tools[] | select(.name == "cua-driver") | .assets[] | select(.os == "darwin") | .normalized' binaries.lock.json)
-          temp_dir=$(mktemp -d)
-          trap 'rm -rf "$temp_dir"' EXIT
-          tar xzf "output/$cua_archive" -C "$temp_dir"
-          helper=$(find "$temp_dir" -type d -name 'Bearly Computer Use Helper.app' -print -quit)
-          [[ -n "$helper" ]] || { echo "ERROR: Bearly Computer Use Helper.app is missing"; exit 1; }
-          cmp "$helper/Contents/Resources/AppIcon.icns" assets/bearly-icon.icns
-          [[ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIconFile' "$helper/Contents/Info.plist")" == "AppIcon" ]]
-          [[ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIconName' "$helper/Contents/Info.plist")" == "AppIcon" ]]
+          for cua_archive in $(jq -r '.tools[] | select(.name == "cua-driver" or .name == "computer-use-driver") | .assets[] | select(.os == "darwin") | .normalized' binaries.lock.json); do
+            temp_dir=$(mktemp -d)
+            trap 'rm -rf "$temp_dir"' EXIT
+            tar xzf "output/$cua_archive" -C "$temp_dir"
+            helper=$(find "$temp_dir" -type d -name 'Bearly Computer Use Helper.app' -print -quit)
+            [[ -n "$helper" ]] || { echo "ERROR: Bearly Computer Use Helper.app is missing"; exit 1; }
+            cmp "$helper/Contents/Resources/AppIcon.icns" assets/bearly-icon.icns
+            [[ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIconFile' "$helper/Contents/Info.plist")" == "AppIcon" ]]
+            [[ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIconName' "$helper/Contents/Info.plist")" == "AppIcon" ]]
+            rm -rf "$temp_dir"
+          done
 
       - name: Upload signed binaries
         uses: actions/upload-artifact@v4
@@ -165,16 +165,16 @@ jobs:
         run: ./publish.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROMOTE_LATEST: ${{ inputs.promote }}
           APPLE_TEAM_ID: NK6K4BACCF
 
       - name: Commit lock file and README
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add binaries.lock.json README.md binaries.json
           if ! git diff --cached --quiet; then
-            git commit -m "chore: update binaries to latest versions"
+            git commit -m "chore: record pinned binary release"
             git push
           fi
 

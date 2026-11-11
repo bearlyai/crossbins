@@ -1,3 +1,5 @@
+Bearly builds the computer-use-driver channel from its fork of the MIT-licensed CUA project (https://github.com/bearlyai/cua). The legacy cua-driver channel retains stock upstream 0.28.2 for older desktop builds.
+
 MIT License
 
 Copyright (c) 2025 Cua AI, Inc.

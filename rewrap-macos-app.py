@@ -56,8 +56,11 @@ def update_plist(app_path: Path, bundle_id: str, display_name: str, version: str
     plist["CFBundleIdentifier"] = bundle_id
     plist["CFBundleName"] = display_name
     plist["CFBundleDisplayName"] = display_name
-    plist["CFBundleShortVersionString"] = version
-    plist["CFBundleVersion"] = version
+    # Apple bundle versions use numeric components; the CLI and manifest retain the full build version.
+    bundle_version = version.split("-", 1)[0]
+    plist["CFBundleShortVersionString"] = bundle_version
+    plist["CFBundleVersion"] = bundle_version
+    plist["CFBundleGetInfoString"] = f"{display_name} {version}"
     plist["NSHumanReadableCopyright"] = "Copyright (c) Bearly. Contains CUA driver components licensed under MIT."
     if has_custom_icon:
         plist["CFBundleIconFile"] = "AppIcon"
