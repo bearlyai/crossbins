@@ -46,16 +46,24 @@ sha256_file() {
   fi
 }
 
+# Frozen tools keep the signed bytes of their crossbins release: never re-sign them, and
+# fail if signing changed any of them.
+frozen_list="$(mktemp)"
+trap 'rm -f "$frozen_list"' EXIT
+python3 "$SCRIPT_DIR/validate-release.py" --frozen-files > "$frozen_list"
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs
+
 # Windows binaries: normalized names always contain "-windows-" and end in ".exe".
 windows_binaries=()
 while IFS= read -r f; do
+  grep -qxF "$(basename "$f")" "$frozen_list" && continue
   windows_binaries+=("$f")
-done < <(find "$OUTPUT_DIR" -type f ! -name 'cua-driver-*' -name '*-windows-*.exe' | sort)
+done < <(find "$OUTPUT_DIR" -type f -name '*-windows-*.exe' | sort)
 
 if [[ "${#windows_binaries[@]}" -eq 0 ]]; then
   # Non-fatal: a release with no Windows assets (mac/linux only) is still valid.
   # publish.sh independently refuses to upload any unsigned Windows .exe.
-  echo "sign-windows: no Windows binaries in output/ — nothing to sign."
+  echo "sign-windows: no unfrozen Windows binaries in output/ — nothing to sign."
   exit 0
 fi
 
@@ -117,4 +125,5 @@ java -jar "$JSIGN_JAR" \
   --replace \
   "${windows_binaries[@]}"
 
-echo "sign-windows: done — ${#windows_binaries[@]} binaries signed as \"Bearly, Inc.\""
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs
+echo "sign-windows: done — ${#windows_binaries[@]} binaries signed as \"Bearly, Inc.\"; frozen files unchanged"

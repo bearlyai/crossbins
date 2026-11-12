@@ -5,6 +5,7 @@
       "name": "rg",
       "repo": "BurntSushi/ripgrep",
       "binary_name": "rg",
+      "frozen_release": "2026-09-21",
       "asset_prefix": "ripgrep-{VERSION}-",
       "triple_map": {
         "aarch64-apple-darwin":          { "os": "darwin",  "arch": "aarch64" },
@@ -24,6 +25,7 @@
       "name": "bun",
       "repo": "oven-sh/bun",
       "binary_name": "bun",
+      "frozen_release": "2026-09-21",
       "asset_prefix": "bun-",
       "triple_map": {
         "darwin-aarch64":      { "os": "darwin",  "arch": "aarch64" },
@@ -39,6 +41,7 @@
       "name": "uv",
       "repo": "astral-sh/uv",
       "binary_name": "uv",
+      "frozen_release": "2026-09-21",
       "asset_prefix": "uv-",
       "triple_map": {
         "x86_64-apple-darwin":              { "os": "darwin",  "arch": "x86_64" },
@@ -65,6 +68,7 @@
       "name": "yt-dlp",
       "repo": "yt-dlp/yt-dlp",
       "binary_name": "yt-dlp",
+      "frozen_release": "2026-09-21",
       "explicit_assets": [
         { "asset_name": "yt-dlp_linux",            "source_type": "raw", "os": "linux",   "arch": "x86_64" },
         { "asset_name": "yt-dlp_linux_aarch64",     "source_type": "raw", "os": "linux",   "arch": "aarch64" },
@@ -81,6 +85,7 @@
       "name": "ffmpeg",
       "repo": "BtbN/FFmpeg-Builds",
       "binary_name": "ffmpeg",
+      "frozen_release": "2026-09-21",
       "release_tag_pattern": "^autobuild-",
       "version_probe_regex": "^ffmpeg-n.*-gpl-(?<version>[0-9]+\\.[0-9]+)\\.(tar\\.xz|zip)$",
       "checksum_asset": "checksums.sha256",

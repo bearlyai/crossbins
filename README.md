@@ -13,6 +13,8 @@ Republishes prebuilt binaries from upstream GitHub releases with normalized file
 | ffmpeg | BtbN/FFmpeg-Builds; Martin Riedl macOS builds | `ffmpeg` |
 | cua-driver | trycua/cua | `cua-driver` |
 | cua-driver-uia | trycua/cua | `cua-driver-uia` |
+| computer-use-driver | bearlyai/cua | `cua-driver` |
+| computer-use-driver-uia | bearlyai/cua | `cua-driver-uia` |
 
 ## Naming convention
 
@@ -200,9 +202,41 @@ Two config modes in `binaries.json`:
 - `explicit_assets` — list of `{asset_name, source_type, os, arch, variant}` entries. `asset_name`, `asset_regex`, or `url` may use `{VERSION}` from `version_probe_regex`; `checksum_url` may use `{EFFECTIVE_URL}` after redirects are resolved. `source_type` supports `raw`, `zip`, `tar.gz`, and `tar.xz`.
 - `checksum_name` and `version_check_regex` — optional direct URL checks for checksum file entries and redirect targets
 
+Any tool may also set:
+- `frozen_release` — copy this tool byte for byte from that crossbins release instead of building it (see below)
+
+A release may contain only the tools of the production baseline plus the two new driver entries;
+adding a tool also means adding it to `validate-release.py`.
+
 ### Updating versions
 
 Run `./update.sh`. Tools with `release_tag` fetch that exact release, including tags older than the most recent 100 releases. Both driver channels must always have exact tags; they never track upstream automatically. Other tools select the latest matching release.
+
+### Frozen tools
+
+A tool with `frozen_release` is carried over unchanged from that crossbins release. The release's
+own `manifest.json` is checked in as `baseline/<release>.manifest.json`, with its SHA-256 pinned in
+`validate-release.py`, and it is the only source of the tool's expected version, file names,
+platforms and hashes. For a frozen tool, `update.sh` never contacts upstream: it downloads both the
+versioned and the version-less file from the crossbins release, checks each against the baseline,
+and derives the lock entry from the baseline alone. It also checks that the checked-in baseline is
+still byte for byte the release's published manifest. Signing and rewrapping skip every frozen file,
+and both signing scripts rehash the frozen files afterwards and fail on any change.
+
+The first release with the new driver freezes every tool to `2026-09-21`, the release desktops
+read today: rg, bun, uv, yt-dlp, ffmpeg, `cua-driver` and `cua-driver-uia` keep their versions,
+file names and signed bytes. Only `computer-use-driver` and `computer-use-driver-uia` are new.
+
+To refresh ordinary tools later, make it its own reviewed release that keeps the accepted driver:
+
+1. Remove `frozen_release` from each tool to refresh in `binaries.json`.
+2. Freeze `computer-use-driver` and `computer-use-driver-uia` to the accepted driver release: set
+   their `frozen_release` to its tag, check in its `manifest.json` as
+   `baseline/<tag>.manifest.json`, and add that file's SHA-256 to `BASELINE_SHA256`.
+3. Run `./update.sh` with a new `RELEASE_TAG`.
+
+`cua-driver` and `cua-driver-uia` always stay frozen to `2026-09-21`; the validator refuses
+anything else.
 
 ## Code signing
 
@@ -252,11 +286,20 @@ gh release edit <release-tag> --repo bearlyai/crossbins --latest
 
 A dispatch with `promote=true` promotes only after all artifacts and the manifest upload. Never reuse a release tag: the publisher refuses to overwrite an existing release. Roll back by marking the previous compatible crossbins release latest.
 
-The legacy `cua-driver` and `cua-driver-uia` entries preserve the already signed stock 0.28.2 assets from crossbins release `2026-09-21` byte for byte. Both versioned and version-less asset names are downloaded directly from that immutable release and checked against the pinned per-platform SHA-256 values in `validate-driver-channels.py`. They skip upstream downloads, rewrapping, signing and notarization. Before publishing, the guard rehashes every frozen output and refuses any changed byte; their manifest versions and hashes stay identical to the baseline. No workflow input bypasses the guard.
+Every frozen tool's files are carried over from its crossbins release byte for byte (see
+[Frozen tools](#frozen-tools)). `publish.sh` runs `validate-release.py --lock --outputs` before
+any release call and `--manifest` on the generated manifest before creating the release. It
+fails when any carried-over file differs from the baseline under either of its names, when a
+baseline file is missing, when a frozen tool's manifest entry differs from the baseline in any
+field other than the release path of its URLs, or when the manifest holds any tool other than the
+baseline tools plus the two new driver entries. The baseline manifest's URLs use the
+`/releases/latest/download/` path; a staged manifest's URLs use its own
+`/releases/download/<release-tag>/` path, so it downloads its own bytes, which are the same bytes.
+No workflow input bypasses the guard.
 
-The `computer-use-driver` and `computer-use-driver-uia` entries are Bearly builds from `bearlyai/cua`, pinned to a reviewed `cua-driver-rs-v<version>-bearly.<revision>` tag. Current desktop apps prefer the new entries and fall back to the legacy entries when the new entries are absent. The separate Windows Program Files helper remains pinned by the desktop app at 0.28.0.
+The `computer-use-driver` and `computer-use-driver-uia` entries are Bearly builds from `bearlyai/cua`, pinned to a reviewed `cua-driver-rs-v<version>-bearly.<revision>` tag. Current desktop apps prefer the new regular driver entry, `computer-use-driver`, and fall back to `cua-driver` when it is absent. `computer-use-driver-uia` is published, but no desktop reads it yet. The Windows Program Files helper pair is separate: the desktop app pins it at 0.28.0, and it does not read this feed.
 
-The prepare job runs `python3 validate-driver-channels.py --self-test`, proving that changed legacy tags, discovery patterns, repos, platform sets and hashes are rejected. Each staged release's notes and workflow summary include every tool's baseline and staged version, including ordinary tools that refresh to current upstream releases.
+The prepare job runs `python3 test-validate-release.py`, which breaks a stand-in release one way at a time (driver pins, changed bytes under either name, missing files, changed manifest fields, extra or missing tools, an edited baseline file) and checks that each is rejected, then checks real signed files from `2026-09-21`. Each staged release's notes and workflow summary list every tool's baseline and staged version, and whether its bytes are unchanged from the baseline.
 
 To check an actual generated manifest against the production reader functions from desktop 5.2.3 and current master (requires the Bearly checkout and its Electron esbuild dependency):
 
@@ -264,7 +307,7 @@ To check an actual generated manifest against the production reader functions fr
 node check-desktop-manifest.cjs output/manifest.json /path/to/bearly /path/to/bearly/projects/electron
 ```
 
-The check exercises the actual source functions for Mac, Windows and Linux, both x64 and arm64. Old desktops resolve the unchanged legacy bytes; current master resolves the new channel. The asset's complete URL controls downloads; `download_base` is unused metadata in both readers.
+The check exercises the actual source functions for Mac, Windows and Linux, both x64 and arm64. Old desktops select the legacy entries; current master selects the new channel. It checks which entry and version each reader selects and the manifest's shape, not file bytes: `validate-release.py` owns the hashes. The asset's complete URL controls downloads; `download_base` is unused metadata in both readers.
 
 ## Dependencies
 

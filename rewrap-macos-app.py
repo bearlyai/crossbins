@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import argparse
 import gzip
+import json
 import plistlib
+import runpy
 import shutil
 import subprocess
 import sys
@@ -141,6 +143,11 @@ def main() -> int:
     output_path = Path(args.output).resolve()
     license_file = Path(args.license_file).resolve()
     icon_file = Path(args.icon_file).resolve() if args.icon_file else None
+    # Frozen tools keep their release's signed bytes; never rewrap one.
+    guard = runpy.run_path(str(Path(__file__).resolve().parent / "validate-release.py"))
+    config = json.loads((Path(__file__).resolve().parent / "binaries.json").read_text())
+    if output_path.name in guard["frozen_filenames"](config):
+        raise RuntimeError(f"refusing to rewrap frozen file {output_path.name}")
 
     with tempfile.TemporaryDirectory(prefix="crossbins-rewrap-macos-app-") as temp:
         temp_path = Path(temp)

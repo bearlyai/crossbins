@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 LOCK_FILE="$SCRIPT_DIR/binaries.lock.json"
 OUTPUT_DIR="$SCRIPT_DIR/output"
 
-python3 "$SCRIPT_DIR/validate-driver-channels.py" --lock --outputs
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs
 
 # Required environment variable
 : "${GITHUB_TOKEN:?Set GITHUB_TOKEN with repo scope}"
@@ -120,6 +120,7 @@ macos_asset_signed_by_bearly() {
 }
 
 python3 "$SCRIPT_DIR/generate-manifest.py"
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs --manifest
 python3 "$SCRIPT_DIR/release-notes.py"
 
 # Build release body with tool versions
@@ -310,8 +311,11 @@ for (( i=0; i<num_tools; i++ )); do
     suffix="${normalized#"$versioned_prefix"}"
     latest_name="${name}-${os}-${arch}${variant_part}${suffix}"
 
-    if [[ "$name" == "cua-driver" || "$name" == "cua-driver-uia" ]]; then
-      filepath="$OUTPUT_DIR/$latest_name"
+    # A frozen tool uploads its release's own version-less file, checked separately by the guard.
+    frozen_alias=$(jq -r ".tools[$i].assets[$j].frozen_alias // empty" "$LOCK_FILE")
+    if [[ -n "$frozen_alias" ]]; then
+      [[ "$frozen_alias" == "$latest_name" ]] || { echo "ERROR: $frozen_alias does not match $latest_name" >&2; exit 1; }
+      filepath="$OUTPUT_DIR/$frozen_alias"
     fi
     delete_existing_asset "$latest_name"
     curl -fsS -w '\n%{http_code}' -X POST \
@@ -327,6 +331,7 @@ done
 
 # Recompute hashes after signing before publishing the manifest.
 python3 "$SCRIPT_DIR/generate-manifest.py"
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs --manifest
 delete_existing_asset "manifest.json"
 curl -fsS -w '\n%{http_code}' -X POST \
   -H "Authorization: token $GITHUB_TOKEN" \

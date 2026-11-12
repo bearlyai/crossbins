@@ -14,7 +14,7 @@ if [[ -n "${GITHUB_TOKEN:-}" ]]; then
   CURL_AUTH=(-H "Authorization: token $GITHUB_TOKEN")
 fi
 
-python3 "$SCRIPT_DIR/validate-driver-channels.py"
+python3 "$SCRIPT_DIR/validate-release.py"
 
 mkdir -p "$OUTPUT_DIR"
 
@@ -128,11 +128,16 @@ for (( i=0; i<num_tools; i++ )); do
   include_prereleases=$(jq -r ".tools[$i].include_prereleases // false" "$CONFIG")
   version_probe_regex=$(jq -r ".tools[$i].version_probe_regex // empty" "$CONFIG")
   checksum_asset=$(jq -r ".tools[$i].checksum_asset // empty" "$CONFIG")
+  frozen_release=$(jq -r ".tools[$i].frozen_release // empty" "$CONFIG")
 
-  if [[ "$name" == "cua-driver" || "$name" == "cua-driver-uia" ]]; then
-    frozen_tool=$(python3 "$SCRIPT_DIR/validate-driver-channels.py" --stage "$name")
+  # A frozen tool is copied byte for byte from its crossbins release; upstream is never contacted
+  # and its lock entry comes only from baseline/<release>.manifest.json.
+  if [[ -n "$frozen_release" ]]; then
+    echo "=== $name: copying signed files unchanged from crossbins $frozen_release ==="
+    frozen_tool=$(python3 "$SCRIPT_DIR/validate-release.py" --stage "$name")
     lock_json=$(jq --argjson tool "$frozen_tool" '.tools += [$tool]' <<<"$lock_json")
-    echo "=== $name: preserving signed 0.28.2 bytes from 2026-09-21 ==="
+    echo "  => $(jq '.assets | length' <<<"$frozen_tool") binaries ($(jq -r .version <<<"$frozen_tool"))"
+    echo
     continue
   fi
 
@@ -561,7 +566,8 @@ fi
 
 echo "Done. Binaries in ./output/, lock file at binaries.lock.json (${new_release_tag})"
 
-python3 "$SCRIPT_DIR/validate-driver-channels.py" --lock --outputs
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs
 python3 "$SCRIPT_DIR/generate-manifest.py"
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs --manifest
 
 python3 "$SCRIPT_DIR/release-notes.py"

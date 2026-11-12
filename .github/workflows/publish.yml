@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y jq unzip xz-utils
 
-      - name: Prove frozen channel guard
-        run: python3 validate-driver-channels.py --self-test
+      - name: Prove the release guard
+        run: python3 test-validate-release.py
 
       - name: Update binaries
         run: ./update.sh
