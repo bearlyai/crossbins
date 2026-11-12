@@ -158,13 +158,21 @@ sign_archive() {
 require_macos
 install_certificate
 
+# Frozen tools keep the signed bytes of their crossbins release: never re-sign them, and
+# fail if signing changed any of them.
+frozen_list="$(mktemp)"
+trap 'rm -f "$frozen_list"' EXIT
+python3 "$SCRIPT_DIR/validate-release.py" --frozen-files > "$frozen_list"
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs
+
 macos_assets=()
 while IFS= read -r f; do
+  grep -qxF "$(basename "$f")" "$frozen_list" && continue
   macos_assets+=("$f")
 done < <(find "$OUTPUT_DIR" -maxdepth 1 -type f \( -name '*-darwin-*' -o -name '*-macos-*' \) | sort)
 
 if [[ "${#macos_assets[@]}" -eq 0 ]]; then
-  echo "sign-macos: no macOS assets in output/ - nothing to sign."
+  echo "sign-macos: no unfrozen macOS assets in output/ - nothing to sign."
   exit 0
 fi
 
@@ -178,4 +186,5 @@ for asset in "${macos_assets[@]}"; do
   esac
 done
 
-echo "sign-macos: done."
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs
+echo "sign-macos: done; frozen files unchanged."

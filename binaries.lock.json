@@ -1,569 +1,759 @@
 {
-  "release_tag": "2026-10-12",
+  "release_tag": "2026-11-12-driver-1",
   "tools": [
     {
       "name": "rg",
       "version": "15.2.0",
-      "tag": "15.2.0",
+      "tag": "2026-09-21",
+      "frozen_release": "2026-09-21",
       "assets": [
         {
-          "upstream": "ripgrep-15.2.0-aarch64-apple-darwin.tar.gz",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-aarch64-apple-darwin.tar.gz",
+          "upstream": "rg-15.2.0-darwin-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-darwin-aarch64",
           "normalized": "rg-15.2.0-darwin-aarch64",
+          "frozen_alias": "rg-darwin-aarch64",
           "os": "darwin",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "a326a1fb48074202e9ad41e4cd1e389eeea372c8c6f7d7e80da81176d5d9430e"
+          "source_sha256": "af66d90758df062962c691a093521ed0555a547d094bf8670cc1cf82ea45e8c0",
+          "sha256": "af66d90758df062962c691a093521ed0555a547d094bf8670cc1cf82ea45e8c0"
         },
         {
-          "upstream": "ripgrep-15.2.0-aarch64-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-aarch64-unknown-linux-gnu.tar.gz",
+          "upstream": "rg-15.2.0-linux-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-aarch64",
           "normalized": "rg-15.2.0-linux-aarch64",
+          "frozen_alias": "rg-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
+          "source_sha256": "e36d0eb52e70696bdf1781392722e05a21bb91d3b7b762ef5ec20e5df2ec687b",
           "sha256": "e36d0eb52e70696bdf1781392722e05a21bb91d3b7b762ef5ec20e5df2ec687b"
         },
         {
-          "upstream": "ripgrep-15.2.0-x86_64-apple-darwin.tar.gz",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-x86_64-apple-darwin.tar.gz",
+          "upstream": "rg-15.2.0-darwin-x86_64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-darwin-x86_64",
           "normalized": "rg-15.2.0-darwin-x86_64",
+          "frozen_alias": "rg-darwin-x86_64",
           "os": "darwin",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "0c9a0066db0d26b640777db88045b0ccdd58509a746700e43e1c4ff8707a5ed0"
+          "source_sha256": "5ec1939546a2716890d3ec5c7d24e367c98091f0f72b3f0d9a84b62b14aac180",
+          "sha256": "5ec1939546a2716890d3ec5c7d24e367c98091f0f72b3f0d9a84b62b14aac180"
         },
         {
-          "upstream": "ripgrep-15.2.0-x86_64-pc-windows-msvc.zip",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-x86_64-pc-windows-msvc.zip",
+          "upstream": "rg-15.2.0-windows-x86_64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-windows-x86_64.exe",
           "normalized": "rg-15.2.0-windows-x86_64.exe",
+          "frozen_alias": "rg-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "14231169855ec5205cf5a1b6f1db358ff4aed4247c86b69ce8aae647c77f6680"
+          "source_sha256": "bc6593dc6d514770db406018424e71ce7ff18b93df64f272bda7d9be6b7da3b3",
+          "sha256": "bc6593dc6d514770db406018424e71ce7ff18b93df64f272bda7d9be6b7da3b3"
         },
         {
-          "upstream": "ripgrep-15.2.0-aarch64-pc-windows-msvc.zip",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-aarch64-pc-windows-msvc.zip",
+          "upstream": "rg-15.2.0-windows-aarch64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-windows-aarch64.exe",
           "normalized": "rg-15.2.0-windows-aarch64.exe",
+          "frozen_alias": "rg-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "d33a29a9ef03c9f4c03be9e8d88498e6e2d2e566d64cdbdef97f9afc8f13120c"
+          "source_sha256": "e70b6238e7f59cbba9830a4cee09055009b9adb0e7bfb123a78863ba41a99755",
+          "sha256": "e70b6238e7f59cbba9830a4cee09055009b9adb0e7bfb123a78863ba41a99755"
         },
         {
-          "upstream": "ripgrep-15.2.0-armv7-unknown-linux-musleabihf.tar.gz",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-armv7-unknown-linux-musleabihf.tar.gz",
+          "upstream": "rg-15.2.0-linux-armv7-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-armv7-musl",
           "normalized": "rg-15.2.0-linux-armv7-musl",
+          "frozen_alias": "rg-linux-armv7-musl",
           "os": "linux",
           "arch": "armv7",
           "variant": "musl",
+          "source_sha256": "962f1304afacf0c3d5cb8e91ce5ff4a61430a78f6edf02d3020c7e1743893a4f",
           "sha256": "962f1304afacf0c3d5cb8e91ce5ff4a61430a78f6edf02d3020c7e1743893a4f"
         },
         {
-          "upstream": "ripgrep-15.2.0-armv7-unknown-linux-gnueabihf.tar.gz",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-armv7-unknown-linux-gnueabihf.tar.gz",
+          "upstream": "rg-15.2.0-linux-armv7",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-armv7",
           "normalized": "rg-15.2.0-linux-armv7",
+          "frozen_alias": "rg-linux-armv7",
           "os": "linux",
           "arch": "armv7",
           "variant": "",
+          "source_sha256": "d7128f478fd65fa4c0afec04568047f4c7eb5643d5f288805bc49b46a3c87d9b",
           "sha256": "d7128f478fd65fa4c0afec04568047f4c7eb5643d5f288805bc49b46a3c87d9b"
         },
         {
-          "upstream": "ripgrep-15.2.0-s390x-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-s390x-unknown-linux-gnu.tar.gz",
+          "upstream": "rg-15.2.0-linux-s390x",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-s390x",
           "normalized": "rg-15.2.0-linux-s390x",
+          "frozen_alias": "rg-linux-s390x",
           "os": "linux",
           "arch": "s390x",
           "variant": "",
+          "source_sha256": "ab91af7f674fc03c69b0c79019acc7e61d5e1c490c332d1fe09d417cce40bc02",
           "sha256": "ab91af7f674fc03c69b0c79019acc7e61d5e1c490c332d1fe09d417cce40bc02"
         },
         {
-          "upstream": "ripgrep-15.2.0-i686-pc-windows-msvc.zip",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-i686-pc-windows-msvc.zip",
+          "upstream": "rg-15.2.0-windows-i686.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-windows-i686.exe",
           "normalized": "rg-15.2.0-windows-i686.exe",
+          "frozen_alias": "rg-windows-i686.exe",
           "os": "windows",
           "arch": "i686",
           "variant": "",
-          "sha256": "e475c8f9dde38ec69aa3734448e670262333af8186d76efeb524b529ccd8d6f6"
+          "source_sha256": "8d57ebfb8bad59b08057282f1b58dfc448e2a247e0572d42985071733ed4c7cd",
+          "sha256": "8d57ebfb8bad59b08057282f1b58dfc448e2a247e0572d42985071733ed4c7cd"
         },
         {
-          "upstream": "ripgrep-15.2.0-x86_64-unknown-linux-musl.tar.gz",
-          "download_url": "https://github.com/BurntSushi/ripgrep/releases/download/15.2.0/ripgrep-15.2.0-x86_64-unknown-linux-musl.tar.gz",
+          "upstream": "rg-15.2.0-linux-x86_64-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/rg-15.2.0-linux-x86_64-musl",
           "normalized": "rg-15.2.0-linux-x86_64-musl",
+          "frozen_alias": "rg-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "musl",
+          "source_sha256": "e62198eb19b136b88c330af83647b5a962cb99b6b1f066758568f12de1974849",
           "sha256": "e62198eb19b136b88c330af83647b5a962cb99b6b1f066758568f12de1974849"
         }
       ]
     },
     {
       "name": "bun",
-      "version": "1.4.3",
-      "tag": "bun-v1.4.3",
+      "version": "1.4.2",
+      "tag": "2026-09-21",
+      "frozen_release": "2026-09-21",
       "assets": [
         {
-          "upstream": "bun-darwin-aarch64.zip",
-          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.4.3/bun-darwin-aarch64.zip",
-          "normalized": "bun-1.4.3-darwin-aarch64",
+          "upstream": "bun-1.4.2-darwin-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-darwin-aarch64",
+          "normalized": "bun-1.4.2-darwin-aarch64",
+          "frozen_alias": "bun-darwin-aarch64",
           "os": "darwin",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "28c7dd0a06916aba284d570ef44a2d70e9c538eaf2ba58dfe0910525563b3f79"
+          "source_sha256": "b298d650db87af6c346cf7d4575edfa665d53ea5f95d53ec16e20a8704166ee9",
+          "sha256": "b298d650db87af6c346cf7d4575edfa665d53ea5f95d53ec16e20a8704166ee9"
         },
         {
-          "upstream": "bun-darwin-x64.zip",
-          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.4.3/bun-darwin-x64.zip",
-          "normalized": "bun-1.4.3-darwin-x86_64",
+          "upstream": "bun-1.4.2-darwin-x86_64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-darwin-x86_64",
+          "normalized": "bun-1.4.2-darwin-x86_64",
+          "frozen_alias": "bun-darwin-x86_64",
           "os": "darwin",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "c2a945a9d33f9088b32ac3550d1d1fd485a7fc10d71c66f91ef0d33b41cefa7c"
+          "source_sha256": "9c786693e0ff33c1f0f4789b3909a487ee53609e029f5c7feed8683813a6a8e7",
+          "sha256": "9c786693e0ff33c1f0f4789b3909a487ee53609e029f5c7feed8683813a6a8e7"
         },
         {
-          "upstream": "bun-linux-aarch64-musl.zip",
-          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.4.3/bun-linux-aarch64-musl.zip",
-          "normalized": "bun-1.4.3-linux-aarch64-musl",
+          "upstream": "bun-1.4.2-linux-aarch64-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-aarch64-musl",
+          "normalized": "bun-1.4.2-linux-aarch64-musl",
+          "frozen_alias": "bun-linux-aarch64-musl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "musl",
-          "sha256": "94208b02231f5357be00ebd437ae9afb87d406887ba60f5f7a5732e677bde89e"
+          "source_sha256": "1101cd0aa92ea214c2aaf4bb3761ca3c76a90aae0e6f94c07efb4e8c4f18a8fc",
+          "sha256": "1101cd0aa92ea214c2aaf4bb3761ca3c76a90aae0e6f94c07efb4e8c4f18a8fc"
         },
         {
-          "upstream": "bun-linux-aarch64.zip",
-          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.4.3/bun-linux-aarch64.zip",
-          "normalized": "bun-1.4.3-linux-aarch64",
+          "upstream": "bun-1.4.2-linux-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-aarch64",
+          "normalized": "bun-1.4.2-linux-aarch64",
+          "frozen_alias": "bun-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "029ece746ac9f970c76d8f48bdd1b1d0c52f3636b74d19f546f5e7c1165c0abe"
+          "source_sha256": "616f267a34278ff5ac282df37ffdfba1d7141f4f6926bca99af2cd6ef3ad32b1",
+          "sha256": "616f267a34278ff5ac282df37ffdfba1d7141f4f6926bca99af2cd6ef3ad32b1"
         },
         {
-          "upstream": "bun-linux-x64-musl.zip",
-          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.4.3/bun-linux-x64-musl.zip",
-          "normalized": "bun-1.4.3-linux-x86_64-musl",
+          "upstream": "bun-1.4.2-linux-x86_64-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-x86_64-musl",
+          "normalized": "bun-1.4.2-linux-x86_64-musl",
+          "frozen_alias": "bun-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "musl",
-          "sha256": "2a50a646294a1b5ff817d03313c7354f8ac43b7a37941b89f4d9b17bc5e86611"
+          "source_sha256": "16b72935ffd7a503b978c186874539c92aade4e3515b70a5abf5db2581fdef7d",
+          "sha256": "16b72935ffd7a503b978c186874539c92aade4e3515b70a5abf5db2581fdef7d"
         },
         {
-          "upstream": "bun-linux-x64.zip",
-          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.4.3/bun-linux-x64.zip",
-          "normalized": "bun-1.4.3-linux-x86_64",
+          "upstream": "bun-1.4.2-linux-x86_64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-linux-x86_64",
+          "normalized": "bun-1.4.2-linux-x86_64",
+          "frozen_alias": "bun-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "7ce7d6b654eddeec20afddf2396317fba6dc19ab52788a27e894e1806bf8f24b"
+          "source_sha256": "a83d263767d839e4d2649ca8e35d07159c7afc99afdc96d731ced29e056dda0c",
+          "sha256": "a83d263767d839e4d2649ca8e35d07159c7afc99afdc96d731ced29e056dda0c"
         },
         {
-          "upstream": "bun-windows-x64.zip",
-          "download_url": "https://github.com/oven-sh/bun/releases/download/bun-v1.4.3/bun-windows-x64.zip",
-          "normalized": "bun-1.4.3-windows-x86_64.exe",
+          "upstream": "bun-1.4.2-windows-x86_64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/bun-1.4.2-windows-x86_64.exe",
+          "normalized": "bun-1.4.2-windows-x86_64.exe",
+          "frozen_alias": "bun-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "095db4abae203d42f29fdec26da4a882fcde6333cdd84e40c0c7828c0cf543f6"
+          "source_sha256": "f0090101c6c157d63fac5d412319c62d7765e59555f63310a84b0ff5a9502f36",
+          "sha256": "f0090101c6c157d63fac5d412319c62d7765e59555f63310a84b0ff5a9502f36"
         }
       ]
     },
     {
       "name": "uv",
-      "version": "0.13.0",
-      "tag": "0.13.0",
+      "version": "0.12.17",
+      "tag": "2026-09-21",
+      "frozen_release": "2026-09-21",
       "assets": [
         {
-          "upstream": "uv-aarch64-apple-darwin.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-aarch64-apple-darwin.tar.gz",
-          "normalized": "uv-0.13.0-darwin-aarch64",
+          "upstream": "uv-0.12.17-darwin-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-darwin-aarch64",
+          "normalized": "uv-0.12.17-darwin-aarch64",
+          "frozen_alias": "uv-darwin-aarch64",
           "os": "darwin",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "4cd60b63cf3221572ccb0e171cfc3404cede505ce8f701b6520439476bc1d240"
+          "source_sha256": "88b7f53939375f9e4d2bded6c57743380a2aae34e970a1cb0df2d85606b3c50a",
+          "sha256": "88b7f53939375f9e4d2bded6c57743380a2aae34e970a1cb0df2d85606b3c50a"
         },
         {
-          "upstream": "uv-aarch64-pc-windows-msvc.zip",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-aarch64-pc-windows-msvc.zip",
-          "normalized": "uv-0.13.0-windows-aarch64.exe",
+          "upstream": "uv-0.12.17-windows-aarch64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-windows-aarch64.exe",
+          "normalized": "uv-0.12.17-windows-aarch64.exe",
+          "frozen_alias": "uv-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "885a370550b1596b2ce072c004afa94ad51196d7f2801b710d1a85f63cce4485"
+          "source_sha256": "00dce9d2f37d7eb0082bfbbc9e85acf0945704c4f4d086dfe6ec9e436fecbc1a",
+          "sha256": "00dce9d2f37d7eb0082bfbbc9e85acf0945704c4f4d086dfe6ec9e436fecbc1a"
         },
         {
-          "upstream": "uv-aarch64-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-aarch64-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.13.0-linux-aarch64",
+          "upstream": "uv-0.12.17-linux-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-aarch64",
+          "normalized": "uv-0.12.17-linux-aarch64",
+          "frozen_alias": "uv-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "a72b2853c84ac54d63147f32e4ace266a1d9e2017e53e5486fe3b9494145eff4"
+          "source_sha256": "4d1158be7c22f0dc44cdfb90eaf1bd77d99ba0b87d9f281a474e33f280b82b7f",
+          "sha256": "4d1158be7c22f0dc44cdfb90eaf1bd77d99ba0b87d9f281a474e33f280b82b7f"
         },
         {
-          "upstream": "uv-aarch64-unknown-linux-musl.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-aarch64-unknown-linux-musl.tar.gz",
-          "normalized": "uv-0.13.0-linux-aarch64-musl",
+          "upstream": "uv-0.12.17-linux-aarch64-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-aarch64-musl",
+          "normalized": "uv-0.12.17-linux-aarch64-musl",
+          "frozen_alias": "uv-linux-aarch64-musl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "musl",
-          "sha256": "16211969e265f1bc88d3ddce8c4da1955d8ae1a640b4b9e95c9393d9d51495c7"
+          "source_sha256": "a63c29c342caf016ec7dcc14f78c3e87b312d2523345d89424efffe7b18d1327",
+          "sha256": "a63c29c342caf016ec7dcc14f78c3e87b312d2523345d89424efffe7b18d1327"
         },
         {
-          "upstream": "uv-arm-unknown-linux-musleabihf.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-arm-unknown-linux-musleabihf.tar.gz",
-          "normalized": "uv-0.13.0-linux-arm-musl",
+          "upstream": "uv-0.12.17-linux-arm-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-arm-musl",
+          "normalized": "uv-0.12.17-linux-arm-musl",
+          "frozen_alias": "uv-linux-arm-musl",
           "os": "linux",
           "arch": "arm",
           "variant": "musl",
-          "sha256": "8604677f7073410b09a5ed8a7da55163459f52c9e9d2d18c747e176eb27a1a4c"
+          "source_sha256": "7eaf54a1a96c37b15d0c17b31b85ed4321a0a8a141e115d2ba8f7d0074b54924",
+          "sha256": "7eaf54a1a96c37b15d0c17b31b85ed4321a0a8a141e115d2ba8f7d0074b54924"
         },
         {
-          "upstream": "uv-armv7-unknown-linux-gnueabihf.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-armv7-unknown-linux-gnueabihf.tar.gz",
-          "normalized": "uv-0.13.0-linux-armv7",
+          "upstream": "uv-0.12.17-linux-armv7",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-armv7",
+          "normalized": "uv-0.12.17-linux-armv7",
+          "frozen_alias": "uv-linux-armv7",
           "os": "linux",
           "arch": "armv7",
           "variant": "",
-          "sha256": "a586814eddf4594d7e7f1dfed610b3bb2aeee1df0cd19955baf7c28bbb4facbc"
+          "source_sha256": "383dfa4a275ab0216e2a761e52b474b36d8c39babb904cc5a6ff4f689c13a593",
+          "sha256": "383dfa4a275ab0216e2a761e52b474b36d8c39babb904cc5a6ff4f689c13a593"
         },
         {
-          "upstream": "uv-armv7-unknown-linux-musleabihf.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-armv7-unknown-linux-musleabihf.tar.gz",
-          "normalized": "uv-0.13.0-linux-armv7-musl",
+          "upstream": "uv-0.12.17-linux-armv7-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-armv7-musl",
+          "normalized": "uv-0.12.17-linux-armv7-musl",
+          "frozen_alias": "uv-linux-armv7-musl",
           "os": "linux",
           "arch": "armv7",
           "variant": "musl",
-          "sha256": "7181d478aaa82a5dac2d7f6871cd982870c29c4ef8b57e31ff213998c6dcf175"
+          "source_sha256": "2fc1755bbda8db86f1d00c5a51e99bec37376a45af2fb2831d33bf9eaf795f91",
+          "sha256": "2fc1755bbda8db86f1d00c5a51e99bec37376a45af2fb2831d33bf9eaf795f91"
         },
         {
-          "upstream": "uv-i686-pc-windows-msvc.zip",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-i686-pc-windows-msvc.zip",
-          "normalized": "uv-0.13.0-windows-i686.exe",
+          "upstream": "uv-0.12.17-windows-i686.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-windows-i686.exe",
+          "normalized": "uv-0.12.17-windows-i686.exe",
+          "frozen_alias": "uv-windows-i686.exe",
           "os": "windows",
           "arch": "i686",
           "variant": "",
-          "sha256": "f9fb8a9586f8efff5f20a38da8d00f92b538c37de0bb0125ffa1b6d34de0503a"
+          "source_sha256": "d0e0fe31175a0f88b674e27b5b98c8be55ac603a1ed1dbb486f825dd0803f9fe",
+          "sha256": "d0e0fe31175a0f88b674e27b5b98c8be55ac603a1ed1dbb486f825dd0803f9fe"
         },
         {
-          "upstream": "uv-i686-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-i686-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.13.0-linux-i686",
+          "upstream": "uv-0.12.17-linux-i686",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-i686",
+          "normalized": "uv-0.12.17-linux-i686",
+          "frozen_alias": "uv-linux-i686",
           "os": "linux",
           "arch": "i686",
           "variant": "",
-          "sha256": "a605e7bcd9a250f1cf01e8ececd516e30175765271167b48c4338818b08d4aee"
+          "source_sha256": "72d62c0b6e8b7d84089b9ff99153a00ce295e52ed9fc939ed0f60a3323aeaad9",
+          "sha256": "72d62c0b6e8b7d84089b9ff99153a00ce295e52ed9fc939ed0f60a3323aeaad9"
         },
         {
-          "upstream": "uv-i686-unknown-linux-musl.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-i686-unknown-linux-musl.tar.gz",
-          "normalized": "uv-0.13.0-linux-i686-musl",
+          "upstream": "uv-0.12.17-linux-i686-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-i686-musl",
+          "normalized": "uv-0.12.17-linux-i686-musl",
+          "frozen_alias": "uv-linux-i686-musl",
           "os": "linux",
           "arch": "i686",
           "variant": "musl",
-          "sha256": "91f12adbeda09b4c175e15a2010c56ec3ef440ee48b30e77cc6f81ae39729998"
+          "source_sha256": "779b8555a8996c0e4840bcdc8c290c7f9fe7201dca7420542887d449610efde3",
+          "sha256": "779b8555a8996c0e4840bcdc8c290c7f9fe7201dca7420542887d449610efde3"
         },
         {
-          "upstream": "uv-powerpc64le-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-powerpc64le-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.13.0-linux-ppc64le",
+          "upstream": "uv-0.12.17-linux-ppc64le",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-ppc64le",
+          "normalized": "uv-0.12.17-linux-ppc64le",
+          "frozen_alias": "uv-linux-ppc64le",
           "os": "linux",
           "arch": "ppc64le",
           "variant": "",
-          "sha256": "9fdb6004493a585e930460acecbba757452c318de706124cdfcf1d909b50df86"
+          "source_sha256": "ed1e6ce115338def5acfeb94cc5f1dbc31130b98ff4a799b2f3edd14bd3c43fb",
+          "sha256": "ed1e6ce115338def5acfeb94cc5f1dbc31130b98ff4a799b2f3edd14bd3c43fb"
         },
         {
-          "upstream": "uv-riscv64gc-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-riscv64gc-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.13.0-linux-riscv64",
+          "upstream": "uv-0.12.17-linux-riscv64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-riscv64",
+          "normalized": "uv-0.12.17-linux-riscv64",
+          "frozen_alias": "uv-linux-riscv64",
           "os": "linux",
           "arch": "riscv64",
           "variant": "",
-          "sha256": "63cc77a4904a9e6ba424959f81f7d6648ddabfb071f713fe391be3bc2505efdc"
+          "source_sha256": "cc9f5efecb0caba99d43211e348768fd8af3fb299f0bdc075fed4ea5210722da",
+          "sha256": "cc9f5efecb0caba99d43211e348768fd8af3fb299f0bdc075fed4ea5210722da"
         },
         {
-          "upstream": "uv-s390x-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-s390x-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.13.0-linux-s390x",
+          "upstream": "uv-0.12.17-linux-s390x",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-s390x",
+          "normalized": "uv-0.12.17-linux-s390x",
+          "frozen_alias": "uv-linux-s390x",
           "os": "linux",
           "arch": "s390x",
           "variant": "",
-          "sha256": "b096215f0d2931c7c63bf0cb5593df7258bf40a50f1539463c49ef269a9d83de"
+          "source_sha256": "e78d831b6c355b0ce8ab116a1172af8ccac2be414eb5bab9af60c63d8ccb3f73",
+          "sha256": "e78d831b6c355b0ce8ab116a1172af8ccac2be414eb5bab9af60c63d8ccb3f73"
         },
         {
-          "upstream": "uv-x86_64-apple-darwin.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-apple-darwin.tar.gz",
-          "normalized": "uv-0.13.0-darwin-x86_64",
+          "upstream": "uv-0.12.17-darwin-x86_64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-darwin-x86_64",
+          "normalized": "uv-0.12.17-darwin-x86_64",
+          "frozen_alias": "uv-darwin-x86_64",
           "os": "darwin",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "f31d4fdce12aad810a045b24aa322642fb8bfbaa441b24a90cbad0cdc7a0f3ca"
+          "source_sha256": "9229d7f808d54598da440972713e175c287ed7f362220b30266fe0ac813ae1ea",
+          "sha256": "9229d7f808d54598da440972713e175c287ed7f362220b30266fe0ac813ae1ea"
         },
         {
-          "upstream": "uv-x86_64-pc-windows-msvc.zip",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-pc-windows-msvc.zip",
-          "normalized": "uv-0.13.0-windows-x86_64.exe",
+          "upstream": "uv-0.12.17-windows-x86_64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-windows-x86_64.exe",
+          "normalized": "uv-0.12.17-windows-x86_64.exe",
+          "frozen_alias": "uv-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "2bfbe53d3cc95799e98fa08323b04844fc01d4f8c87dd5c00089e43f6554f162"
+          "source_sha256": "ae70380ce5227696aa7f9effd8eb4832c143f0396f870d126703541edc18785d",
+          "sha256": "ae70380ce5227696aa7f9effd8eb4832c143f0396f870d126703541edc18785d"
         },
         {
-          "upstream": "uv-x86_64-unknown-linux-gnu.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-unknown-linux-gnu.tar.gz",
-          "normalized": "uv-0.13.0-linux-x86_64",
+          "upstream": "uv-0.12.17-linux-x86_64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-x86_64",
+          "normalized": "uv-0.12.17-linux-x86_64",
+          "frozen_alias": "uv-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "3e801df892439f5cde65d8b51ea69b69abff199ef37cc3cae4481be15d592df0"
+          "source_sha256": "553a67a24d306a803d5c45678b7c54ed0c8b698d9fe3835d54905811348ccf2a",
+          "sha256": "553a67a24d306a803d5c45678b7c54ed0c8b698d9fe3835d54905811348ccf2a"
         },
         {
-          "upstream": "uv-x86_64-unknown-linux-musl.tar.gz",
-          "download_url": "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-unknown-linux-musl.tar.gz",
-          "normalized": "uv-0.13.0-linux-x86_64-musl",
+          "upstream": "uv-0.12.17-linux-x86_64-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/uv-0.12.17-linux-x86_64-musl",
+          "normalized": "uv-0.12.17-linux-x86_64-musl",
+          "frozen_alias": "uv-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "musl",
-          "sha256": "b3110559785475987e147a03b4234fb74bdb2838a0341137b03a67d25e2625b2"
+          "source_sha256": "42949aeff6f3b76561c03948721fe34580425b9ad08d71081535a22ee5fdccd7",
+          "sha256": "42949aeff6f3b76561c03948721fe34580425b9ad08d71081535a22ee5fdccd7"
         }
       ]
     },
     {
       "name": "yt-dlp",
       "version": "2026.08.19",
-      "tag": "2026.08.19",
+      "tag": "2026-09-21",
+      "frozen_release": "2026-09-21",
       "assets": [
         {
-          "upstream": "yt-dlp_linux",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_linux",
+          "upstream": "yt-dlp-2026.08.19-linux-x86_64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-x86_64",
           "normalized": "yt-dlp-2026.08.19-linux-x86_64",
+          "frozen_alias": "yt-dlp-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
           "variant": "",
+          "source_sha256": "58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a",
           "sha256": "58162f9bfdc27458ea47bfcb311cf47028f17d8154a8bf7d689861d46399230a"
         },
         {
-          "upstream": "yt-dlp_linux_aarch64",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_linux_aarch64",
+          "upstream": "yt-dlp-2026.08.19-linux-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-aarch64",
           "normalized": "yt-dlp-2026.08.19-linux-aarch64",
+          "frozen_alias": "yt-dlp-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
+          "source_sha256": "b16e4dab368a816cd05d477d698a605a6ae87ccee1c8ffd38fa21d7254141fcc",
           "sha256": "b16e4dab368a816cd05d477d698a605a6ae87ccee1c8ffd38fa21d7254141fcc"
         },
         {
-          "upstream": "yt-dlp_linux_armv7l.zip",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_linux_armv7l.zip",
+          "upstream": "yt-dlp-2026.08.19-linux-armv7",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-armv7",
           "normalized": "yt-dlp-2026.08.19-linux-armv7",
+          "frozen_alias": "yt-dlp-linux-armv7",
           "os": "linux",
           "arch": "armv7",
           "variant": "",
+          "source_sha256": "5257856e3f729e876e965734ecbe59ac3623ada3abdaa739499ad17640ffda80",
           "sha256": "5257856e3f729e876e965734ecbe59ac3623ada3abdaa739499ad17640ffda80"
         },
         {
-          "upstream": "yt-dlp_musllinux",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_musllinux",
+          "upstream": "yt-dlp-2026.08.19-linux-x86_64-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-x86_64-musl",
           "normalized": "yt-dlp-2026.08.19-linux-x86_64-musl",
+          "frozen_alias": "yt-dlp-linux-x86_64-musl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "musl",
+          "source_sha256": "f3dec9cfeaf304cec98290fe41c6ad465d4b747d302473559643e7af24929722",
           "sha256": "f3dec9cfeaf304cec98290fe41c6ad465d4b747d302473559643e7af24929722"
         },
         {
-          "upstream": "yt-dlp_musllinux_aarch64",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_musllinux_aarch64",
+          "upstream": "yt-dlp-2026.08.19-linux-aarch64-musl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-linux-aarch64-musl",
           "normalized": "yt-dlp-2026.08.19-linux-aarch64-musl",
+          "frozen_alias": "yt-dlp-linux-aarch64-musl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "musl",
+          "source_sha256": "17b164c4d258be92bb1ad146cb7c336b783aedb380814aabbcb7d52937f77e57",
           "sha256": "17b164c4d258be92bb1ad146cb7c336b783aedb380814aabbcb7d52937f77e57"
         },
         {
-          "upstream": "yt-dlp_macos",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_macos",
+          "upstream": "yt-dlp-2026.08.19-darwin-universal",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-darwin-universal",
           "normalized": "yt-dlp-2026.08.19-darwin-universal",
+          "frozen_alias": "yt-dlp-darwin-universal",
           "os": "darwin",
           "arch": "universal",
           "variant": "",
-          "sha256": "0f192b7ec147ab6288885d6351d9ab67367640029b4377576ef46dd79cf7b202"
+          "source_sha256": "a42553cf06aeffac733085a32efbd5d9cd19e97dde3e0ee1bfe442b1c341a16a",
+          "sha256": "a42553cf06aeffac733085a32efbd5d9cd19e97dde3e0ee1bfe442b1c341a16a"
         },
         {
-          "upstream": "yt-dlp.exe",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.exe",
+          "upstream": "yt-dlp-2026.08.19-windows-x86_64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-windows-x86_64.exe",
           "normalized": "yt-dlp-2026.08.19-windows-x86_64.exe",
+          "frozen_alias": "yt-dlp-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "sha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a"
+          "source_sha256": "96364f685afa51cd253b2d401db3b023894bae1febdd3757680bcea9a5bd3386",
+          "sha256": "96364f685afa51cd253b2d401db3b023894bae1febdd3757680bcea9a5bd3386"
         },
         {
-          "upstream": "yt-dlp_arm64.exe",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_arm64.exe",
+          "upstream": "yt-dlp-2026.08.19-windows-aarch64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-windows-aarch64.exe",
           "normalized": "yt-dlp-2026.08.19-windows-aarch64.exe",
+          "frozen_alias": "yt-dlp-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "sha256": "05b438997bafc3affdfda9d041353c9d73e04dc842207254b655b0887c4445b0"
+          "source_sha256": "d5c9cedf186b572bdf34a9c8dc3461cf8fbda82c013e148c95504575fe82ae72",
+          "sha256": "d5c9cedf186b572bdf34a9c8dc3461cf8fbda82c013e148c95504575fe82ae72"
         },
         {
-          "upstream": "yt-dlp_x86.exe",
-          "download_url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp_x86.exe",
+          "upstream": "yt-dlp-2026.08.19-windows-i686.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/yt-dlp-2026.08.19-windows-i686.exe",
           "normalized": "yt-dlp-2026.08.19-windows-i686.exe",
+          "frozen_alias": "yt-dlp-windows-i686.exe",
           "os": "windows",
           "arch": "i686",
           "variant": "",
-          "sha256": "a8f91bd41452506bc81ebd2f369b186fea0ee7075413ba00cef9fd346a0a5d0c"
+          "source_sha256": "3922894986abf1224c0a4b7916e485e03277fb509b5c3e67f15054a140ef1b26",
+          "sha256": "3922894986abf1224c0a4b7916e485e03277fb509b5c3e67f15054a140ef1b26"
         }
       ]
     },
     {
       "name": "ffmpeg",
       "version": "9.0",
-      "tag": "autobuild-2026-10-11-13-04",
+      "tag": "2026-09-21",
+      "frozen_release": "2026-09-21",
       "assets": [
         {
-          "upstream": "ffmpeg-n9.0.2-25-g67b60c310b-linux64-gpl-9.0.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-10-11-13-04/ffmpeg-n9.0.2-25-g67b60c310b-linux64-gpl-9.0.tar.xz",
+          "upstream": "ffmpeg-9.0-linux-x86_64-gpl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-linux-x86_64-gpl",
           "normalized": "ffmpeg-9.0-linux-x86_64-gpl",
+          "frozen_alias": "ffmpeg-linux-x86_64-gpl",
           "os": "linux",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "73533d1ca1bc3d43ddf5b115b1b5736a5ffa1c9f25ef65d2d894b2d315b86bd5",
-          "sha256": "790f311602df966d9492db0bf39cc1c6f13481982b82285b58bbef57db82eb9a"
+          "source_sha256": "34336eeef07ca088a34cbbe598eefe0001602afcef6be6bd63992c5f7e198c96",
+          "sha256": "34336eeef07ca088a34cbbe598eefe0001602afcef6be6bd63992c5f7e198c96"
         },
         {
-          "upstream": "ffmpeg-n9.0.2-25-g67b60c310b-linuxarm64-gpl-9.0.tar.xz",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-10-11-13-04/ffmpeg-n9.0.2-25-g67b60c310b-linuxarm64-gpl-9.0.tar.xz",
+          "upstream": "ffmpeg-9.0-linux-aarch64-gpl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-linux-aarch64-gpl",
           "normalized": "ffmpeg-9.0-linux-aarch64-gpl",
+          "frozen_alias": "ffmpeg-linux-aarch64-gpl",
           "os": "linux",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "1a90ee2aa77aee10b4d75a8b8993fbc7782ed8819806961cb258962c9faceca5",
-          "sha256": "bea8dde65e989801ebdddfefbc27943fbf06aa1c0b9da6420de5955216eb74b1"
+          "source_sha256": "54d5bb6430e76adc0d9eabf433fdfc2127ab1d879e7724fdfdaebde5ac5e0407",
+          "sha256": "54d5bb6430e76adc0d9eabf433fdfc2127ab1d879e7724fdfdaebde5ac5e0407"
         },
         {
-          "upstream": "ffmpeg-n9.0.2-25-g67b60c310b-win64-gpl-9.0.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-10-11-13-04/ffmpeg-n9.0.2-25-g67b60c310b-win64-gpl-9.0.zip",
+          "upstream": "ffmpeg-9.0-windows-x86_64-gpl.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-windows-x86_64-gpl.exe",
           "normalized": "ffmpeg-9.0-windows-x86_64-gpl.exe",
+          "frozen_alias": "ffmpeg-windows-x86_64-gpl.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "b1860fbeb14e87d1de44aecc5eb9e25dfecc7ee8efa8d54250995a9acfbe6070",
-          "sha256": "762238f9c9c90bcffa628d4836090648498128241fe351c9ba066b60c10739ab"
+          "source_sha256": "5003a86074b858b57713a63e2c579eea5a89882b6b06517c825068b17db50719",
+          "sha256": "5003a86074b858b57713a63e2c579eea5a89882b6b06517c825068b17db50719"
         },
         {
-          "upstream": "ffmpeg-n9.0.2-25-g67b60c310b-winarm64-gpl-9.0.zip",
-          "download_url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-10-11-13-04/ffmpeg-n9.0.2-25-g67b60c310b-winarm64-gpl-9.0.zip",
+          "upstream": "ffmpeg-9.0-windows-aarch64-gpl.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-windows-aarch64-gpl.exe",
           "normalized": "ffmpeg-9.0-windows-aarch64-gpl.exe",
+          "frozen_alias": "ffmpeg-windows-aarch64-gpl.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "b8357c2509a7eb70554d26a50c7ce85520fcb985ae888a7430cc6cffd4534224",
-          "sha256": "a0c17eaf20a596863ebcebaca44d2dee8598f7f8688ddd96aff436bea05a79e9"
+          "source_sha256": "d284e73b134e3402e1b3ca87246a0b6892ef736c9cbf665505edd3ddd942933d",
+          "sha256": "d284e73b134e3402e1b3ca87246a0b6892ef736c9cbf665505edd3ddd942933d"
         },
         {
-          "upstream": "ffmpeg.zip",
-          "download_url": "https://ffmpeg.martin-riedl.de/download/macos/amd64/1789931006_9.0.2/ffmpeg.zip",
+          "upstream": "ffmpeg-9.0-darwin-x86_64-gpl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-darwin-x86_64-gpl",
           "normalized": "ffmpeg-9.0-darwin-x86_64-gpl",
+          "frozen_alias": "ffmpeg-darwin-x86_64-gpl",
           "os": "darwin",
           "arch": "x86_64",
           "variant": "gpl",
-          "source_sha256": "7c6b4125b191cbf773832dc51f424cf2b6bb7da43007d1e066f95909e47cacd4",
-          "sha256": "b25689cf2211c0582d317e849912769a1f1c93904fe102c485b5364a425633d1"
+          "source_sha256": "d40eaf533b1385e9a676f342953863ea41a001817135f49584c1c2a90025f1e7",
+          "sha256": "d40eaf533b1385e9a676f342953863ea41a001817135f49584c1c2a90025f1e7"
         },
         {
-          "upstream": "ffmpeg.zip",
-          "download_url": "https://ffmpeg.martin-riedl.de/download/macos/arm64/1789931890_9.0.2/ffmpeg.zip",
+          "upstream": "ffmpeg-9.0-darwin-aarch64-gpl",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/ffmpeg-9.0-darwin-aarch64-gpl",
           "normalized": "ffmpeg-9.0-darwin-aarch64-gpl",
+          "frozen_alias": "ffmpeg-darwin-aarch64-gpl",
           "os": "darwin",
           "arch": "aarch64",
           "variant": "gpl",
-          "source_sha256": "c8ed4c4e6978a03c485edbfe4e0a5dc2380f8a30bba5150531b31b094492d924",
-          "sha256": "2e11c6f90993cdb79fff84d3f90044d28316b310e75b3e030cfc9a54f2c9d384"
+          "source_sha256": "17707e1adc76fe9fe48961d65597d7e2465f4193d274f2992400541c8b253b1b",
+          "sha256": "17707e1adc76fe9fe48961d65597d7e2465f4193d274f2992400541c8b253b1b"
         }
       ]
     },
     {
       "name": "cua-driver",
-      "version": "0.34.1",
-      "tag": "cua-driver-rs-v0.34.1",
+      "version": "0.28.2",
+      "tag": "cua-driver-rs-v0.28.2",
+      "frozen_release": "2026-09-21",
       "assets": [
         {
-          "upstream": "cua-driver-rs-0.34.1-darwin-universal.tar.gz",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.34.1/cua-driver-rs-0.34.1-darwin-universal.tar.gz",
-          "normalized": "cua-driver-0.34.1-darwin-universal.tar.gz",
+          "upstream": "cua-driver-0.28.2-darwin-universal.tar.gz",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-darwin-universal.tar.gz",
+          "normalized": "cua-driver-0.28.2-darwin-universal.tar.gz",
+          "frozen_alias": "cua-driver-darwin-universal.tar.gz",
           "os": "darwin",
           "arch": "universal",
           "variant": "",
-          "source_sha256": "4c7edf1ebbad7e4bc9fac90a4dc4f50d544592e00b35f15b681ccf8b41cb4ff1",
-          "sha256": "df252d744303ba833aa3108a60256243557661d593f108db4c70c6b103675fd9"
+          "source_sha256": "2b0987aad72304bb41570201e4ec11e493ee8a086dc3c36a01f1c6ee25174a44",
+          "sha256": "2b0987aad72304bb41570201e4ec11e493ee8a086dc3c36a01f1c6ee25174a44"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-linux-x86_64-binary.tar.gz",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.34.1/cua-driver-rs-0.34.1-linux-x86_64-binary.tar.gz",
-          "normalized": "cua-driver-0.34.1-linux-x86_64",
+          "upstream": "cua-driver-0.28.2-linux-x86_64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-linux-x86_64",
+          "normalized": "cua-driver-0.28.2-linux-x86_64",
+          "frozen_alias": "cua-driver-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "a41fe2bdcbeea4501dc594c074f16b0975728e0cc7b08b90acea8564d48fafee",
-          "sha256": "fd922e708099aae311873a6667beb48eaabb8c15c3abec744492db8a96b544ee"
+          "source_sha256": "3739101d072bdfdd83b7e70b3a16d9271f6eb124e7c5e69b3406f20f0910a4ca",
+          "sha256": "3739101d072bdfdd83b7e70b3a16d9271f6eb124e7c5e69b3406f20f0910a4ca"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-linux-arm64-binary.tar.gz",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.34.1/cua-driver-rs-0.34.1-linux-arm64-binary.tar.gz",
-          "normalized": "cua-driver-0.34.1-linux-aarch64",
+          "upstream": "cua-driver-0.28.2-linux-aarch64",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-linux-aarch64",
+          "normalized": "cua-driver-0.28.2-linux-aarch64",
+          "frozen_alias": "cua-driver-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "1c839d35401bbdea20f3e1cf50ace926ef17be6f32cea7e821b02b263c4933dc",
-          "sha256": "8580f744552734f9720478f8fb3ddb4599afa6499b9a68b4f60c5654cdeaf508"
+          "source_sha256": "7bf81867627620c72a01a6bb514cc5af650a33a94cf5122b270aa09d07ce4161",
+          "sha256": "7bf81867627620c72a01a6bb514cc5af650a33a94cf5122b270aa09d07ce4161"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-windows-x86_64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.34.1/cua-driver-rs-0.34.1-windows-x86_64.zip",
-          "normalized": "cua-driver-0.34.1-windows-x86_64.exe",
+          "upstream": "cua-driver-0.28.2-windows-x86_64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-windows-x86_64.exe",
+          "normalized": "cua-driver-0.28.2-windows-x86_64.exe",
+          "frozen_alias": "cua-driver-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "a0ff8b1db0b16d6d1885c165c1a9f304a634cae53a1e7547cf4f33610283ee30",
-          "sha256": "1bca65a91b4869e1612fb6e7f5f1688ffbe3a8b3f967dbbfdba981e00136f1a6"
+          "source_sha256": "b88a09b31c89aee67719b77398e1d20ba1344f9ba0e4bdf7ef966aeb2b4895c1",
+          "sha256": "b88a09b31c89aee67719b77398e1d20ba1344f9ba0e4bdf7ef966aeb2b4895c1"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-windows-arm64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.34.1/cua-driver-rs-0.34.1-windows-arm64.zip",
-          "normalized": "cua-driver-0.34.1-windows-aarch64.exe",
+          "upstream": "cua-driver-0.28.2-windows-aarch64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-0.28.2-windows-aarch64.exe",
+          "normalized": "cua-driver-0.28.2-windows-aarch64.exe",
+          "frozen_alias": "cua-driver-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "b73e3e06c2c61b331a41bb6f6517260230ec8d96d234d4ed8351336e2c38e9cb",
-          "sha256": "2722afcdac824a54dcf4c34216fb646f1f0538ceac1ea48eb66c269222a9721d"
+          "source_sha256": "c8661ce568edec00696c70043aa1e7e42b44c88ba3364369a39a64ba3eb55afd",
+          "sha256": "c8661ce568edec00696c70043aa1e7e42b44c88ba3364369a39a64ba3eb55afd"
         }
       ]
     },
     {
       "name": "cua-driver-uia",
-      "version": "0.34.1",
-      "tag": "cua-driver-rs-v0.34.1",
+      "version": "0.28.2",
+      "tag": "cua-driver-rs-v0.28.2",
+      "frozen_release": "2026-09-21",
       "assets": [
         {
-          "upstream": "cua-driver-rs-0.34.1-windows-x86_64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.34.1/cua-driver-rs-0.34.1-windows-x86_64.zip",
-          "normalized": "cua-driver-uia-0.34.1-windows-x86_64.exe",
+          "upstream": "cua-driver-uia-0.28.2-windows-x86_64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-uia-0.28.2-windows-x86_64.exe",
+          "normalized": "cua-driver-uia-0.28.2-windows-x86_64.exe",
+          "frozen_alias": "cua-driver-uia-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "a0ff8b1db0b16d6d1885c165c1a9f304a634cae53a1e7547cf4f33610283ee30",
-          "sha256": "a76a9ae263b588e0f3d789e22e469becea70b5611cbdc7731c680643ce50861a"
+          "source_sha256": "d6bef98738adacad8ed98a7e0ce8c3557f870dda4c035b955b005d28cb309b92",
+          "sha256": "d6bef98738adacad8ed98a7e0ce8c3557f870dda4c035b955b005d28cb309b92"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-windows-arm64.zip",
-          "download_url": "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.34.1/cua-driver-rs-0.34.1-windows-arm64.zip",
-          "normalized": "cua-driver-uia-0.34.1-windows-aarch64.exe",
+          "upstream": "cua-driver-uia-0.28.2-windows-aarch64.exe",
+          "download_url": "https://github.com/bearlyai/crossbins/releases/download/2026-09-21/cua-driver-uia-0.28.2-windows-aarch64.exe",
+          "normalized": "cua-driver-uia-0.28.2-windows-aarch64.exe",
+          "frozen_alias": "cua-driver-uia-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "b73e3e06c2c61b331a41bb6f6517260230ec8d96d234d4ed8351336e2c38e9cb",
-          "sha256": "d7038a75aa82a2dea5edbc51923b7531e80b9aca9be0312360ca6e5680f2d03a"
+          "source_sha256": "b59358f0ddd8bdeecf53011aae40087eb1a1685f6cab34ac65b0a4def35c5bce",
+          "sha256": "b59358f0ddd8bdeecf53011aae40087eb1a1685f6cab34ac65b0a4def35c5bce"
+        }
+      ]
+    },
+    {
+      "name": "computer-use-driver",
+      "version": "0.34.1-bearly.1",
+      "tag": "cua-driver-rs-v0.34.1-bearly.1",
+      "assets": [
+        {
+          "upstream": "cua-driver-rs-0.34.1-bearly.1-darwin-universal.tar.gz",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-darwin-universal.tar.gz",
+          "normalized": "computer-use-driver-0.34.1-bearly.1-darwin-universal.tar.gz",
+          "os": "darwin",
+          "arch": "universal",
+          "variant": "",
+          "source_sha256": "41098ca625b88934cbe8aad583ec6da4c7769b2545e32b5d06520287c8e845f9",
+          "sha256": "03b7618daf3137dc619af7d4c53949c22d2443eff0702971d094a61f0452af60"
+        },
+        {
+          "upstream": "cua-driver-rs-0.34.1-bearly.1-linux-x86_64-binary.tar.gz",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-linux-x86_64-binary.tar.gz",
+          "normalized": "computer-use-driver-0.34.1-bearly.1-linux-x86_64",
+          "os": "linux",
+          "arch": "x86_64",
+          "variant": "",
+          "source_sha256": "73728b6f99a2f281d53a9fb71adce0dcba90067bf0ad8d662204344788278f27",
+          "sha256": "26c2881466fbc653cd7b8a30b6ec6d2e2653bdd7242a08398e71335253a05170"
+        },
+        {
+          "upstream": "cua-driver-rs-0.34.1-bearly.1-linux-arm64-binary.tar.gz",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-linux-arm64-binary.tar.gz",
+          "normalized": "computer-use-driver-0.34.1-bearly.1-linux-aarch64",
+          "os": "linux",
+          "arch": "aarch64",
+          "variant": "",
+          "source_sha256": "91fa42dd315591142d25ef6b31299d57164103dae87e28a6bbc10c82c119720f",
+          "sha256": "0b26c7e5783b0a89db7305b3fba325a85d2c1be2946301b3633aee0d91990500"
+        },
+        {
+          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
+          "normalized": "computer-use-driver-0.34.1-bearly.1-windows-x86_64.exe",
+          "os": "windows",
+          "arch": "x86_64",
+          "variant": "",
+          "source_sha256": "929aa57cbb71d3bf9cbc5b9020304ef0137e9f0bd046011e3160da2380a131d2",
+          "sha256": "dc17a86d721ef881b708530fb437485ca8195a6fde32d40a374c91f9887bfc47"
+        },
+        {
+          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
+          "normalized": "computer-use-driver-0.34.1-bearly.1-windows-aarch64.exe",
+          "os": "windows",
+          "arch": "aarch64",
+          "variant": "",
+          "source_sha256": "996bf9121c3a189dcd5ac8c53909adf2971e697162a4b3e6c3507aa8e9c80371",
+          "sha256": "5f975599246c970871f1adbd7f776b237293515046ad3d74beb573f714a5cec2"
+        }
+      ]
+    },
+    {
+      "name": "computer-use-driver-uia",
+      "version": "0.34.1-bearly.1",
+      "tag": "cua-driver-rs-v0.34.1-bearly.1",
+      "assets": [
+        {
+          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
+          "normalized": "computer-use-driver-uia-0.34.1-bearly.1-windows-x86_64.exe",
+          "os": "windows",
+          "arch": "x86_64",
+          "variant": "",
+          "source_sha256": "929aa57cbb71d3bf9cbc5b9020304ef0137e9f0bd046011e3160da2380a131d2",
+          "sha256": "96db94812cee7af9922c7d39e5f71b58c2189b11dc5accab8df28c27b7d79fbb"
+        },
+        {
+          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
+          "normalized": "computer-use-driver-uia-0.34.1-bearly.1-windows-aarch64.exe",
+          "os": "windows",
+          "arch": "aarch64",
+          "variant": "",
+          "source_sha256": "996bf9121c3a189dcd5ac8c53909adf2971e697162a4b3e6c3507aa8e9c80371",
+          "sha256": "3965bcf21e3e9e86f761538c1ba575fd63ff83255efa38b6c7b27fcee08127ad"
         }
       ]
     }

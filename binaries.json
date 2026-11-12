@@ -5,6 +5,7 @@
       "name": "rg",
       "repo": "BurntSushi/ripgrep",
       "binary_name": "rg",
+      "frozen_release": "2026-09-21",
       "asset_prefix": "ripgrep-{VERSION}-",
       "triple_map": {
         "aarch64-apple-darwin":          { "os": "darwin",  "arch": "aarch64" },
@@ -24,6 +25,7 @@
       "name": "bun",
       "repo": "oven-sh/bun",
       "binary_name": "bun",
+      "frozen_release": "2026-09-21",
       "asset_prefix": "bun-",
       "triple_map": {
         "darwin-aarch64":      { "os": "darwin",  "arch": "aarch64" },
@@ -39,6 +41,7 @@
       "name": "uv",
       "repo": "astral-sh/uv",
       "binary_name": "uv",
+      "frozen_release": "2026-09-21",
       "asset_prefix": "uv-",
       "triple_map": {
         "x86_64-apple-darwin":              { "os": "darwin",  "arch": "x86_64" },
@@ -65,6 +68,7 @@
       "name": "yt-dlp",
       "repo": "yt-dlp/yt-dlp",
       "binary_name": "yt-dlp",
+      "frozen_release": "2026-09-21",
       "explicit_assets": [
         { "asset_name": "yt-dlp_linux",            "source_type": "raw", "os": "linux",   "arch": "x86_64" },
         { "asset_name": "yt-dlp_linux_aarch64",     "source_type": "raw", "os": "linux",   "arch": "aarch64" },
@@ -81,6 +85,7 @@
       "name": "ffmpeg",
       "repo": "BtbN/FFmpeg-Builds",
       "binary_name": "ffmpeg",
+      "frozen_release": "2026-09-21",
       "release_tag_pattern": "^autobuild-",
       "version_probe_regex": "^ffmpeg-n.*-gpl-(?<version>[0-9]+\\.[0-9]+)\\.(tar\\.xz|zip)$",
       "checksum_asset": "checksums.sha256",
@@ -97,9 +102,21 @@
       "name": "cua-driver",
       "repo": "trycua/cua",
       "binary_name": "cua-driver",
-      "release_tag_pattern": "^cua-driver-rs-v",
-      "include_prereleases": true,
-      "version_probe_regex": "^cua-driver-rs-(?<version>[0-9]+\\.[0-9]+\\.[0-9]+)-.*$",
+      "release_tag": "cua-driver-rs-v0.28.2",
+      "frozen_release": "2026-09-21"
+    },
+    {
+      "name": "cua-driver-uia",
+      "repo": "trycua/cua",
+      "binary_name": "cua-driver-uia",
+      "release_tag": "cua-driver-rs-v0.28.2",
+      "frozen_release": "2026-09-21"
+    },
+    {
+      "name": "computer-use-driver",
+      "repo": "bearlyai/cua",
+      "binary_name": "cua-driver",
+      "version_probe_regex": "^cua-driver-rs-(?<version>[0-9]+\\.[0-9]+\\.[0-9]+-bearly\\.[0-9]+)-.*$",
       "checksum_asset": "checksums.txt",
       "explicit_assets": [
         {
@@ -120,24 +137,54 @@
             "root_binary_name": "cua-driver"
           }
         },
-        { "asset_name": "cua-driver-rs-{VERSION}-linux-x86_64-binary.tar.gz", "source_type": "tar.gz", "os": "linux", "arch": "x86_64" },
-        { "asset_name": "cua-driver-rs-{VERSION}-linux-arm64-binary.tar.gz", "source_type": "tar.gz", "os": "linux", "arch": "aarch64" },
-        { "asset_name": "cua-driver-rs-{VERSION}-windows-x86_64.zip", "source_type": "zip", "os": "windows", "arch": "x86_64" },
-        { "asset_name": "cua-driver-rs-{VERSION}-windows-arm64.zip", "source_type": "zip", "os": "windows", "arch": "aarch64" }
-      ]
+        {
+          "asset_name": "cua-driver-rs-{VERSION}-linux-x86_64-binary.tar.gz",
+          "source_type": "tar.gz",
+          "os": "linux",
+          "arch": "x86_64"
+        },
+        {
+          "asset_name": "cua-driver-rs-{VERSION}-linux-arm64-binary.tar.gz",
+          "source_type": "tar.gz",
+          "os": "linux",
+          "arch": "aarch64"
+        },
+        {
+          "asset_name": "cua-driver-rs-{VERSION}-windows-x86_64.zip",
+          "source_type": "zip",
+          "os": "windows",
+          "arch": "x86_64"
+        },
+        {
+          "asset_name": "cua-driver-rs-{VERSION}-windows-arm64.zip",
+          "source_type": "zip",
+          "os": "windows",
+          "arch": "aarch64"
+        }
+      ],
+      "release_tag": "cua-driver-rs-v0.34.1-bearly.1"
     },
     {
-      "name": "cua-driver-uia",
-      "repo": "trycua/cua",
+      "name": "computer-use-driver-uia",
+      "repo": "bearlyai/cua",
       "binary_name": "cua-driver-uia",
-      "release_tag_pattern": "^cua-driver-rs-v",
-      "include_prereleases": true,
-      "version_probe_regex": "^cua-driver-rs-(?<version>[0-9]+\\.[0-9]+\\.[0-9]+)-.*$",
+      "version_probe_regex": "^cua-driver-rs-(?<version>[0-9]+\\.[0-9]+\\.[0-9]+-bearly\\.[0-9]+)-.*$",
       "checksum_asset": "checksums.txt",
       "explicit_assets": [
-        { "asset_name": "cua-driver-rs-{VERSION}-windows-x86_64.zip", "source_type": "zip", "os": "windows", "arch": "x86_64" },
-        { "asset_name": "cua-driver-rs-{VERSION}-windows-arm64.zip", "source_type": "zip", "os": "windows", "arch": "aarch64" }
-      ]
+        {
+          "asset_name": "cua-driver-rs-{VERSION}-windows-x86_64.zip",
+          "source_type": "zip",
+          "os": "windows",
+          "arch": "x86_64"
+        },
+        {
+          "asset_name": "cua-driver-rs-{VERSION}-windows-arm64.zip",
+          "source_type": "zip",
+          "os": "windows",
+          "arch": "aarch64"
+        }
+      ],
+      "release_tag": "cua-driver-rs-v0.34.1-bearly.1"
     }
   ]
 }

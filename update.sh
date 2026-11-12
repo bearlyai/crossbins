@@ -14,6 +14,8 @@ if [[ -n "${GITHUB_TOKEN:-}" ]]; then
   CURL_AUTH=(-H "Authorization: token $GITHUB_TOKEN")
 fi
 
+python3 "$SCRIPT_DIR/validate-release.py"
+
 mkdir -p "$OUTPUT_DIR"
 
 sha256_file() {
@@ -126,17 +128,36 @@ for (( i=0; i<num_tools; i++ )); do
   include_prereleases=$(jq -r ".tools[$i].include_prereleases // false" "$CONFIG")
   version_probe_regex=$(jq -r ".tools[$i].version_probe_regex // empty" "$CONFIG")
   checksum_asset=$(jq -r ".tools[$i].checksum_asset // empty" "$CONFIG")
+  frozen_release=$(jq -r ".tools[$i].frozen_release // empty" "$CONFIG")
 
-  # Fetch latest stable release (first non-draft, non-prerelease)
-  releases_json=$(curl -sfL "${CURL_AUTH[@]+"${CURL_AUTH[@]}"}" \
-    "https://api.github.com/repos/$repo/releases?per_page=100")
+  # A frozen tool is copied byte for byte from its crossbins release; upstream is never contacted
+  # and its lock entry comes only from baseline/<release>.manifest.json.
+  if [[ -n "$frozen_release" ]]; then
+    echo "=== $name: copying signed files unchanged from crossbins $frozen_release ==="
+    frozen_tool=$(python3 "$SCRIPT_DIR/validate-release.py" --stage "$name")
+    lock_json=$(jq --argjson tool "$frozen_tool" '.tools += [$tool]' <<<"$lock_json")
+    echo "  => $(jq '.assets | length' <<<"$frozen_tool") binaries ($(jq -r .version <<<"$frozen_tool"))"
+    echo
+    continue
+  fi
 
-  if [[ -n "$release_tag_pattern" ]]; then
-    release=$(echo "$releases_json" | jq -e --arg re "$release_tag_pattern" --argjson include_prereleases "$include_prereleases" \
-      'map(select(.draft == false and ($include_prereleases or .prerelease == false) and (.tag_name | test($re)))) | first')
+  release_tag=$(jq -r ".tools[$i].release_tag // empty" "$CONFIG")
+
+  if [[ -n "$release_tag" ]]; then
+    release=$(curl -sfL "${CURL_AUTH[@]+"${CURL_AUTH[@]}"}" "https://api.github.com/repos/$repo/releases/tags/$release_tag")
+    echo "$release" | jq -e --arg tag "$release_tag" 'select(.draft == false and .tag_name == $tag)' >/dev/null
   else
-    release=$(echo "$releases_json" | jq -e --argjson include_prereleases "$include_prereleases" \
-      'map(select(.draft == false and ($include_prereleases or .prerelease == false))) | first')
+    # Fetch latest stable release (first non-draft, non-prerelease)
+    releases_json=$(curl -sfL "${CURL_AUTH[@]+"${CURL_AUTH[@]}"}" \
+      "https://api.github.com/repos/$repo/releases?per_page=100")
+
+    if [[ -n "$release_tag_pattern" ]]; then
+      release=$(echo "$releases_json" | jq -e --arg re "$release_tag_pattern" --argjson include_prereleases "$include_prereleases" \
+        'map(select(.draft == false and ($include_prereleases or .prerelease == false) and (.tag_name | test($re)))) | first')
+    else
+      release=$(echo "$releases_json" | jq -e --argjson include_prereleases "$include_prereleases" \
+        'map(select(.draft == false and ($include_prereleases or .prerelease == false))) | first')
+    fi
   fi
   tag=$(echo "$release" | jq -r '.tag_name')
 
@@ -476,6 +497,11 @@ elif [[ -f "$LOCK_FILE" ]]; then
   fi
 fi
 
+if [[ -n "${RELEASE_TAG:-}" ]]; then
+  [[ "$RELEASE_TAG" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || { echo "ERROR: invalid RELEASE_TAG" >&2; exit 1; }
+  new_release_tag="$RELEASE_TAG"
+fi
+
 # Write lock file
 echo "$lock_json" | jq --arg tag "$new_release_tag" '.release_tag = $tag' > "$LOCK_FILE"
 
@@ -539,3 +565,9 @@ if [[ -f "$README" ]] && grep -q 'BINARIES_START' "$README"; then
 fi
 
 echo "Done. Binaries in ./output/, lock file at binaries.lock.json (${new_release_tag})"
+
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs
+python3 "$SCRIPT_DIR/generate-manifest.py"
+python3 "$SCRIPT_DIR/validate-release.py" --lock --outputs --manifest
+
+python3 "$SCRIPT_DIR/release-notes.py"
