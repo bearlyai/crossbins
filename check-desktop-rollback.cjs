@@ -85,7 +85,7 @@ for (const [platform, arch] of platforms) {
         api.loadCachedManifestFromDisk()
         const names = install(api, staged)
         assert.equal(entryOf(staged, api.findAsset(staged, 'cua-driver')), 'computer-use-driver')
-        assert.equal(api.getToolVersion(staged, 'cua-driver'), '0.34.1-bearly.1')
+        assert.equal(api.getToolVersion(staged, 'cua-driver'), '0.34.1-bearly.2')
         for (const name of names) assert.ok(api.resolve(name), `${name} installed`)
         // Latest moves back to 2026-09-21 while the app runs: nothing re-reads the manifest.
         feed(api, baseline)
@@ -100,7 +100,7 @@ for (const [platform, arch] of platforms) {
         assert.equal(api.getToolVersion(baseline, 'cua-driver'), '0.28.2')
         assert.ok(legacyDriver.assets.includes(asset))
         for (const name of names.filter((name) => name !== 'cua-driver')) assert.equal(api.needsUpgrade(name), false, `${name} unchanged by rollback`)
-        console.log(`PASS ${masterVersion} ${platform}/${arch}: keeps 0.34.1-bearly.1 until restart; after a refresh it reports the driver stale and selects cua-driver 0.28.2 (${asset.name}); ${names.length - 1} other tools stay current`)
+        console.log(`PASS ${masterVersion} ${platform}/${arch}: keeps 0.34.1-bearly.2 until restart; after a refresh it reports the driver stale and selects cua-driver 0.28.2 (${asset.name}); ${names.length - 1} other tools stay current`)
     } finally {
         fs.rmSync(userData, { recursive: true, force: true })
     }

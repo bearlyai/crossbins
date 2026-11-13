@@ -1,5 +1,5 @@
 {
-  "release_tag": "2026-11-12-driver-1",
+  "release_tag": "2026-11-13-driver-2",
   "tools": [
     {
       "name": "rg",
@@ -675,85 +675,85 @@
     },
     {
       "name": "computer-use-driver",
-      "version": "0.34.1-bearly.1",
-      "tag": "cua-driver-rs-v0.34.1-bearly.1",
+      "version": "0.34.1-bearly.2",
+      "tag": "cua-driver-rs-v0.34.1-bearly.2",
       "assets": [
         {
-          "upstream": "cua-driver-rs-0.34.1-bearly.1-darwin-universal.tar.gz",
-          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-darwin-universal.tar.gz",
-          "normalized": "computer-use-driver-0.34.1-bearly.1-darwin-universal.tar.gz",
+          "upstream": "cua-driver-rs-0.34.1-bearly.2-darwin-universal.tar.gz",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.2/cua-driver-rs-0.34.1-bearly.2-darwin-universal.tar.gz",
+          "normalized": "computer-use-driver-0.34.1-bearly.2-darwin-universal.tar.gz",
           "os": "darwin",
           "arch": "universal",
           "variant": "",
-          "source_sha256": "41098ca625b88934cbe8aad583ec6da4c7769b2545e32b5d06520287c8e845f9",
-          "sha256": "03b7618daf3137dc619af7d4c53949c22d2443eff0702971d094a61f0452af60"
+          "source_sha256": "0d3e276dab3ed2db0820e2e70b5f7c34f0c5bb296cfb0f8f762fe1dcf472bd3f",
+          "sha256": "1b53a48c4a01992714b0426c9b9ab8f747ff3a258fd5672dbe700c736444e5b4"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-bearly.1-linux-x86_64-binary.tar.gz",
-          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-linux-x86_64-binary.tar.gz",
-          "normalized": "computer-use-driver-0.34.1-bearly.1-linux-x86_64",
+          "upstream": "cua-driver-rs-0.34.1-bearly.2-linux-x86_64-binary.tar.gz",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.2/cua-driver-rs-0.34.1-bearly.2-linux-x86_64-binary.tar.gz",
+          "normalized": "computer-use-driver-0.34.1-bearly.2-linux-x86_64",
           "os": "linux",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "73728b6f99a2f281d53a9fb71adce0dcba90067bf0ad8d662204344788278f27",
-          "sha256": "26c2881466fbc653cd7b8a30b6ec6d2e2653bdd7242a08398e71335253a05170"
+          "source_sha256": "04bba94f9d730b83cf3de393928e0c69797a2315ff4d35e1340224536bae1e1a",
+          "sha256": "2e66fbc69cddfaf16628be2fc8dd6ca0a0e9a2fcd4a87fb52872e4d69bd6e65f"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-bearly.1-linux-arm64-binary.tar.gz",
-          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-linux-arm64-binary.tar.gz",
-          "normalized": "computer-use-driver-0.34.1-bearly.1-linux-aarch64",
+          "upstream": "cua-driver-rs-0.34.1-bearly.2-linux-arm64-binary.tar.gz",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.2/cua-driver-rs-0.34.1-bearly.2-linux-arm64-binary.tar.gz",
+          "normalized": "computer-use-driver-0.34.1-bearly.2-linux-aarch64",
           "os": "linux",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "91fa42dd315591142d25ef6b31299d57164103dae87e28a6bbc10c82c119720f",
-          "sha256": "0b26c7e5783b0a89db7305b3fba325a85d2c1be2946301b3633aee0d91990500"
+          "source_sha256": "436bf7b39dc9e492e360d3f328abcfdf42045e7f56cc0ce485b924d1853fbc3e",
+          "sha256": "98a8dacaf9d14b4f38aae1027413df9785ccf269804385da20149ce37140a702"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
-          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
-          "normalized": "computer-use-driver-0.34.1-bearly.1-windows-x86_64.exe",
+          "upstream": "cua-driver-rs-0.34.1-bearly.2-windows-x86_64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.2/cua-driver-rs-0.34.1-bearly.2-windows-x86_64.zip",
+          "normalized": "computer-use-driver-0.34.1-bearly.2-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "929aa57cbb71d3bf9cbc5b9020304ef0137e9f0bd046011e3160da2380a131d2",
-          "sha256": "dc17a86d721ef881b708530fb437485ca8195a6fde32d40a374c91f9887bfc47"
+          "source_sha256": "ec52161a7025a58e7c654eb045072e3a5727ac56be88ee4c9fa751b71d375341",
+          "sha256": "98564ab4854df556f19dde7988897462b955c319ce1ca582af1c5ebc9be09cce"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
-          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
-          "normalized": "computer-use-driver-0.34.1-bearly.1-windows-aarch64.exe",
+          "upstream": "cua-driver-rs-0.34.1-bearly.2-windows-arm64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.2/cua-driver-rs-0.34.1-bearly.2-windows-arm64.zip",
+          "normalized": "computer-use-driver-0.34.1-bearly.2-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "996bf9121c3a189dcd5ac8c53909adf2971e697162a4b3e6c3507aa8e9c80371",
-          "sha256": "5f975599246c970871f1adbd7f776b237293515046ad3d74beb573f714a5cec2"
+          "source_sha256": "b80086f9eb2066ed77fe4e45c8c348c24a9b0554029685a63263e848072039fa",
+          "sha256": "9d7a395413a74783682ad5ee2f1b37926dd6947b114877d321a64d19dc9607a8"
         }
       ]
     },
     {
       "name": "computer-use-driver-uia",
-      "version": "0.34.1-bearly.1",
-      "tag": "cua-driver-rs-v0.34.1-bearly.1",
+      "version": "0.34.1-bearly.2",
+      "tag": "cua-driver-rs-v0.34.1-bearly.2",
       "assets": [
         {
-          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
-          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-x86_64.zip",
-          "normalized": "computer-use-driver-uia-0.34.1-bearly.1-windows-x86_64.exe",
+          "upstream": "cua-driver-rs-0.34.1-bearly.2-windows-x86_64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.2/cua-driver-rs-0.34.1-bearly.2-windows-x86_64.zip",
+          "normalized": "computer-use-driver-uia-0.34.1-bearly.2-windows-x86_64.exe",
           "os": "windows",
           "arch": "x86_64",
           "variant": "",
-          "source_sha256": "929aa57cbb71d3bf9cbc5b9020304ef0137e9f0bd046011e3160da2380a131d2",
-          "sha256": "96db94812cee7af9922c7d39e5f71b58c2189b11dc5accab8df28c27b7d79fbb"
+          "source_sha256": "ec52161a7025a58e7c654eb045072e3a5727ac56be88ee4c9fa751b71d375341",
+          "sha256": "5600dfb2f32dad2df99a551229a4dfbe9be99a7809151218458513a24809bee8"
         },
         {
-          "upstream": "cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
-          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.1/cua-driver-rs-0.34.1-bearly.1-windows-arm64.zip",
-          "normalized": "computer-use-driver-uia-0.34.1-bearly.1-windows-aarch64.exe",
+          "upstream": "cua-driver-rs-0.34.1-bearly.2-windows-arm64.zip",
+          "download_url": "https://github.com/bearlyai/cua/releases/download/cua-driver-rs-v0.34.1-bearly.2/cua-driver-rs-0.34.1-bearly.2-windows-arm64.zip",
+          "normalized": "computer-use-driver-uia-0.34.1-bearly.2-windows-aarch64.exe",
           "os": "windows",
           "arch": "aarch64",
           "variant": "",
-          "source_sha256": "996bf9121c3a189dcd5ac8c53909adf2971e697162a4b3e6c3507aa8e9c80371",
-          "sha256": "3965bcf21e3e9e86f761538c1ba575fd63ff83255efa38b6c7b27fcee08127ad"
+          "source_sha256": "b80086f9eb2066ed77fe4e45c8c348c24a9b0554029685a63263e848072039fa",
+          "sha256": "70b1efeceb83e1260a6d69f6e164bad4b4a7288edc8c8573b1c3c8c11413c801"
         }
       ]
     }
