@@ -30,8 +30,8 @@ LEGACY_CHANNELS = {
     'cua-driver-uia': ('trycua/cua', 'cua-driver-rs-v0.28.2'),
 }
 NEW_CHANNELS = {
-    'computer-use-driver': ('bearlyai/cua', 'cua-driver-rs-v0.34.1-bearly.1'),
-    'computer-use-driver-uia': ('bearlyai/cua', 'cua-driver-rs-v0.34.1-bearly.1'),
+    'computer-use-driver': ('bearlyai/cua', 'cua-driver-rs-v0.34.1-bearly.2'),
+    'computer-use-driver-uia': ('bearlyai/cua', 'cua-driver-rs-v0.34.1-bearly.2'),
 }
 
 

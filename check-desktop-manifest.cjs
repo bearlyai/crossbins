@@ -34,7 +34,7 @@ for (const [label, ref] of revisions) {
         const asset = api.findAsset(manifest, 'cua-driver')
         assert.ok(asset, `${label} must resolve ${platform}/${arch}`)
         const expectedTool = label === '5.2.3' ? 'cua-driver' : 'computer-use-driver'
-        const expectedVersion = label === '5.2.3' ? '0.28.2' : '0.34.1-bearly.1'
+        const expectedVersion = label === '5.2.3' ? '0.28.2' : '0.34.1-bearly.2'
         assert.equal(api.getToolVersion(manifest, 'cua-driver'), expectedVersion)
         assert.ok(asset.url.includes(`/${expectedTool}-`))
         assert.ok(asset.url.includes(`/releases/download/${manifest.release_tag}/`))
